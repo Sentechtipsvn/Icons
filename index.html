@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Control Center Webclip</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+        }
+
+        body {
+            background: #1c2a38;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Nút phong cách Glassmorphism 3D */
+        .glass-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3),
+                        0 8px 16px rgba(0, 0, 0, 0.25);
+            text-decoration: none;
+            color: #ffffff;
+            transition: transform 0.1s ease, background 0.2s ease;
+        }
+
+        .glass-btn:active {
+            transform: scale(0.95);
+            background: rgba(0, 122, 255, 0.4);
+        }
+
+        /* Khung hiển thị SVG Icon */
+        .icon-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #0055ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4),
+                        0 4px 8px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        /* CSS tự động căn chỉnh mã SVG */
+        .icon-box svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffffff;
+        }
+
+        .label {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="control-panel">
+        <!-- Đang tải dữ liệu... -->
+    </div>
+
+    <script>
+        // Đọc dữ liệu từ file JSON
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('control-panel');
+                container.innerHTML = ''; // Xóa chữ đang tải
+
+                data.forEach(item => {
+                    // Tạo phần tử thẻ A cho mỗi nút
+                    const btn = document.createElement('a');
+                    btn.href = item.action;
+                    btn.className = 'glass-btn';
+                    btn.id = `btn-${item.id}`; // Đặt ID theo JSON để dễ quản lý
+
+                    // Render khung SVG và Tiêu đề
+                    btn.innerHTML = `
+                        <div class="icon-box">${item.svg}</div>
+                        <span class="label">${item.title}</span>
+                    `;
+
+                    container.appendChild(btn);
+                });
+            })
+            .catch(error => {
+                console.error('Lỗi đọc JSON:', error);
+                document.getElementById('control-panel').innerHTML = '<p style="color:white;">Lỗi tải cấu hình JSON!</p>';
+            });
+    </script>
+</body>
+</html>
