@@ -1,9 +1,9 @@
 [
   {
-    "id": "flat-color-icons:wi-fi-logo",
+    "id": "akar-icons:wifi",
     "title": "Wi-Fi",
     "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=wifi",
-    "svg": "<svgxmlns=\"http://www.w3.org/2000/svg\"width=\"1em\"height=\"1em\"viewBox=\"004848\"><pathd=\"M00h48v48H0z\"fill=\"none\"/><gfill=\"#3F51B5\"><pathd=\"M4626.48c04.527-3.2687.52-7.37.52H9.299C5.26934230.634226.48v-4.96C217.3665.269149.29914H38.7c4.03207.33.3667.37.52z\"/><ellipsecx=\"24\"cy=\"24\"rx=\"14.902\"ry=\"15\"/></g><pathfill=\"#FFF\"d=\"M1719h-2.736l-.8375.859l-1.039-5.831H9.93l-1.0665.831l-.81-5.831H5.266L7.59729h2.459l1.064-6.146L12.20929h2.484zm23h2.508v7H19zm2.5-2.253a1.2511.251011-2.50c0-.696.56-1.2581.25-1.258s1.25.5621.251.258M38.56116h-7.979S2516.1932521.914v4.336s.1012.941-35.75h16.785S44324426.447v-4.879S43.7721638.56116m-1.2225.369h-5.651v2.236h5.094v2.344h-5.094V29H29V19h8.339zm2.911-2.88c.68901.25.5621.251.258c0.693-.5611.253-1.251.253S3920.443919.747c0-.696.561-1.2581.25-1.258M41.50829H39v-7h2.508z\"/></svg>"
+    "svg": "<svgxmlns=\"http://www.w3.org/2000/svg\"width=\"1em\"height=\"1em\"viewBox=\"002424\"><pathd=\"M00h24v24H0z\"fill=\"none\"/><gfill=\"none\"stroke=\"currentColor\"stroke-linecap=\"round\"stroke-linejoin=\"round\"stroke-width=\"2\"><pathd=\"M210c6-6.66714-6.667200M614c3.6-48.4-4120\"/><circlecx=\"12\"cy=\"18\"r=\"1\"/></g></svg>"
   },
   {
     "id": "akar-icons:bluetooth",
