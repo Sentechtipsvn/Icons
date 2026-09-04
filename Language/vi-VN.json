@@ -1,4 +1,5 @@
 {
+  "app_title": "Trung tâm điều khiển",
   "settings_title": "Cài đặt Giao diện",
   
   "lbl_bg_main": "Màu Nền Chính",
@@ -12,12 +13,12 @@
   "opt_frame_orange": "Cam rực",
   "opt_frame_purple": "Tím dạ",
   "opt_frame_moss": "Xanh rêu",
+  "opt_frame_custom": "SVG Tùy chỉnh",
   
   "lbl_frame_svg_size": "Kích thước: Khung Icon & SVG",
   "lbl_svg_color": "Màu SVG (Khi dùng currentColor)",
   
   "lbl_shadow_section": "Chế độ Đổ Bóng",
-  
   "shadow_inset": "Bóng Chìm (Inset)",
   "shadow_outer": "Bóng Ngoài (Drop)",
   "shadow_soft": "Mờ Diện Rộng",
@@ -30,13 +31,11 @@
   "slider_spread": "Lan rộng (Spread)",
   "slider_color": "Màu Bóng",
   
+  "lbl_layout_mode": "Chế độ Danh sách / Lưới",
+  
   "lang_wifi": "Wi-Fi",
   "lang_bluetooth": "Bluetooth",
   "lang_cellular": "Di động",
   "lang_airplane": "Chế độ máy bay",
-  "lang_power": "Tắt máy",
-  
-  "app_title": "Trung tâm điều khiển",
-  "lbl_layout_mode": "Chế độ Danh sách / Lưới",
-  "opt_frame_custom": "SVG Tùy chỉnh"
+  "lang_power": "Tắt máy"
 }
