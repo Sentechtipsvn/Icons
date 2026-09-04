@@ -9,12 +9,12 @@
     --frame-size: 60px;
     --svg-size: 28px;
     
-    /* Màu Grid */
+    /* Màu Grid (4 cột) */
     --frame-bg: none;
     --svg-color: #ffffff;
     --btn-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     
-    /* Màu List (Thêm mới) */
+    /* Màu List (2 cột) - Tách riêng */
     --list-bg-color: rgba(255, 255, 255, 0.1);
     --list-text-color: #ffffff;
     --list-svg-color: #ffffff;
@@ -34,7 +34,7 @@ body {
     transition: background 0.3s ease;
 }
 
-/* Tiêu đề chính giữa trên cùng */
+/* Tiêu đề */
 .app-header {
     text-align: center;
     padding: 60px 0 20px 0;
@@ -43,17 +43,16 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Lưới Grid mặc định */
+/* ====== CHẾ ĐỘ GRID (Mặc định 4 cột) ====== */
 .grid-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột */
+    gap: 15px;
     padding: 20px 20px 40px 20px;
     max-width: 600px;
     margin: 0 auto;
 }
 
-/* Style nút bấm */
 .glass-btn {
     display: flex;
     flex-direction: column;
@@ -61,9 +60,9 @@ body {
     gap: 8px;
     text-decoration: none;
     color: var(--text-color);
-    transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* Khung Icon: Ảnh nền (Theme SVG) nằm dưới, Icon SVG nằm trên */
 .icon-box {
     width: var(--frame-size);
     height: var(--frame-size);
@@ -75,25 +74,27 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: var(--btn-shadow);
+    position: relative;
     transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
-.glass-btn:active .icon-box { transform: scale(0.92); }
 
+/* Lớp SVG nổi lên trên */
 .icon-box svg {
+    position: relative;
+    z-index: 2;
     width: var(--svg-size);
     height: var(--svg-size);
     fill: var(--svg-color);
     color: var(--svg-color);
 }
 
+.glass-btn:active .icon-box { transform: scale(0.92); }
 .label { font-size: var(--font-size); font-weight: 500; text-align: center; }
 
-/* ====== CHẾ ĐỘ DANH SÁCH (LIST) ====== */
+/* ====== CHẾ ĐỘ LIST (2 cột) ====== */
 .app-container.list-mode .grid-layout {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột */
     gap: 10px;
-    max-width: 500px;
 }
 
 .app-container.list-mode .glass-btn {
@@ -102,7 +103,7 @@ body {
     align-items: center;
     gap: 15px;
     background: var(--list-bg-color);
-    padding: 12px 20px;
+    padding: 12px 15px;
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     color: var(--list-text-color);
@@ -112,20 +113,20 @@ body {
     background-color: transparent;
     background-image: none;
     box-shadow: none;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
 }
 
 .app-container.list-mode .icon-box svg {
     fill: var(--list-svg-color);
     color: var(--list-svg-color);
-    width: 24px;
-    height: 24px;
+    width: 25px;
+    height: 25px;
 }
 
 .app-container.list-mode .label {
     text-align: left;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 /* ====== NÚT CÀI ĐẶT ====== */
@@ -158,7 +159,7 @@ body {
 }
 .settings-drawer.open { right: 10px; }
 
-/* Khi kéo thanh trượt thì nền trong suốt để thấy thay đổi */
+/* Khi chỉnh sửa: Nền trở nên mờ để thấy thay đổi bên dưới */
 .settings-drawer.adjusting {
     background: rgba(30, 30, 30, 0.1);
     backdrop-filter: blur(0px);
@@ -201,7 +202,7 @@ input[type=range]::-webkit-slider-thumb {
     background-size: contain; margin-top: -11px; cursor: pointer;
 }
 
-/* Toggle Switch (List/Grid) */
+/* Toggle Switch */
 .toggle-switch { position: relative; display: inline-block; width: 50px; height: 30px; }
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
 .toggle-slider {
@@ -215,7 +216,7 @@ input[type=range]::-webkit-slider-thumb {
 input:checked + .toggle-slider { background-color: var(--accent-color); }
 input:checked + .toggle-slider:before { transform: translateX(20px); }
 
-/* Khung SVG tùy chỉnh */
+/* SVG Custom */
 #custom-svg-container { margin-top: 10px; display: none; }
 #custom-svg-code {
     width: 100%; height: 80px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);
