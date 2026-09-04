@@ -20,32 +20,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!SUPPORTED_LANGS.includes(userLang)) userLang = 'en-GB';
     const translations = await loadLanguageData(userLang);
 
-    // Dịch ngôn ngữ cho toàn bộ HTML (kể cả cái đã sinh ra trong theme.js)
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[key]) element.innerText = translations[key];
     });
 
-    // Tải dữ liệu và hiển thị nút bấm
     try {
         const dataRes = await fetch('Data/data.json'); 
         const data = await dataRes.json();
         const container = document.getElementById('control-panel');
         
-        // 1. Gán Icon cho nút cài đặt
         const fab = document.getElementById('open-settings');
         if (fab && data.config && data.config.settings_icon) {
             fab.innerHTML = data.config.settings_icon;
         }
 
-        // 2. Render các nút ra khung chính
         if (data.buttons && data.buttons.length > 0) {
             data.buttons.forEach(item => {
                 const btn = document.createElement('a');
                 btn.className = 'glass-btn';
-                btn.href = item.action; // Link Shortcut
-                
-                // Dịch tên nút
+                btn.href = item.action;
                 const localizedTitle = translations[item.title_key] || item.title_key;
 
                 btn.innerHTML = `
@@ -54,11 +48,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 `;
                 container.appendChild(btn);
             });
-        } else {
-            console.warn("Không có nút nào trong data.json");
         }
-
     } catch (e) {
-        console.error("Lỗi tải dữ liệu hoặc JSON không hợp lệ:", e);
+        console.error("Lỗi tải dữ liệu (Kiểm tra đường dẫn Data/data.json):", e);
     }
 });
