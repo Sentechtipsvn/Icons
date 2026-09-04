@@ -16,15 +16,12 @@
         <button class="settings-fab" id="open-settings">⚙️</button>
     </div>
 
-    <!-- Bảng Điều Khiển -->
     <div class="settings-drawer" id="settings-drawer">
         <div class="settings-header">
-            <!-- Gắn key data-i18n -->
             <h2 data-i18n="settings_title"></h2>
             <button id="close-settings">✕</button>
         </div>
         <div class="settings-body">
-            
             <div class="setting-group">
                 <label data-i18n="lbl_bg_main"></label>
                 <input type="color" id="val-bg-main" value="#121b22">
@@ -49,8 +46,15 @@
             
             <div class="setting-group">
                 <label data-i18n="lbl_frame_svg_size"></label>
-                <input type="range" id="val-frame-size" min="40" max="100" value="60">
-                <input type="range" id="val-svg-size" min="16" max="60" value="28">
+                <!-- Tách hai thanh trượt ra để dễ kéo -->
+                <div class="slider-item">
+                    <span class="slider-label">Khung</span>
+                    <input type="range" id="val-frame-size" min="40" max="100" value="60">
+                </div>
+                <div class="slider-item">
+                    <span class="slider-label">SVG</span>
+                    <input type="range" id="val-svg-size" min="16" max="60" value="28">
+                </div>
             </div>
             
             <div class="setting-group">
@@ -58,14 +62,11 @@
                 <input type="color" id="val-svg-color" value="#ffffff">
             </div>
 
-            <!-- Hệ thống Đổ bóng sẽ được theme.js sinh ra tại đây -->
             <h3 class="section-title" data-i18n="lbl_shadow_section"></h3>
             <div id="shadow-controls"></div>
-
         </div>
     </div>
     
-    <!-- Render giao diện trước, sau đó mới quét ngôn ngữ -->
     <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
 </body>
