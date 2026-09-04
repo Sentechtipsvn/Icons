@@ -20,38 +20,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!SUPPORTED_LANGS.includes(userLang)) userLang = 'en-GB';
     const translations = await loadLanguageData(userLang);
 
+    // Dịch ngôn ngữ cho toàn bộ HTML (kể cả cái đã sinh ra trong theme.js)
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[key]) element.innerText = translations[key];
     });
 
-    const loadButtons = async () => {
-        try {
-            const dataRes = await fetch('Data/data.json'); 
-            const data = await dataRes.json();
-            const container = document.getElementById('control-panel');
-            
-            const fab = document.getElementById('open-settings');
-            if (fab && data.config && data.config.settings_icon) {
-                fab.innerHTML = data.config.settings_icon;
-            }
+    // Tải dữ liệu và hiển thị nút bấm
+    try {
+        const dataRes = await fetch('Data/data.json'); 
+        const data = await dataRes.json();
+        const container = document.getElementById('control-panel');
+        
+        // 1. Gán Icon cho nút cài đặt
+        const fab = document.getElementById('open-settings');
+        if (fab && data.config && data.config.settings_icon) {
+            fab.innerHTML = data.config.settings_icon;
+        }
 
-            if (!data.buttons) return;
-
+        // 2. Render các nút ra khung chính
+        if (data.buttons && data.buttons.length > 0) {
             data.buttons.forEach(item => {
                 const btn = document.createElement('a');
                 btn.className = 'glass-btn';
-                btn.href = item.action;
+                btn.href = item.action; // Link Shortcut
+                
+                // Dịch tên nút
                 const localizedTitle = translations[item.title_key] || item.title_key;
+
                 btn.innerHTML = `
                     <div class="icon-box">${item.svg}</div>
                     <span class="label">${localizedTitle}</span>
                 `;
                 container.appendChild(btn);
             });
-        } catch (e) {
-            console.error("Lỗi khởi tạo JSON (Kiểm tra file Data/data.json):", e);
+        } else {
+            console.warn("Không có nút nào trong data.json");
         }
-    };
-    loadButtons();
+
+    } catch (e) {
+        console.error("Lỗi tải dữ liệu hoặc JSON không hợp lệ:", e);
+    }
 });
