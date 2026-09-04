@@ -9,62 +9,64 @@
     <link rel="apple-touch-icon" href="icon.png">
     <title>Webclip Control</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <script src="js/theme.js"></script>
 </head>
 <body>
     <div class="app-container">
-        <!-- Lưới nút bấm tự động -->
         <div class="grid-layout" id="control-panel"></div>
-        
-        <!-- Nút Cài đặt động -->
         <button class="settings-fab" id="open-settings">⚙️</button>
     </div>
 
-    <!-- Bảng Điều Khiển Live Knobs -->
+    <!-- Bảng Điều Khiển -->
     <div class="settings-drawer" id="settings-drawer">
         <div class="settings-header">
-            <h2 id="lang-settings-title">Cài đặt Giao diện</h2>
+            <!-- Gắn key data-i18n -->
+            <h2 data-i18n="settings_title"></h2>
             <button id="close-settings">✕</button>
         </div>
         <div class="settings-body">
             
-            <!-- Nhóm Màu & Kích thước -->
             <div class="setting-group">
-                <label>Màu Nền Chính</label>
+                <label data-i18n="lbl_bg_main"></label>
                 <input type="color" id="val-bg-main" value="#121b22">
             </div>
             <div class="setting-group">
-                <label>Màu Chữ Hệ Thống</label>
+                <label data-i18n="lbl_text_color"></label>
                 <input type="color" id="val-text-color" value="#ffffff">
             </div>
+            
             <div class="setting-group">
-                <label>Khung Icon (Theme SVG)</label>
+                <label data-i18n="lbl_theme_frame"></label>
                 <select id="val-theme-frame">
-                    <option value="none">Không khung</option>
-                    <option value="url('Theme/Black-Colour.png')">Đen bóng</option>
-                    <option value="url('Theme/Red-Colour.png')">Đỏ ruby</option>
-                    <option value="url('Theme/Green-colour.png')">Xanh lá</option>
-                    <option value="url('Theme/Orange-colour.png')">Cam rực</option>
-                    <option value="url('Theme/Purple-colour.png')">Tím dạ</option>
-                    <option value="url('Theme/Moss-green.png')">Xanh rêu</option>
+                    <option value="none" data-i18n="opt_frame_none"></option>
+                    <option value="url('Theme/Black-Colour.png')" data-i18n="opt_frame_black"></option>
+                    <option value="url('Theme/Red-Colour.png')" data-i18n="opt_frame_red"></option>
+                    <option value="url('Theme/Green-colour.png')" data-i18n="opt_frame_green"></option>
+                    <option value="url('Theme/Orange-colour.png')" data-i18n="opt_frame_orange"></option>
+                    <option value="url('Theme/Purple-colour.png')" data-i18n="opt_frame_purple"></option>
+                    <option value="url('Theme/Moss-green.png')" data-i18n="opt_frame_moss"></option>
                 </select>
             </div>
+            
             <div class="setting-group">
-                <label>Kích thước: Khung Icon & SVG</label>
+                <label data-i18n="lbl_frame_svg_size"></label>
                 <input type="range" id="val-frame-size" min="40" max="100" value="60">
                 <input type="range" id="val-svg-size" min="16" max="60" value="28">
             </div>
+            
             <div class="setting-group">
-                <label>Màu SVG (Khi dùng currentColor)</label>
+                <label data-i18n="lbl_svg_color"></label>
                 <input type="color" id="val-svg-color" value="#ffffff">
             </div>
 
-            <!-- Hệ thống Đổ bóng 7 Chế độ (Render tự động bằng JS) -->
-            <h3 class="section-title">Chế độ Đổ Bóng</h3>
+            <!-- Hệ thống Đổ bóng sẽ được theme.js sinh ra tại đây -->
+            <h3 class="section-title" data-i18n="lbl_shadow_section"></h3>
             <div id="shadow-controls"></div>
 
         </div>
     </div>
+    
+    <!-- Render giao diện trước, sau đó mới quét ngôn ngữ -->
+    <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
