@@ -34,5 +34,10 @@
   "lang_bluetooth": "Bluetooth",
   "lang_cellular": "Di động",
   "lang_airplane": "Chế độ máy bay",
-  "lang_power": "Tắt máy"
+  "lang_power": "Tắt máy",
+  
+  "app_title": "Trung tâm điều khiển",
+  "lbl_layout_mode": "Chế độ Danh sách / Lưới",
+  "opt_frame_custom": "SVG Tùy chỉnh"
+  ...
 }
