@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const root = document.documentElement;
     const shadowContainer = document.getElementById('shadow-controls');
     
-    // Tạo các checkbox đổ bóng
+    // Tạo các Đổ bóng (Checkbox)
     SHADOW_MODES.forEach(mode => {
         const div = document.createElement('div');
         div.className = 'shadow-item';
@@ -30,11 +30,64 @@ document.addEventListener("DOMContentLoaded", () => {
         shadowContainer.appendChild(div);
     });
 
-    // Bật tắt Drawer
+    // Mở/Đóng Drawer
     document.getElementById('open-settings').onclick = () => document.getElementById('settings-drawer').classList.add('open');
     document.getElementById('close-settings').onclick = () => document.getElementById('settings-drawer').classList.remove('open');
 
-    // Xử lý đổ bóng kết hợp (Multi-shadow)
+    // Kéo thanh trượt -> Nền mờ đi
+    const drawer = document.getElementById('settings-drawer');
+    document.getElementById('settings-drawer').addEventListener('input', (e) => {
+        if (e.target.tagName === 'INPUT' && e.target.type === 'range') {
+            drawer.classList.add('adjusting');
+            clearTimeout(window.adjustTimeout);
+            window.adjustTimeout = setTimeout(() => drawer.classList.remove('adjusting'), 500);
+        }
+    });
+
+    // Xử lý chuyển Grid (4 cột) / List (2 cột)
+    const layoutToggle = document.getElementById('layout-toggle');
+    const mainContainer = document.getElementById('main-container');
+    layoutToggle.addEventListener('change', () => {
+        if (layoutToggle.checked) {
+            mainContainer.classList.add('list-mode');
+            mainContainer.classList.remove('grid-mode');
+        } else {
+            mainContainer.classList.remove('list-mode');
+            mainContainer.classList.add('grid-mode');
+        }
+    });
+
+    // Cập nhật màu sắc List mode
+    function updateListColors() {
+        root.style.setProperty('--list-bg-color', document.getElementById('val-list-bg').value);
+        root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
+        root.style.setProperty('--list-svg-color', document.getElementById('val-list-svg').value);
+    }
+
+    // Xử lý chọn khung Icon (Ảnh nền hoặc SVG code)
+    const frameSelect = document.getElementById('val-theme-frame');
+    const customSvgContainer = document.getElementById('custom-svg-container');
+    
+    frameSelect.addEventListener('change', () => {
+        if (frameSelect.value === 'custom') {
+            customSvgContainer.style.display = 'block';
+        } else {
+            customSvgContainer.style.display = 'none';
+            root.style.setProperty('--frame-bg', frameSelect.value);
+        }
+    });
+
+    document.getElementById('apply-custom-svg').addEventListener('click', () => {
+        const svgCode = document.getElementById('custom-svg-code').value;
+        if (svgCode) {
+            // Mã hóa SVG thành data URI để dùng làm nền
+            const dataUri = `data:image/svg+xml;base64,${btoa(svgCode)}`;
+            root.style.setProperty('--frame-bg', `url('${dataUri}')`);
+            document.getElementById('settings-drawer').classList.remove('open'); 
+        }
+    });
+
+    // Cập nhật toàn bộ biến CSS (Tổng hợp đổ bóng đa lớp)
     function updateShadow() {
         const activeShadows = document.querySelectorAll('input[name="active_shadow"]:checked');
         let combinedShadow = '';
@@ -56,61 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--btn-shadow', combinedShadow || 'none');
     }
 
-    // Hiện/ẩn drawer khi kéo thanh trượt (Nền mờ)
-    const drawer = document.getElementById('settings-drawer');
-    document.getElementById('settings-drawer').addEventListener('input', (e) => {
-        if (e.target.tagName === 'INPUT' && e.target.type === 'range') {
-            drawer.classList.add('adjusting');
-            clearTimeout(window.adjustTimeout);
-            window.adjustTimeout = setTimeout(() => drawer.classList.remove('adjusting'), 500);
-        }
-    });
-
-    // Xử lý chuyển đổi Grid/List
-    const layoutToggle = document.getElementById('layout-toggle');
-    const mainContainer = document.getElementById('main-container');
-    layoutToggle.addEventListener('change', () => {
-        if (layoutToggle.checked) {
-            mainContainer.classList.add('list-mode');
-            document.getElementById('list-color-settings').style.display = 'block';
-        } else {
-            mainContainer.classList.remove('list-mode');
-            document.getElementById('list-color-settings').style.display = 'none';
-        }
-    });
-
-    // Cập nhật màu sắc List mode
-    function updateListColors() {
-        root.style.setProperty('--list-bg-color', document.getElementById('val-list-bg').value);
-        root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
-        root.style.setProperty('--list-svg-color', document.getElementById('val-list-svg').value);
-    }
-
-    // Xử lý chọn khung Icon (bao gồm SVG tùy chỉnh)
-    const frameSelect = document.getElementById('val-theme-frame');
-    const customSvgContainer = document.getElementById('custom-svg-container');
-    
-    frameSelect.addEventListener('change', () => {
-        if (frameSelect.value === 'custom') {
-            customSvgContainer.style.display = 'block';
-        } else {
-            customSvgContainer.style.display = 'none';
-            root.style.setProperty('--frame-bg', frameSelect.value);
-        }
-    });
-
-    document.getElementById('apply-custom-svg').addEventListener('click', () => {
-        const svgCode = document.getElementById('custom-svg-code').value;
-        if (svgCode) {
-            // Mã hóa SVG thành data URI
-            const dataUri = `data:image/svg+xml;base64,${btoa(svgCode)}`;
-            root.style.setProperty('--frame-bg', `url('${dataUri}')`);
-            // Đóng menu hoặc giữ nguyên tùy bạn
-            document.getElementById('settings-drawer').classList.remove('open'); 
-        }
-    });
-
-    // Cập nhật toàn bộ biến CSS
+    // Cập nhật toàn bộ biến
     function updateLiveVariables() {
         root.style.setProperty('--bg-main', document.getElementById('val-bg-main').value);
         root.style.setProperty('--text-color', document.getElementById('val-text-color').value);
@@ -121,13 +120,21 @@ document.addEventListener("DOMContentLoaded", () => {
         updateShadow();
     }
 
-    // Gắn sự kiện cho toàn bộ Sliders
+    // Gắn sự kiện cho toàn bộ Sliders và Inputs
     document.getElementById('settings-drawer').addEventListener('input', updateLiveVariables);
     document.getElementById('val-list-bg').addEventListener('input', updateLiveVariables);
     document.getElementById('val-list-text').addEventListener('input', updateLiveVariables);
     document.getElementById('val-list-svg').addEventListener('input', updateLiveVariables);
 
-    // Khởi tạo mặc định: bật Drop Shadow
+    // Khởi tạo mặc định: Grid mode, Bật Drop Shadow
+    mainContainer.classList.add('grid-mode');
     document.querySelector('input[name="active_shadow"][value="outer"]').checked = true;
+    // Gọi cập nhật Shadow lần đầu để bộ lọc hiển thị đúng
+    document.querySelector(`#drawer-outer .s-x`).value = 0;
+    document.querySelector(`#drawer-outer .s-y`).value = 4;
+    document.querySelector(`#drawer-outer .s-b`).value = 10;
+    document.querySelector(`#drawer-outer .s-s`).value = 0;
+    document.querySelector(`#drawer-outer .s-c`).value = "#000000";
+    
     updateLiveVariables();
 });
