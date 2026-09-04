@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-container" id="main-container">
+        <div class="app-header" data-i18n="app_title">Trung tâm điều khiển</div>
         <div class="grid-layout" id="control-panel"></div>
-        <!-- Bỏ text mặc định trong nút, JS sẽ tự chèn SVG vào -->
+        
         <button class="settings-fab" id="open-settings"></button>
     </div>
 
@@ -23,6 +24,7 @@
             <button id="close-settings">✕</button>
         </div>
         <div class="settings-body">
+            
             <div class="setting-group">
                 <label data-i18n="lbl_bg_main"></label>
                 <input type="color" id="val-bg-main" value="#121b22">
@@ -30,6 +32,25 @@
             <div class="setting-group">
                 <label data-i18n="lbl_text_color"></label>
                 <input type="color" id="val-text-color" value="#ffffff">
+            </div>
+
+            <!-- Thêm Toggle Grid/List -->
+            <div class="setting-group">
+                <label data-i18n="lbl_layout_mode"></label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="layout-toggle">
+                    <span class="toggle-slider"></span>
+                </div>
+            </div>
+
+            <!-- Màu riêng cho List -->
+            <div class="setting-group" id="list-color-settings" style="display: none;">
+                <label>Màu nền List</label>
+                <input type="color" id="val-list-bg" value="#ffffff">
+                <label>Màu chữ List</label>
+                <input type="color" id="val-list-text" value="#ffffff">
+                <label>Màu SVG List</label>
+                <input type="color" id="val-list-svg" value="#ffffff">
             </div>
             
             <div class="setting-group">
@@ -42,7 +63,13 @@
                     <option value="url('Theme/Orange-colour.png')" data-i18n="opt_frame_orange"></option>
                     <option value="url('Theme/Purple-colour.png')" data-i18n="opt_frame_purple"></option>
                     <option value="url('Theme/Moss-green.png')" data-i18n="opt_frame_moss"></option>
+                    <option value="custom" data-i18n="opt_frame_custom"></option>
                 </select>
+                <!-- Khu vực dán SVG -->
+                <div id="custom-svg-container">
+                    <textarea id="custom-svg-code" placeholder="Paste your SVG code here..."></textarea>
+                    <button type="button" id="apply-custom-svg">Apply SVG</button>
+                </div>
             </div>
             
             <div class="setting-group">
