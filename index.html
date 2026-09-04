@@ -3,64 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- Tối ưu Webclip iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Control Center">
-    <link rel="apple-touch-icon" href="icon.png"> <!-- Đường dẫn icon của Sếp -->
-
-    <title>Liquid Glass Control</title>
+    <meta name="apple-mobile-web-app-title" content="Control Panel">
+    <link rel="apple-touch-icon" href="icon.png">
+    <title>Webclip Control</title>
     <link rel="stylesheet" href="CSS/style.css">
-    
-    <!-- Load Theme trước để tránh nháy giao diện -->
     <script src="js/theme.js"></script>
 </head>
 <body>
-    <!-- Khu vực hiển thị Nút bấm -->
-    <div class="container" id="control-panel"></div>
-
-    <!-- Nút mở Cài đặt -->
-    <button class="settings-toggle" id="open-settings">⚙️</button>
-
-    <!-- Bảng Điều Khiển (Live Knobs) -->
-    <div class="settings-modal" id="settings-modal">
-        <div class="settings-content">
-            <h3>🎨 Tùy chỉnh Giao diện sống</h3>
-            
-            <div class="setting-group">
-                <label>Màu chữ & Symbol</label>
-                <input type="color" id="val-color" value="#ffffff">
-            </div>
-
-            <div class="setting-group">
-                <label>Màu Nền Nút (Kính)</label>
-                <input type="color" id="val-bg" value="#ffffff">
-                <input type="range" id="val-bg-opacity" min="0" max="100" value="15">
-                <small>Độ trong suốt (%)</small>
-            </div>
-
-            <div class="setting-group">
-                <label>Đổ bóng (Shadow Blur & Spread)</label>
-                <input type="range" id="val-shadow-blur" min="0" max="50" value="16">
-                <input type="range" id="val-shadow-spread" min="0" max="20" value="0">
-            </div>
-
-            <div class="setting-group">
-                <label>Bo góc Nút (Border Radius)</label>
-                <input type="range" id="val-radius" min="0" max="50" value="25">
-            </div>
-
-            <div class="setting-group">
-                <label>Kích thước Chữ</label>
-                <input type="range" id="val-font-size" min="10" max="24" value="14">
-            </div>
-
-            <button class="save-btn" id="close-settings">Lưu & Đóng</button>
-        </div>
+    <div class="app-container">
+        <!-- Lưới nút bấm tự động -->
+        <div class="grid-layout" id="control-panel"></div>
+        
+        <!-- Nút Cài đặt động -->
+        <button class="settings-fab" id="open-settings">⚙️</button>
     </div>
 
-    <!-- Load Logic sau cùng -->
+    <!-- Bảng Điều Khiển Live Knobs -->
+    <div class="settings-drawer" id="settings-drawer">
+        <div class="settings-header">
+            <h2 id="lang-settings-title">Cài đặt Giao diện</h2>
+            <button id="close-settings">✕</button>
+        </div>
+        <div class="settings-body">
+            
+            <!-- Nhóm Màu & Kích thước -->
+            <div class="setting-group">
+                <label>Màu Nền Chính</label>
+                <input type="color" id="val-bg-main" value="#121b22">
+            </div>
+            <div class="setting-group">
+                <label>Màu Chữ Hệ Thống</label>
+                <input type="color" id="val-text-color" value="#ffffff">
+            </div>
+            <div class="setting-group">
+                <label>Khung Icon (Theme SVG)</label>
+                <select id="val-theme-frame">
+                    <option value="none">Không khung</option>
+                    <option value="url('Theme/Black-Colour.png')">Đen bóng</option>
+                    <option value="url('Theme/Red-Colour.png')">Đỏ ruby</option>
+                    <option value="url('Theme/Green-colour.png')">Xanh lá</option>
+                    <option value="url('Theme/Orange-colour.png')">Cam rực</option>
+                    <option value="url('Theme/Purple-colour.png')">Tím dạ</option>
+                    <option value="url('Theme/Moss-green.png')">Xanh rêu</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label>Kích thước: Khung Icon & SVG</label>
+                <input type="range" id="val-frame-size" min="40" max="100" value="60">
+                <input type="range" id="val-svg-size" min="16" max="60" value="28">
+            </div>
+            <div class="setting-group">
+                <label>Màu SVG (Khi dùng currentColor)</label>
+                <input type="color" id="val-svg-color" value="#ffffff">
+            </div>
+
+            <!-- Hệ thống Đổ bóng 7 Chế độ (Render tự động bằng JS) -->
+            <h3 class="section-title">Chế độ Đổ Bóng</h3>
+            <div id="shadow-controls"></div>
+
+        </div>
+    </div>
     <script src="js/main.js"></script>
 </body>
 </html>
