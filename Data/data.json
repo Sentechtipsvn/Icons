@@ -4,10 +4,10 @@
   },
   "buttons": [
     {
-      "id": "wifi",
+      "id": "akar-icons:wifi",
       "title_key": "lang_wifi",
       "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=wifi",
-      "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 3C7.95 3 4.21 4.34 1.2 6.6L3 9c2.47-1.86 5.53-3 9-3s6.53 1.14 9 3l1.8-2.4C19.79 4.34 16.05 3 12 3z' fill='currentColor'/></svg>"
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><g fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'><path d='M2 10c6-6.667 14-6.667 20 0M6 14c3.6-4 8.4-4 12 0' /><circle cx='12' cy='18' r='1' /></g></svg>"
     },
     {
       "id": "bluetooth",
