@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Tải Dữ liệu Json & Vẽ Giao diện
-    fetch('data.json')
+    fetch('data/data.json')
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById('control-panel');
