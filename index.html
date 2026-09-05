@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
-    <title>Webclip Control - Sentechtipvn</title>
+    <title>Trung tâm điều khiển - Sentechtipvn</title>
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
@@ -53,14 +53,15 @@
             
             <div class="setting-group">
                 <label data-i18n="lbl_theme_frame"></label>
+                <!-- Sửa lại value thành đường dẫn gốc, xử lý url() trong JS để tránh lỗi parse CSS -->
                 <select id="val-theme-frame">
                     <option value="none" data-i18n="opt_frame_none"></option>
-                    <option value="url('Theme/Black-Colour.png')" data-i18n="opt_frame_black"></option>
-                    <option value="url('Theme/Red-Colour.png')" data-i18n="opt_frame_red"></option>
-                    <option value="url('Theme/Green-colour.png')" data-i18n="opt_frame_green"></option>
-                    <option value="url('Theme/Orange-colour.png')" data-i18n="opt_frame_orange"></option>
-                    <option value="url('Theme/Purple-colour.png')" data-i18n="opt_frame_purple"></option>
-                    <option value="url('Theme/Moss-green.png')" data-i18n="opt_frame_moss"></option>
+                    <option value="Theme/Black-Colour.png" data-i18n="opt_frame_black"></option>
+                    <option value="Theme/Red-Colour.png" data-i18n="opt_frame_red"></option>
+                    <option value="Theme/Green-colour.png" data-i18n="opt_frame_green"></option>
+                    <option value="Theme/Orange-colour.png" data-i18n="opt_frame_orange"></option>
+                    <option value="Theme/Purple-colour.png" data-i18n="opt_frame_purple"></option>
+                    <option value="Theme/Moss-green.png" data-i18n="opt_frame_moss"></option>
                     <option value="custom" data-i18n="opt_frame_custom"></option>
                 </select>
                 <div id="custom-svg-container">
@@ -75,7 +76,6 @@
                     <span class="slider-label">Khung</span>
                     <input type="range" id="val-frame-size" min="40" max="100" value="60">
                 </div>
-                <!-- Bổ sung thanh chỉnh Bo góc -->
                 <div class="slider-item">
                     <span class="slider-label" data-i18n="lbl_frame_radius">Bo góc</span>
                     <input type="range" id="val-frame-radius" min="0" max="50" value="22">
@@ -88,7 +88,6 @@
                     <span class="slider-label" data-i18n="lbl_svg_opacity">Độ đậm</span>
                     <input type="range" id="val-svg-opacity" min="0" max="100" value="100">
                 </div>
-                <!-- Bổ sung Màu nền khung mặc định -->
                 <div class="slider-item">
                     <span class="slider-label" data-i18n="lbl_frame_color">Nền khung</span>
                     <input type="color" id="val-frame-color" value="#000000">
