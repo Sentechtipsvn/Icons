@@ -17,6 +17,8 @@
   
   "lbl_frame_svg_size": "Kích thước: Khung Icon & SVG",
   "lbl_svg_opacity": "Độ đậm SVG",
+  "lbl_frame_radius": "Bo góc",
+  "lbl_frame_color": "Nền khung",
   "lbl_svg_color": "Màu SVG (Khi dùng currentColor)",
   
   "lbl_shadow_section": "Chế độ Đổ Bóng",
