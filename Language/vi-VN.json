@@ -40,5 +40,9 @@
   "lang_bluetooth": "Bluetooth",
   "lang_cellular": "Di động",
   "lang_airplane": "Chế độ máy bay",
-  "lang_power": "Tắt máy"
+  "lang_power": "Tắt máy",
+  "lang_5g": "5G",
+  "lang_vpn": "VPN",
+  "lang_dnd": "Không làm phiền",
+  "lang_flashlight": "Đèn pin"
 }
