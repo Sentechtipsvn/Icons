@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const root = document.documentElement;
     const shadowContainer = document.getElementById('shadow-controls');
     
+    // Khởi tạo HTML Đổ bóng
     SHADOW_MODES.forEach(mode => {
         const div = document.createElement('div');
         div.className = 'shadow-item';
@@ -38,20 +39,112 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Mở / Đóng Settings
     const overlay = document.getElementById('settings-overlay');
     const drawerEl = document.getElementById('settings-drawer');
 
-    const openSettings = () => { drawerEl.classList.add('open'); overlay.classList.add('open'); };
     const closeSettings = () => { drawerEl.classList.remove('open'); overlay.classList.remove('open'); };
-
-    document.getElementById('open-settings').onclick = openSettings;
+    document.getElementById('open-settings').onclick = () => { drawerEl.classList.add('open'); overlay.classList.add('open'); };
     document.getElementById('close-settings').onclick = closeSettings;
     overlay.onclick = closeSettings;
 
-    document.getElementById('apply-custom-svg').addEventListener('click', () => {
-        const svgCode = document.getElementById('custom-svg-code').value;
-        if (svgCode) { localStorage.setItem('sttv_customSvg', svgCode); updateLiveVariables(); }
+    // Hiệu ứng mờ Popup khi tương tác Slider/Color
+    let adjustTimeout;
+    drawerEl.addEventListener('input', (e) => {
+        if (e.target.tagName === 'INPUT') {
+            drawerEl.classList.add('adjusting');
+            clearTimeout(adjustTimeout);
+            adjustTimeout = setTimeout(() => drawerEl.classList.remove('adjusting'), 800);
+        }
+        updateLiveVariables();
     });
+    document.getElementById('val-theme-frame').addEventListener('change', updateLiveVariables);
+
+    // Chuyển đổi Nút Layout Danh Sách / Lưới
+    const btnList = document.getElementById('btn-layout-list');
+    const btnGrid = document.getElementById('btn-layout-grid');
+    
+    function setLayoutMode(mode) {
+        localStorage.setItem('sttv_layoutMode', mode);
+        if (mode === 'list') {
+            btnList.classList.add('active'); btnGrid.classList.remove('active');
+        } else {
+            btnGrid.classList.add('active'); btnList.classList.remove('active');
+        }
+        updateLiveVariables();
+    }
+    btnList.onclick = () => setLayoutMode('list');
+    btnGrid.onclick = () => setLayoutMode('grid');
+
+    // Mở Modal Info
+    const infoBtn = document.getElementById('btn-info');
+    const infoModal = document.getElementById('info-modal');
+    infoBtn.onclick = () => infoModal.classList.toggle('show');
+
+    // Nén Data Xuất Nhập Cấu Hình
+    function packConfig() {
+        const activeShadow = document.querySelector('input[name="active_shadow"]:checked');
+        const sId = activeShadow ? activeShadow.value : '';
+        let sData = [];
+        if (sId) {
+            const drw = document.getElementById(`drawer-${sId}`);
+            sData = [ sId, drw.querySelector('.s-x').value, drw.querySelector('.s-y').value, drw.querySelector('.s-b').value, drw.querySelector('.s-s').value, drw.querySelector('.s-c').value ];
+        }
+        const dataArr = [
+            document.getElementById('val-bg-main').value, document.getElementById('val-text-color').value,
+            localStorage.getItem('sttv_layoutMode') || 'grid',
+            document.getElementById('val-list-bg').value, document.getElementById('val-list-text').value, document.getElementById('val-list-svg').value,
+            document.getElementById('val-theme-frame').value, document.getElementById('val-frame-size').value,
+            document.getElementById('val-svg-size').value, document.getElementById('val-svg-opacity').value,
+            document.getElementById('val-frame-radius').value, document.getElementById('val-frame-color').value, document.getElementById('val-svg-color').value,
+            sData
+        ];
+        return btoa(JSON.stringify(dataArr)).replace(/=/g, ''); // Nén chuẩn chữ & số
+    }
+
+    function unpackConfig(base64Str) {
+        try {
+            const arr = JSON.parse(atob(base64Str));
+            if (arr.length < 13) throw 'Lỗi';
+            document.getElementById('val-bg-main').value = arr[0];
+            document.getElementById('val-text-color').value = arr[1];
+            setLayoutMode(arr[2]);
+            document.getElementById('val-list-bg').value = arr[3];
+            document.getElementById('val-list-text').value = arr[4];
+            document.getElementById('val-list-svg').value = arr[5];
+            document.getElementById('val-theme-frame').value = arr[6];
+            document.getElementById('val-frame-size').value = arr[7];
+            document.getElementById('val-svg-size').value = arr[8];
+            document.getElementById('val-svg-opacity').value = arr[9];
+            document.getElementById('val-frame-radius').value = arr[10];
+            document.getElementById('val-frame-color').value = arr[11];
+            document.getElementById('val-svg-color').value = arr[12];
+            
+            // Xóa bóng cũ
+            document.querySelectorAll('.shadow-switch').forEach(c => { c.checked = false; document.getElementById(`drawer-${c.value}`).classList.remove('active'); });
+            
+            if (arr[13] && arr[13].length > 0) {
+                const sId = arr[13][0];
+                document.querySelector(`input[name="active_shadow"][value="${sId}"]`).checked = true;
+                const drw = document.getElementById(`drawer-${sId}`);
+                drw.classList.add('active');
+                drw.querySelector('.s-x').value = arr[13][1]; drw.querySelector('.s-y').value = arr[13][2];
+                drw.querySelector('.s-b').value = arr[13][3]; drw.querySelector('.s-s').value = arr[13][4];
+                drw.querySelector('.s-c').value = arr[13][5];
+            }
+            updateLiveVariables();
+        } catch(e) { alert("Mã cấu hình không hợp lệ!"); }
+    }
+
+    document.getElementById('btn-export').onclick = () => {
+        const code = packConfig();
+        navigator.clipboard.writeText(code).then(() => alert("Đã sao chép mã cấu hình (Gồm chữ và số an toàn)!"));
+    };
+    
+    document.getElementById('btn-import').onclick = () => {
+        const code = prompt("📥 Dán mã cấu hình vào đây:");
+        if (code) unpackConfig(code);
+    };
 
     function updateShadow() {
         const activeShadows = document.querySelectorAll('input[name="active_shadow"]:checked');
@@ -60,43 +153,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const drawer = document.getElementById(`drawer-${checkbox.value}`);
             const mode = SHADOW_MODES.find(m => m.id === checkbox.value);
             let shadowStr = mode.template
-                .replace('{x}', drawer.querySelector('.s-x').value)
-                .replace('{y}', drawer.querySelector('.s-y').value)
-                .replace('{b}', drawer.querySelector('.s-b').value)
-                .replace('{s}', drawer.querySelector('.s-s').value)
-                .replace('{c}', drawer.querySelector('.s-c').value);
+                .replace('{x}', drawer.querySelector('.s-x').value).replace('{y}', drawer.querySelector('.s-y').value)
+                .replace('{b}', drawer.querySelector('.s-b').value).replace('{s}', drawer.querySelector('.s-s').value).replace('{c}', drawer.querySelector('.s-c').value);
             if (combinedShadow) combinedShadow += ', ';
             combinedShadow += shadowStr;
         });
         root.style.setProperty('--btn-shadow', combinedShadow || 'none');
-    }
-
-    function saveSettingsToLocal() {
-        localStorage.setItem('sttv_bgMain', document.getElementById('val-bg-main').value);
-        localStorage.setItem('sttv_textColor', document.getElementById('val-text-color').value);
-        localStorage.setItem('sttv_layoutMode', document.getElementById('layout-toggle').checked);
-        localStorage.setItem('sttv_listBg', document.getElementById('val-list-bg').value);
-        localStorage.setItem('sttv_listText', document.getElementById('val-list-text').value);
-        localStorage.setItem('sttv_listSvg', document.getElementById('val-list-svg').value);
-        localStorage.setItem('sttv_themeFrame', document.getElementById('val-theme-frame').value);
-        localStorage.setItem('sttv_frameSize', document.getElementById('val-frame-size').value);
-        localStorage.setItem('sttv_svgSize', document.getElementById('val-svg-size').value);
-        localStorage.setItem('sttv_svgOpacity', document.getElementById('val-svg-opacity').value);
-        localStorage.setItem('sttv_svgColor', document.getElementById('val-svg-color').value);
-        localStorage.setItem('sttv_frameRadius', document.getElementById('val-frame-radius').value);
-        localStorage.setItem('sttv_frameColor', document.getElementById('val-frame-color').value);
-
-        const shadowState = {};
-        SHADOW_MODES.forEach(mode => {
-            const drawer = document.getElementById(`drawer-${mode.id}`);
-            const checkbox = document.querySelector(`input[name="active_shadow"][value="${mode.id}"]`);
-            shadowState[mode.id] = {
-                active: checkbox.checked, x: drawer.querySelector('.s-x').value,
-                y: drawer.querySelector('.s-y').value, b: drawer.querySelector('.s-b').value,
-                s: drawer.querySelector('.s-s').value, c: drawer.querySelector('.s-c').value
-            };
-        });
-        localStorage.setItem('sttv_shadowConfig', JSON.stringify(shadowState));
     }
 
     function updateLiveVariables() {
@@ -108,9 +170,9 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--svg-opacity', document.getElementById('val-svg-opacity').value / 100);
         root.style.setProperty('--frame-border-radius', document.getElementById('val-frame-radius').value + '%');
         
-        const isListMode = document.getElementById('layout-toggle').checked;
+        const currentLayout = localStorage.getItem('sttv_layoutMode') || 'grid';
         const mainContainer = document.getElementById('main-container');
-        if (isListMode) { mainContainer.classList.add('list-mode'); mainContainer.classList.remove('grid-mode'); } 
+        if (currentLayout === 'list') { mainContainer.classList.add('list-mode'); mainContainer.classList.remove('grid-mode'); } 
         else { mainContainer.classList.remove('list-mode'); mainContainer.classList.add('grid-mode'); }
 
         root.style.setProperty('--list-bg-color', document.getElementById('val-list-bg').value);
@@ -119,74 +181,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const frameSelect = document.getElementById('val-theme-frame').value;
         const frameColor = document.getElementById('val-frame-color').value;
-        const customContainer = document.getElementById('custom-svg-container');
-
+        
         if (frameSelect === 'custom') {
-            customContainer.style.display = 'block';
             root.style.setProperty('--frame-bg-color', 'transparent'); 
-            const savedCustom = localStorage.getItem('sttv_customSvg') || document.getElementById('custom-svg-code').value;
-            if (savedCustom) { root.style.setProperty('--frame-bg', `url('data:image/svg+xml;base64,${btoa(savedCustom)}')`); }
+        } else if (frameSelect === 'none') {
+            root.style.setProperty('--frame-bg', 'none'); root.style.setProperty('--frame-bg-color', frameColor);
         } else {
-            customContainer.style.display = 'none';
-            if (frameSelect === 'none') {
-                root.style.setProperty('--frame-bg', 'none');
-                root.style.setProperty('--frame-bg-color', frameColor);
-            } else {
-                root.style.setProperty('--frame-bg', `url('../${frameSelect}')`); /* Path fix */
-                root.style.setProperty('--frame-bg-color', 'transparent'); 
-            }
+            root.style.setProperty('--frame-bg', `url('../${frameSelect}')`); root.style.setProperty('--frame-bg-color', 'transparent'); 
         }
+        
         updateShadow();
-        saveSettingsToLocal();
+        
+        // Lưu LocalStorage ngầm
+        localStorage.setItem('sttv_bgMain', document.getElementById('val-bg-main').value);
+        localStorage.setItem('sttv_textColor', document.getElementById('val-text-color').value);
+        localStorage.setItem('sttv_listBg', document.getElementById('val-list-bg').value);
     }
 
-    function loadSettingsFromLocal() {
-        const safeSet = (id, key, fallback, isCheck = false) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const val = localStorage.getItem('sttv_' + key);
-            if (isCheck) el.checked = val === 'true' ? true : (val === null ? fallback : false);
-            else el.value = val !== null ? val : fallback;
-        };
-
-        safeSet('val-bg-main', 'bgMain', '#121b22'); safeSet('val-text-color', 'textColor', '#ffffff');
-        safeSet('layout-toggle', 'layoutMode', false, true);
-        safeSet('val-list-bg', 'listBg', '#1a1a1a'); safeSet('val-list-text', 'listText', '#ffffff');
-        safeSet('val-list-svg', 'listSvg', '#ffffff');
-        safeSet('val-theme-frame', 'themeFrame', 'none'); safeSet('val-frame-size', 'frameSize', '60');
-        safeSet('val-svg-size', 'svgSize', '28'); safeSet('val-svg-opacity', 'svgOpacity', '100');
-        safeSet('val-svg-color', 'svgColor', '#ffffff'); safeSet('val-frame-radius', 'frameRadius', '22');
-        safeSet('val-frame-color', 'frameColor', '#000000');
-
-        const savedSvg = localStorage.getItem('sttv_customSvg');
-        if (savedSvg) document.getElementById('custom-svg-code').value = savedSvg;
-
-        const savedShadows = localStorage.getItem('sttv_shadowConfig');
-        if (savedShadows) {
-            try {
-                const shadowState = JSON.parse(savedShadows);
-                SHADOW_MODES.forEach(mode => {
-                    if (shadowState[mode.id]) {
-                        const drawer = document.getElementById(`drawer-${mode.id}`);
-                        const checkbox = document.querySelector(`input[name="active_shadow"][value="${mode.id}"]`);
-                        checkbox.checked = shadowState[mode.id].active;
-                        if (checkbox.checked) drawer.classList.add('active'); else drawer.classList.remove('active');
-                        drawer.querySelector('.s-x').value = shadowState[mode.id].x || 0;
-                        drawer.querySelector('.s-y').value = shadowState[mode.id].y || 4;
-                        drawer.querySelector('.s-b').value = shadowState[mode.id].b || 10;
-                        drawer.querySelector('.s-s').value = shadowState[mode.id].s || 0;
-                        drawer.querySelector('.s-c').value = shadowState[mode.id].c || '#000000';
-                    }
-                });
-            } catch (e) {}
-        } else {
-            const defaultShadow = document.querySelector('input[name="active_shadow"][value="outer"]');
-            if(defaultShadow) { defaultShadow.checked = true; document.getElementById('drawer-outer').classList.add('active'); }
-        }
-    }
-
-    drawerEl.addEventListener('input', updateLiveVariables);
-    document.getElementById('val-theme-frame').addEventListener('change', updateLiveVariables);
-    
-    loadSettingsFromLocal(); updateLiveVariables();
+    // Load LocalStorage mặc định (Tương tự code cũ)
+    const initLayout = localStorage.getItem('sttv_layoutMode') || 'grid';
+    setLayoutMode(initLayout);
 });
