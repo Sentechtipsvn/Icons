@@ -8,17 +8,15 @@
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
     <title>Trung tâm điều khiển - Sentechtipvn</title>
-    <!-- Phải khớp tuyệt đối tên thư mục CSS trên GitHub -->
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-    <div class="app-container" id="main-container">
+    <div class="app-container grid-mode" id="main-container">
         <div class="app-header" data-i18n="app_title">Trung tâm điều khiển</div>
         <div class="grid-layout" id="control-panel"></div>
         <button class="settings-fab" id="open-settings">⚙️</button>
     </div>
 
-    <!-- Nền đen làm mờ -->
     <div class="settings-overlay" id="settings-overlay"></div>
 
     <div class="settings-drawer" id="settings-drawer">
@@ -26,8 +24,14 @@
             <h2 data-i18n="settings_title">Cài đặt Giao diện</h2>
             <button id="close-settings">✕</button>
         </div>
+        
         <div class="settings-body">
-            
+            <!-- Nhập / Xuất Cấu hình -->
+            <div class="config-actions">
+                <button id="btn-export" class="action-btn">📤 <span data-i18n="btn_export">Xuất cấu hình</span></button>
+                <button id="btn-import" class="action-btn">📥 <span data-i18n="btn_import">Nhập cấu hình</span></button>
+            </div>
+
             <div class="setting-group">
                 <label data-i18n="lbl_bg_main">Màu Nền Chính</label>
                 <input type="color" id="val-bg-main" value="#121b22">
@@ -37,11 +41,12 @@
                 <input type="color" id="val-text-color" value="#ffffff">
             </div>
 
+            <!-- Nút bấm Lưới / Danh sách -->
             <div class="setting-group">
                 <label data-i18n="lbl_layout_mode">Chế độ Danh sách / Lưới</label>
-                <div class="toggle-switch">
-                    <input type="checkbox" id="layout-toggle">
-                    <span class="toggle-slider"></span>
+                <div class="layout-buttons">
+                    <button id="btn-layout-list" class="layout-btn" data-i18n="btn_list">Danh sách</button>
+                    <button id="btn-layout-grid" class="layout-btn active" data-i18n="btn_grid">Lưới</button>
                 </div>
             </div>
 
@@ -67,8 +72,8 @@
                     <option value="custom" data-i18n="opt_frame_custom">SVG Tùy chỉnh</option>
                 </select>
                 <div id="custom-svg-container" style="display: none;">
-                    <textarea id="custom-svg-code" placeholder="Dán mã SVG của bạn vào đây..." style="width: 100%; height: 80px; margin-top: 10px;"></textarea>
-                    <button type="button" id="apply-custom-svg" style="margin-top: 10px; padding: 5px 10px;">Áp dụng SVG</button>
+                    <textarea id="custom-svg-code" placeholder="Dán mã SVG của bạn vào đây..."></textarea>
+                    <button type="button" id="apply-custom-svg">Áp dụng SVG</button>
                 </div>
             </div>
             
@@ -103,6 +108,14 @@
 
             <h3 class="section-title" data-i18n="lbl_shadow_section">Chế độ Đổ Bóng</h3>
             <div id="shadow-controls"></div>
+        </div>
+
+        <!-- Info Button & Popup -->
+        <button id="btn-info" class="info-btn">ℹ️</button>
+        <div id="info-modal" class="info-modal">
+            <h3>Control Center</h3>
+            <p>Phát triển bởi <a href="https://browse.shortcuty.app/user/Sentechtipsvn" target="_blank">Sentechtipsvn</a></p>
+            <p class="info-desc">Webclip điều khiển đa năng, tích hợp giao diện kính mờ và hệ thống Live Knobs tuỳ biến sống động chuyên nghiệp dành riêng cho iOS.</p>
         </div>
     </div>
     
