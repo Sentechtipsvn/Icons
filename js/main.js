@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 btn.className = 'glass-btn';
                 btn.href = item.action;
                 
-                // Fix lỗi hiển thị: Ưu tiên translations -> item.title -> fallback "Phím tắt"
                 const localizedTitle = translations[item.title_key] || item.title || item.title_key || 'Phím tắt';
 
                 btn.innerHTML = `
@@ -52,7 +51,5 @@ document.addEventListener("DOMContentLoaded", async () => {
                 container.appendChild(btn);
             });
         }
-    } catch (e) {
-        console.error("Lỗi tải dữ liệu JSON:", e);
-    }
+    } catch (e) { console.error("Lỗi tải dữ liệu JSON:", e); }
 });
