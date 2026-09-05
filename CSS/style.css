@@ -1,43 +1,108 @@
-/* Sửa lưới Grid/List */
+:root {
+    --bg-main: #121b22;
+    --text-color: #ffffff;
+    --accent-color: #007aff;
+    --font-size: 14px;
+    --frame-size: 60px;
+    --svg-size: 28px;
+    --svg-opacity: 1; 
+    --frame-border-radius: 22%; 
+    --frame-bg: none;
+    --frame-bg-color: transparent; 
+    --svg-color: #ffffff;
+    --btn-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    --list-bg-color: rgba(255, 255, 255, 0.1);
+    --list-text-color: #ffffff;
+    --list-svg-color: #ffffff;
+}
+
+@media (prefers-color-scheme: light) {
+    :root { --bg-main: #f2f2f7; --text-color: #000000; --list-bg-color: rgba(0,0,0,0.05); --list-text-color: #000; --list-svg-color: #000; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+
+body { background: var(--bg-main); color: var(--text-color); min-height: 100vh; overflow-x: hidden; transition: background 0.3s ease; }
+
+.app-header { text-align: center; padding: 60px 0 20px 0; font-size: 22px; font-weight: bold; letter-spacing: 0.5px; }
+
+/* Grid Mode */
 .grid-layout {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    padding: 20px 20px 40px 20px;
-    max-width: 600px;
-    margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
+    padding: 20px 20px 40px 20px; max-width: 600px; margin: 0 auto;
 }
-
-/* Fix CSS cho chế độ List Mode nằm sát lề */
-.app-container.list-mode .grid-layout {
-    grid-template-columns: 1fr; /* Ép về 1 cột duy nhất */
-    gap: 12px;
+.glass-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--text-color); }
+.icon-box {
+    width: var(--frame-size); height: var(--frame-size);
+    background-image: var(--frame-bg); background-color: var(--frame-bg-color);
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    border-radius: var(--frame-border-radius); display: flex; justify-content: center; align-items: center;
+    box-shadow: var(--btn-shadow); transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
+.icon-box svg { width: var(--svg-size); height: var(--svg-size); fill: var(--svg-color); color: var(--svg-color); opacity: var(--svg-opacity); position: relative; z-index: 2; }
+.glass-btn:active .icon-box { transform: scale(0.92); }
+.label { font-size: var(--font-size); font-weight: 500; text-align: center; }
 
+/* List Mode */
+.app-container.list-mode .grid-layout { grid-template-columns: 1fr; gap: 12px; }
 .app-container.list-mode .glass-btn {
-    flex-direction: row;
-    justify-content: flex-start; /* Ép nội dung và icon tràn hẳn về sát lề trái */
-    align-items: center;
-    gap: 15px;
-    background: var(--list-bg-color);
-    padding: 12px 18px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    color: var(--list-text-color);
+    flex-direction: row; justify-content: flex-start; align-items: center; gap: 15px;
+    background: var(--list-bg-color); padding: 12px 18px; border-radius: 12px;
+    color: var(--list-text-color); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+.app-container.list-mode .icon-box { background-color: transparent; background-image: none; box-shadow: none; width: 35px; height: 35px; }
+.app-container.list-mode .icon-box svg { fill: var(--list-svg-color); color: var(--list-svg-color); width: 25px; height: 25px; }
+.app-container.list-mode .label { text-align: left; font-size: 15px; }
 
-/* Lớp phủ đen làm mờ nền khi mở Settings */
+/* Overlay & Drawer */
 .settings-overlay {
-    position: fixed; 
-    top: 0; left: 0; 
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    opacity: 0; 
-    visibility: hidden;
-    transition: opacity 0.3s ease; 
-    z-index: 998;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease; z-index: 998;
 }
-.settings-overlay.open { 
-    opacity: 1; 
-    visibility: visible; 
+.settings-overlay.open { opacity: 1; visibility: visible; }
+
+.settings-fab {
+    position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 25px;
+    background: var(--accent-color); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 100;
+    display: flex; justify-content: center; align-items: center; font-size: 24px;
 }
+.settings-fab svg { width: 28px; height: 28px; fill: white; }
+
+.settings-drawer {
+    position: fixed; top: calc(env(safe-area-inset-top) + 15px); right: -120%;
+    width: 85%; max-width: 360px; max-height: 85vh; border-radius: 20px;
+    background: rgba(30,30,30,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    box-shadow: -5px 0 25px rgba(0,0,0,0.5); z-index: 999;
+    transition: right 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    display: flex; flex-direction: column; color: white; overflow: hidden;
+}
+.settings-drawer.open { right: 15px; }
+
+.settings-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.settings-header button { background: rgba(255,255,255,0.2); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+.settings-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+.setting-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+.section-title { margin: 20px 0 10px; font-size: 16px; color: var(--accent-color); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+
+.slider-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.slider-item input[type=range] { flex: 1; }
+.slider-label { width: 65px; font-size: 13px; opacity: 0.8; } 
+
+input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 28px; width: 28px; background: var(--accent-color); border-radius: 50%; border: 3px solid white; margin-top: -11px; cursor: pointer; }
+
+.slider-item input[type="color"] { height: 28px; padding: 0; border: none; background: none; border-radius: 5px; cursor: pointer; }
+.toggle-switch { position: relative; display: inline-block; width: 50px; height: 30px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 30px; }
+.toggle-slider:before { position: absolute; content: ""; height: 24px; width: 24px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .toggle-slider { background-color: var(--accent-color); }
+input:checked + .toggle-slider:before { transform: translateX(20px); }
+
+.shadow-item { border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+.shadow-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(0,0,0,0.2); }
+.shadow-drawer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 15px; background: rgba(0,0,0,0.1); }
+.shadow-drawer.active { max-height: 400px; padding: 15px; }
