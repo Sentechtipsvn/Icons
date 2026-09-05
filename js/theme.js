@@ -1,10 +1,9 @@
-// js/theme.js
 const SHADOW_MODES = [
-    { id: 'inset', nameKey: 'shadow_inset', template: 'inset {x}px {y}px {b}px {s}px {c}' },
-    { id: 'outer', nameKey: 'shadow_outer', template: '{x}px {y}px {b}px {s}px {c}' },
-    { id: 'soft', nameKey: 'shadow_soft', template: '{x}px {y}px {b}px {s}px {c}' },
-    { id: 'hard', nameKey: 'shadow_hard', template: '{x}px {y}px 0px {s}px {c}' },
-    { id: 'glow', nameKey: 'shadow_glow', template: '0px 0px {b}px {s}px {c}' }
+    { id: 'inset', nameKey: 'shadow_inset', name: 'Bóng Chìm', template: 'inset {x}px {y}px {b}px {s}px {c}' },
+    { id: 'outer', nameKey: 'shadow_outer', name: 'Bóng Ngoài', template: '{x}px {y}px {b}px {s}px {c}' },
+    { id: 'soft', nameKey: 'shadow_soft', name: 'Mờ Diện Rộng', template: '{x}px {y}px {b}px {s}px {c}' },
+    { id: 'hard', nameKey: 'shadow_hard', name: 'Nổi Khối 3D', template: '{x}px {y}px 0px {s}px {c}' },
+    { id: 'glow', nameKey: 'shadow_glow', name: 'Phát Sáng', template: '0px 0px {b}px {s}px {c}' }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         div.className = 'shadow-item';
         div.innerHTML = `
             <div class="shadow-header">
-                <span data-i18n="${mode.nameKey}"></span>
+                <span data-i18n="${mode.nameKey}">${mode.name}</span>
                 <input type="checkbox" name="active_shadow" value="${mode.id}" class="shadow-switch">
             </div>
             <div class="shadow-drawer" id="drawer-${mode.id}">
@@ -39,24 +38,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document.getElementById('open-settings').onclick = () => document.getElementById('settings-drawer').classList.add('open');
-    document.getElementById('close-settings').onclick = () => document.getElementById('settings-drawer').classList.remove('open');
-
+    // Animation Settings Popup mượt mà
+    const overlay = document.getElementById('settings-overlay');
     const drawerEl = document.getElementById('settings-drawer');
-    drawerEl.addEventListener('input', (e) => {
-        if (e.target.tagName === 'INPUT' && e.target.type === 'range') {
-            drawerEl.classList.add('adjusting');
-            clearTimeout(window.adjustTimeout);
-            window.adjustTimeout = setTimeout(() => drawerEl.classList.remove('adjusting'), 500);
-        }
-    });
+
+    const openSettings = () => {
+        drawerEl.classList.add('open');
+        overlay.classList.add('open');
+    };
+    
+    const closeSettings = () => {
+        drawerEl.classList.remove('open');
+        overlay.classList.remove('open');
+    };
+
+    document.getElementById('open-settings').onclick = openSettings;
+    document.getElementById('close-settings').onclick = closeSettings;
+    overlay.onclick = closeSettings; // Bấm ra ngoài nền đen để đóng
+
+    // Đã xóa bỏ sự kiện "adjusting" gây giật màn hình ở đây
 
     document.getElementById('apply-custom-svg').addEventListener('click', () => {
         const svgCode = document.getElementById('custom-svg-code').value;
         if (svgCode) {
             localStorage.setItem('sttv_customSvg', svgCode);
             updateLiveVariables();
-            drawerEl.classList.remove('open'); 
         }
     });
 
@@ -135,14 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
         root.style.setProperty('--list-svg-color', document.getElementById('val-list-svg').value);
 
-        // Xử lý background frame triệt để
+        // Fix chuẩn xác nền Theme SVG loại bỏ viền cũ
         const frameSelect = document.getElementById('val-theme-frame').value;
         const frameColor = document.getElementById('val-frame-color').value;
         const customContainer = document.getElementById('custom-svg-container');
 
         if (frameSelect === 'custom') {
             customContainer.style.display = 'block';
-            root.style.setProperty('--frame-bg-color', 'transparent'); // Ẩn nền màu default
+            root.style.setProperty('--frame-bg-color', 'transparent'); 
             const savedCustom = localStorage.getItem('sttv_customSvg') || document.getElementById('custom-svg-code').value;
             if (savedCustom) {
                 const dataUri = `data:image/svg+xml;base64,${btoa(savedCustom)}`;
@@ -152,10 +158,10 @@ document.addEventListener("DOMContentLoaded", () => {
             customContainer.style.display = 'none';
             if (frameSelect === 'none') {
                 root.style.setProperty('--frame-bg', 'none');
-                root.style.setProperty('--frame-bg-color', frameColor); // Hiển thị nền màu tuỳ chỉnh khi không có ảnh
+                root.style.setProperty('--frame-bg-color', frameColor);
             } else {
                 root.style.setProperty('--frame-bg', `url('${frameSelect}')`);
-                root.style.setProperty('--frame-bg-color', 'transparent'); // Bắt buộc ẩn nền màu để hiển thị chuẩn ảnh Theme
+                root.style.setProperty('--frame-bg-color', 'transparent'); 
             }
         }
 
@@ -175,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
         safeSet('val-bg-main', 'bgMain', '#121b22');
         safeSet('val-text-color', 'textColor', '#ffffff');
         safeSet('layout-toggle', 'layoutMode', false, true);
-        safeSet('val-list-bg', 'listBg', '#ffffff');
+        safeSet('val-list-bg', 'listBg', 'rgba(255, 255, 255, 0.1)');
         safeSet('val-list-text', 'listText', '#ffffff');
         safeSet('val-list-svg', 'listSvg', '#ffffff');
         safeSet('val-theme-frame', 'themeFrame', 'none');
@@ -209,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         drawer.querySelector('.s-c').value = shadowState[mode.id].c || '#000000';
                     }
                 });
-            } catch (e) { console.warn("Lỗi đọc cấu hình đổ bóng", e); }
+            } catch (e) {}
         } else {
             const defaultShadow = document.querySelector('input[name="active_shadow"][value="outer"]');
             if(defaultShadow) {
@@ -221,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     drawerEl.addEventListener('input', updateLiveVariables);
     document.getElementById('val-theme-frame').addEventListener('change', updateLiveVariables);
-
+    
     loadSettingsFromLocal();
     updateLiveVariables();
 });
