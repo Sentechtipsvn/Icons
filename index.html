@@ -14,28 +14,30 @@
     <div class="app-container" id="main-container">
         <div class="app-header" data-i18n="app_title">Trung tâm điều khiển</div>
         <div class="grid-layout" id="control-panel"></div>
-        
         <button class="settings-fab" id="open-settings"></button>
     </div>
 
+    <!-- Nền đen làm mờ popup chuyển động êm ái -->
+    <div class="settings-overlay" id="settings-overlay"></div>
+
     <div class="settings-drawer" id="settings-drawer">
         <div class="settings-header">
-            <h2 data-i18n="settings_title"></h2>
+            <h2 data-i18n="settings_title">Cài đặt Giao diện</h2>
             <button id="close-settings">✕</button>
         </div>
         <div class="settings-body">
             
             <div class="setting-group">
-                <label data-i18n="lbl_bg_main"></label>
+                <label data-i18n="lbl_bg_main">Màu Nền Chính</label>
                 <input type="color" id="val-bg-main" value="#121b22">
             </div>
             <div class="setting-group">
-                <label data-i18n="lbl_text_color"></label>
+                <label data-i18n="lbl_text_color">Màu Chữ Hệ Thống</label>
                 <input type="color" id="val-text-color" value="#ffffff">
             </div>
 
             <div class="setting-group">
-                <label data-i18n="lbl_layout_mode"></label>
+                <label data-i18n="lbl_layout_mode">Chế độ Danh sách / Lưới</label>
                 <div class="toggle-switch">
                     <input type="checkbox" id="layout-toggle">
                     <span class="toggle-slider"></span>
@@ -52,17 +54,16 @@
             </div>
             
             <div class="setting-group">
-                <label data-i18n="lbl_theme_frame"></label>
-                <!-- Sửa lại value thành đường dẫn gốc, xử lý url() trong JS để tránh lỗi parse CSS -->
+                <label data-i18n="lbl_theme_frame">Khung Icon (Theme SVG)</label>
                 <select id="val-theme-frame">
-                    <option value="none" data-i18n="opt_frame_none"></option>
-                    <option value="Theme/Black-Colour.png" data-i18n="opt_frame_black"></option>
-                    <option value="Theme/Red-Colour.png" data-i18n="opt_frame_red"></option>
-                    <option value="Theme/Green-colour.png" data-i18n="opt_frame_green"></option>
-                    <option value="Theme/Orange-colour.png" data-i18n="opt_frame_orange"></option>
-                    <option value="Theme/Purple-colour.png" data-i18n="opt_frame_purple"></option>
-                    <option value="Theme/Moss-green.png" data-i18n="opt_frame_moss"></option>
-                    <option value="custom" data-i18n="opt_frame_custom"></option>
+                    <option value="none" data-i18n="opt_frame_none">Không khung</option>
+                    <option value="Theme/Black-Colour.png" data-i18n="opt_frame_black">Đen bóng</option>
+                    <option value="Theme/Red-Colour.png" data-i18n="opt_frame_red">Đỏ ruby</option>
+                    <option value="Theme/Green-colour.png" data-i18n="opt_frame_green">Xanh lá</option>
+                    <option value="Theme/Orange-colour.png" data-i18n="opt_frame_orange">Cam rực</option>
+                    <option value="Theme/Purple-colour.png" data-i18n="opt_frame_purple">Tím dạ</option>
+                    <option value="Theme/Moss-green.png" data-i18n="opt_frame_moss">Xanh rêu</option>
+                    <option value="custom" data-i18n="opt_frame_custom">SVG Tùy chỉnh</option>
                 </select>
                 <div id="custom-svg-container">
                     <textarea id="custom-svg-code" placeholder="Paste your SVG code here..."></textarea>
@@ -71,7 +72,7 @@
             </div>
             
             <div class="setting-group">
-                <label data-i18n="lbl_frame_svg_size"></label>
+                <label data-i18n="lbl_frame_svg_size">Kích thước: Khung Icon & SVG</label>
                 <div class="slider-item">
                     <span class="slider-label">Khung</span>
                     <input type="range" id="val-frame-size" min="40" max="100" value="60">
@@ -95,11 +96,11 @@
             </div>
             
             <div class="setting-group">
-                <label data-i18n="lbl_svg_color"></label>
+                <label data-i18n="lbl_svg_color">Màu SVG</label>
                 <input type="color" id="val-svg-color" value="#ffffff">
             </div>
 
-            <h3 class="section-title" data-i18n="lbl_shadow_section"></h3>
+            <h3 class="section-title" data-i18n="lbl_shadow_section">Chế độ Đổ Bóng</h3>
             <div id="shadow-controls"></div>
         </div>
     </div>
