@@ -4,13 +4,29 @@
   
   "btn_list": "Danh sách",
   "btn_grid": "Lưới",
-  "btn_export": "Xuất cấu hình",
-  "btn_import": "Nhập cấu hình",
+  "btn_export": "Xuất",
+  "btn_import": "Nhập",
+  "btn_edit_layout": "Sắp xếp",
+
+  "lbl_theme_presets": "Kho Giao diện (Presets)",
+  "opt_preset_none": "Tự do tùy chỉnh",
+  "opt_preset_vn": "🇻🇳 Cờ Việt Nam",
+  "opt_preset_neon": "🤖 Neon Cyberpunk",
+  "opt_preset_dark": "🖤 Dark Minimal",
+  "opt_preset_gold": "👑 Gold Sang Trọng",
+
+  "lbl_audio_feedback": "Âm thanh Haptic",
+  "lbl_parallax": "Gia tốc kế 3D (Parallax)",
+  "lbl_bg_image": "Hình nền tự chọn",
+  "lbl_glassmorphism": "Bật Kính mờ (Glassmorphism)",
+
+  "info_title": "Control Center",
+  "info_dev_prefix": "Phát triển bởi",
+  "info_desc": "Webclip điều khiển đa năng, tích hợp giao diện kính mờ và hệ thống Live Knobs tuỳ biến sống động chuyên nghiệp dành riêng cho iOS.",
 
   "lbl_bg_main": "Màu Nền Chính",
   "lbl_text_color": "Màu Chữ Hệ Thống",
   "lbl_theme_frame": "Khung Icon (Theme SVG)",
-  
   "opt_frame_none": "Không khung",
   "opt_frame_black": "Đen bóng",
   "opt_frame_red": "Đỏ ruby",
@@ -24,7 +40,7 @@
   "lbl_svg_opacity": "Độ đậm SVG",
   "lbl_frame_radius": "Bo góc",
   "lbl_frame_color": "Nền khung",
-  "lbl_svg_color": "Màu SVG (Khi dùng currentColor)",
+  "lbl_svg_color": "Màu SVG",
   
   "lbl_shadow_section": "Chế độ Đổ Bóng",
   "shadow_inset": "Bóng Chìm (Inset)",
@@ -38,7 +54,6 @@
   "slider_blur": "Độ mờ (Blur)",
   "slider_spread": "Lan rộng (Spread)",
   "slider_color": "Màu Bóng",
-  
   "lbl_layout_mode": "Chế độ Danh sách / Lưới",
   
   "lang_wifi": "Wi-Fi",
