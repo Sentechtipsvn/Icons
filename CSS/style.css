@@ -8,10 +8,12 @@
     --font-size: 14px;
     --frame-size: 60px;
     --svg-size: 28px;
-    --svg-opacity: 1; /* Thêm biến quản lý độ đậm nhạt SVG */
+    --svg-opacity: 1; 
+    --frame-border-radius: 22%; /* Biến mới lưu giá trị bo góc */
     
     /* Màu Grid (4 cột) */
     --frame-bg: none;
+    --frame-bg-color: #000000; /* Biến mới lưu màu nền mặc định khi không dùng Theme ảnh */
     --svg-color: #ffffff;
     --btn-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     
@@ -65,16 +67,16 @@ body {
     width: var(--frame-size);
     height: var(--frame-size);
     background-image: var(--frame-bg);
-    background-color: transparent; /* Đảm bảo nền màu trong suốt để chỉ hiện ảnh */
+    background-color: var(--frame-bg-color); /* Cập nhật biến nền mặc định */
     background-size: cover;
     background-position: center;
-    border-radius: 22%;
+    border-radius: var(--frame-border-radius); /* Cập nhật biến bo góc */
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: var(--btn-shadow);
     position: relative;
-    transition: transform 0.1s ease, box-shadow 0.2s ease;
+    transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-radius 0.2s ease;
 }
 
 .icon-box svg {
@@ -84,7 +86,7 @@ body {
     height: var(--svg-size);
     fill: var(--svg-color);
     color: var(--svg-color);
-    opacity: var(--svg-opacity); /* Áp dụng độ đậm nhạt */
+    opacity: var(--svg-opacity);
 }
 
 .glass-btn:active .icon-box { transform: scale(0.92); }
@@ -182,7 +184,7 @@ body {
 
 .slider-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .slider-item input { flex: 1; }
-.slider-label { width: 65px; font-size: 13px; opacity: 0.8; } /* Tăng width nhẹ cho text mới */
+.slider-label { width: 65px; font-size: 13px; opacity: 0.8; } 
 
 input[type=range] {
     -webkit-appearance: none; width: 100%; background: transparent;
@@ -193,10 +195,12 @@ input[type=range]::-webkit-slider-runnable-track {
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none; height: 28px; width: 28px;
     background: url('../Theme/icon-dot.png') no-repeat center;
-    background-color: var(--accent-color); /* Fallback màu khi lỗi ảnh */
+    background-color: var(--accent-color); 
     border-radius: 50%;
     background-size: contain; margin-top: -11px; cursor: pointer;
 }
+/* Tuỳ chỉnh chiều cao cho input color nếu nằm chung row slider */
+.slider-item input[type="color"] { height: 28px; padding: 0; border: none; background: none; border-radius: 5px; cursor: pointer; }
 
 .toggle-switch { position: relative; display: inline-block; width: 50px; height: 30px; }
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
@@ -224,4 +228,4 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
 .shadow-item { border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
 .shadow-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(0,0,0,0.2); }
 .shadow-drawer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 15px; background: rgba(0,0,0,0.1); }
-.shadow-drawer.active { max-height: 500px; padding: 15px; } /* Mở rộng chiều cao để chứa toàn bộ slider */
+.shadow-drawer.active { max-height: 500px; padding: 15px; }
