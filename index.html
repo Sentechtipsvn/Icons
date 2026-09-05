@@ -7,7 +7,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
-    <!-- Cập nhật thẻ Title theo yêu cầu -->
     <title>Webclip Control - Sentechtipvn</title>
     <link rel="stylesheet" href="CSS/style.css">
 </head>
@@ -76,14 +75,23 @@
                     <span class="slider-label">Khung</span>
                     <input type="range" id="val-frame-size" min="40" max="100" value="60">
                 </div>
+                <!-- Bổ sung thanh chỉnh Bo góc -->
+                <div class="slider-item">
+                    <span class="slider-label" data-i18n="lbl_frame_radius">Bo góc</span>
+                    <input type="range" id="val-frame-radius" min="0" max="50" value="22">
+                </div>
                 <div class="slider-item">
                     <span class="slider-label">SVG</span>
                     <input type="range" id="val-svg-size" min="16" max="60" value="28">
                 </div>
-                <!-- Bổ sung thanh chỉnh độ đậm nhạt SVG -->
                 <div class="slider-item">
                     <span class="slider-label" data-i18n="lbl_svg_opacity">Độ đậm</span>
                     <input type="range" id="val-svg-opacity" min="0" max="100" value="100">
+                </div>
+                <!-- Bổ sung Màu nền khung mặc định -->
+                <div class="slider-item">
+                    <span class="slider-label" data-i18n="lbl_frame_color">Nền khung</span>
+                    <input type="color" id="val-frame-color" value="#000000">
                 </div>
             </div>
             
