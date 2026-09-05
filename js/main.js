@@ -1,5 +1,4 @@
-// js/main.js
-const SUPPORTED_LANGS = ['ar', 'bn-BD', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'es-MX', 'fa-IR', 'fi-FI', 'fil-PH', 'fr-CA', 'fr-FR', 'hi-IN', 'hu-HU', 'id-ID', 'it-IT', 'ja', 'ko-KR', 'ms-MY', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru', 'sv-SE', 'sw-KE', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW'];
+const SUPPORTED_LANGS = ['ar', 'en-GB', 'en-US', 'vi-VN', 'zh-CN', 'zh-TW'];
 
 async function loadLanguageData(langCode) {
     try {
@@ -7,10 +6,11 @@ async function loadLanguageData(langCode) {
         if (!response.ok) throw new Error("Tệp không tồn tại");
         return await response.json();
     } catch (error) {
-        console.warn(`Lỗi tải ${langCode}.json, đang fallback về en-GB`);
         if (langCode !== 'en-GB') {
-            const fallbackResponse = await fetch(`Language/en-GB.json`);
-            return await fallbackResponse.json();
+            try {
+                const fallbackRes = await fetch(`Language/en-GB.json`);
+                return await fallbackRes.json();
+            } catch(e) {}
         }
         return {};
     }
@@ -21,10 +21,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!SUPPORTED_LANGS.includes(userLang)) userLang = 'en-GB';
     const translations = await loadLanguageData(userLang);
 
-    // Fallback chuẩn theo ngữ cảnh, đảm bảo không dính thương hiệu
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
-        element.innerText = translations[key] || element.innerText || 'Nhãn văn bản';
+        if(translations[key]) element.innerText = translations[key];
     });
 
     try {
@@ -43,8 +42,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 btn.className = 'glass-btn';
                 btn.href = item.action;
                 
-                // Fallback mô tả chức năng
-                const localizedTitle = translations[item.title_key] || item.title_key || 'Phím tắt';
+                // Fix lỗi hiển thị: Ưu tiên translations -> item.title -> fallback "Phím tắt"
+                const localizedTitle = translations[item.title_key] || item.title || item.title_key || 'Phím tắt';
 
                 btn.innerHTML = `
                     <div class="icon-box">${item.svg}</div>
@@ -54,6 +53,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
     } catch (e) {
-        console.error("Lỗi tải dữ liệu JSON cấu hình:", e);
+        console.error("Lỗi tải dữ liệu JSON:", e);
     }
 });
