@@ -28,10 +28,7 @@
   "slider_blur": "Độ mờ (Blur)",
   "slider_spread": "Lan rộng (Spread)",
   "slider_color": "Màu Bóng",
-  "btn_list": "Danh sách",
-  "btn_grid": "Lưới",
-  "btn_export": "Xuất cấu hình",
-  "btn_import": "Nhập cấu hình",
+  "lbl_layout_mode": "Chế độ Danh sách / Lưới",
   
   "lang_wifi": "Wi-Fi",
   "lang_bluetooth": "Bluetooth",
