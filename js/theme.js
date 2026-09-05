@@ -1,4 +1,4 @@
-// theme.js
+// js/theme.js
 const SHADOW_MODES = [
     { id: 'inset', nameKey: 'shadow_inset', template: 'inset {x}px {y}px {b}px {s}px {c}' },
     { id: 'outer', nameKey: 'shadow_outer', template: '{x}px {y}px {b}px {s}px {c}' },
@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const root = document.documentElement;
     const shadowContainer = document.getElementById('shadow-controls');
     
-    // Khởi tạo giao diện Đổ bóng
     SHADOW_MODES.forEach(mode => {
         const div = document.createElement('div');
         div.className = 'shadow-item';
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
         shadowContainer.appendChild(div);
     });
 
-    // Lắng nghe sự kiện Checkbox bóng
     document.querySelectorAll('.shadow-switch').forEach(switchBtn => {
         switchBtn.addEventListener('change', (e) => {
             const drawer = document.getElementById(`drawer-${e.target.value}`);
@@ -53,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Xử lý custom SVG Base64
     document.getElementById('apply-custom-svg').addEventListener('click', () => {
         const svgCode = document.getElementById('custom-svg-code').value;
         if (svgCode) {
@@ -63,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Xây dựng chuỗi CSS tổng hợp đổ bóng đa lớp
     function updateShadow() {
         const activeShadows = document.querySelectorAll('input[name="active_shadow"]:checked');
         let combinedShadow = '';
@@ -85,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--btn-shadow', combinedShadow || 'none');
     }
 
-    // Logic lưu Local Storage với tiền tố sttv_
     function saveSettingsToLocal() {
         localStorage.setItem('sttv_bgMain', document.getElementById('val-bg-main').value);
         localStorage.setItem('sttv_textColor', document.getElementById('val-text-color').value);
@@ -101,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_frameRadius', document.getElementById('val-frame-radius').value);
         localStorage.setItem('sttv_frameColor', document.getElementById('val-frame-color').value);
 
-        // Lưu object cho đổ bóng
         const shadowState = {};
         SHADOW_MODES.forEach(mode => {
             const drawer = document.getElementById(`drawer-${mode.id}`);
@@ -118,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_shadowConfig', JSON.stringify(shadowState));
     }
 
-    // Cập nhật DOM Live
     function updateLiveVariables() {
         root.style.setProperty('--bg-main', document.getElementById('val-bg-main').value);
         root.style.setProperty('--text-color', document.getElementById('val-text-color').value);
@@ -128,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--svg-opacity', document.getElementById('val-svg-opacity').value / 100);
         root.style.setProperty('--frame-border-radius', document.getElementById('val-frame-radius').value + '%');
         
-        // Mode List/Grid
         const isListMode = document.getElementById('layout-toggle').checked;
         const mainContainer = document.getElementById('main-container');
         if (isListMode) {
@@ -143,14 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
         root.style.setProperty('--list-svg-color', document.getElementById('val-list-svg').value);
 
-        // Logic xử lý Theme nền / Không nền / Custom SVG
-        const frameSelect = document.getElementById('val-theme-frame');
-        const frameColor = document.getElementById('val-frame-color');
+        // Xử lý background frame triệt để
+        const frameSelect = document.getElementById('val-theme-frame').value;
+        const frameColor = document.getElementById('val-frame-color').value;
         const customContainer = document.getElementById('custom-svg-container');
 
-        if (frameSelect.value === 'custom') {
+        if (frameSelect === 'custom') {
             customContainer.style.display = 'block';
-            root.style.setProperty('--frame-bg-color', 'transparent');
+            root.style.setProperty('--frame-bg-color', 'transparent'); // Ẩn nền màu default
             const savedCustom = localStorage.getItem('sttv_customSvg') || document.getElementById('custom-svg-code').value;
             if (savedCustom) {
                 const dataUri = `data:image/svg+xml;base64,${btoa(savedCustom)}`;
@@ -158,12 +150,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } else {
             customContainer.style.display = 'none';
-            if (frameSelect.value === 'none') {
+            if (frameSelect === 'none') {
                 root.style.setProperty('--frame-bg', 'none');
-                root.style.setProperty('--frame-bg-color', frameColor.value); // Hiển thị nền mặc định có bo góc
+                root.style.setProperty('--frame-bg-color', frameColor); // Hiển thị nền màu tuỳ chỉnh khi không có ảnh
             } else {
-                root.style.setProperty('--frame-bg', frameSelect.value);
-                root.style.setProperty('--frame-bg-color', 'transparent'); // Thay thế hoàn toàn bằng ảnh, xoá màu nền default
+                root.style.setProperty('--frame-bg', `url('${frameSelect}')`);
+                root.style.setProperty('--frame-bg-color', 'transparent'); // Bắt buộc ẩn nền màu để hiển thị chuẩn ảnh Theme
             }
         }
 
@@ -171,7 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
         saveSettingsToLocal();
     }
 
-    // Logic Tải trạng thái từ Local Storage khi Reload App
     function loadSettingsFromLocal() {
         const safeSet = (id, key, fallback, isCheck = false) => {
             const el = document.getElementById(id);
@@ -220,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             } catch (e) { console.warn("Lỗi đọc cấu hình đổ bóng", e); }
         } else {
-            // Giá trị đổ bóng mặc định nếu chưa có Local
             const defaultShadow = document.querySelector('input[name="active_shadow"][value="outer"]');
             if(defaultShadow) {
                 defaultShadow.checked = true;
@@ -229,11 +219,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Gắn Event cho toàn bộ input thay đổi
     drawerEl.addEventListener('input', updateLiveVariables);
     document.getElementById('val-theme-frame').addEventListener('change', updateLiveVariables);
 
-    // Kích hoạt khởi tạo dữ liệu
     loadSettingsFromLocal();
     updateLiveVariables();
 });
