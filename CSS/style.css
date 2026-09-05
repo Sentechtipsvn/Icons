@@ -1,23 +1,20 @@
+/* CSS/style.css */
 :root {
-    /* Màu chung */
     --bg-main: #121b22;
     --text-color: #ffffff;
     --accent-color: #007aff;
     
-    /* Kích thước & Hiển thị SVG */
     --font-size: 14px;
     --frame-size: 60px;
     --svg-size: 28px;
     --svg-opacity: 1; 
-    --frame-border-radius: 22%; /* Biến mới lưu giá trị bo góc */
+    --frame-border-radius: 22%; 
     
-    /* Màu Grid (4 cột) */
     --frame-bg: none;
-    --frame-bg-color: #000000; /* Biến mới lưu màu nền mặc định khi không dùng Theme ảnh */
+    --frame-bg-color: #000000; 
     --svg-color: #ffffff;
     --btn-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     
-    /* Màu List (2 cột) */
     --list-bg-color: rgba(255, 255, 255, 0.1);
     --list-text-color: #ffffff;
     --list-svg-color: #ffffff;
@@ -67,10 +64,11 @@ body {
     width: var(--frame-size);
     height: var(--frame-size);
     background-image: var(--frame-bg);
-    background-color: var(--frame-bg-color); /* Cập nhật biến nền mặc định */
+    background-color: var(--frame-bg-color);
     background-size: cover;
     background-position: center;
-    border-radius: var(--frame-border-radius); /* Cập nhật biến bo góc */
+    background-repeat: no-repeat;
+    border-radius: var(--frame-border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -199,7 +197,6 @@ input[type=range]::-webkit-slider-thumb {
     border-radius: 50%;
     background-size: contain; margin-top: -11px; cursor: pointer;
 }
-/* Tuỳ chỉnh chiều cao cho input color nếu nằm chung row slider */
 .slider-item input[type="color"] { height: 28px; padding: 0; border: none; background: none; border-radius: 5px; cursor: pointer; }
 
 .toggle-switch { position: relative; display: inline-block; width: 50px; height: 30px; }
