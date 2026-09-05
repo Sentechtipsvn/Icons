@@ -38,38 +38,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Animation Settings Popup mượt mà
     const overlay = document.getElementById('settings-overlay');
     const drawerEl = document.getElementById('settings-drawer');
 
-    const openSettings = () => {
-        drawerEl.classList.add('open');
-        overlay.classList.add('open');
-    };
-    
-    const closeSettings = () => {
-        drawerEl.classList.remove('open');
-        overlay.classList.remove('open');
-    };
+    const openSettings = () => { drawerEl.classList.add('open'); overlay.classList.add('open'); };
+    const closeSettings = () => { drawerEl.classList.remove('open'); overlay.classList.remove('open'); };
 
     document.getElementById('open-settings').onclick = openSettings;
     document.getElementById('close-settings').onclick = closeSettings;
-    overlay.onclick = closeSettings; // Bấm ra ngoài nền đen để đóng
-
-    // Đã xóa bỏ sự kiện "adjusting" gây giật màn hình ở đây
+    overlay.onclick = closeSettings;
 
     document.getElementById('apply-custom-svg').addEventListener('click', () => {
         const svgCode = document.getElementById('custom-svg-code').value;
-        if (svgCode) {
-            localStorage.setItem('sttv_customSvg', svgCode);
-            updateLiveVariables();
-        }
+        if (svgCode) { localStorage.setItem('sttv_customSvg', svgCode); updateLiveVariables(); }
     });
 
     function updateShadow() {
         const activeShadows = document.querySelectorAll('input[name="active_shadow"]:checked');
         let combinedShadow = '';
-        
         activeShadows.forEach(checkbox => {
             const drawer = document.getElementById(`drawer-${checkbox.value}`);
             const mode = SHADOW_MODES.find(m => m.id === checkbox.value);
@@ -79,11 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 .replace('{b}', drawer.querySelector('.s-b').value)
                 .replace('{s}', drawer.querySelector('.s-s').value)
                 .replace('{c}', drawer.querySelector('.s-c').value);
-            
             if (combinedShadow) combinedShadow += ', ';
             combinedShadow += shadowStr;
         });
-
         root.style.setProperty('--btn-shadow', combinedShadow || 'none');
     }
 
@@ -107,12 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const drawer = document.getElementById(`drawer-${mode.id}`);
             const checkbox = document.querySelector(`input[name="active_shadow"][value="${mode.id}"]`);
             shadowState[mode.id] = {
-                active: checkbox.checked,
-                x: drawer.querySelector('.s-x').value,
-                y: drawer.querySelector('.s-y').value,
-                b: drawer.querySelector('.s-b').value,
-                s: drawer.querySelector('.s-s').value,
-                c: drawer.querySelector('.s-c').value
+                active: checkbox.checked, x: drawer.querySelector('.s-x').value,
+                y: drawer.querySelector('.s-y').value, b: drawer.querySelector('.s-b').value,
+                s: drawer.querySelector('.s-s').value, c: drawer.querySelector('.s-c').value
             };
         });
         localStorage.setItem('sttv_shadowConfig', JSON.stringify(shadowState));
@@ -129,19 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const isListMode = document.getElementById('layout-toggle').checked;
         const mainContainer = document.getElementById('main-container');
-        if (isListMode) {
-            mainContainer.classList.add('list-mode');
-            mainContainer.classList.remove('grid-mode');
-        } else {
-            mainContainer.classList.remove('list-mode');
-            mainContainer.classList.add('grid-mode');
-        }
+        if (isListMode) { mainContainer.classList.add('list-mode'); mainContainer.classList.remove('grid-mode'); } 
+        else { mainContainer.classList.remove('list-mode'); mainContainer.classList.add('grid-mode'); }
 
         root.style.setProperty('--list-bg-color', document.getElementById('val-list-bg').value);
         root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
         root.style.setProperty('--list-svg-color', document.getElementById('val-list-svg').value);
 
-        // Fix chuẩn xác nền Theme SVG loại bỏ viền cũ
         const frameSelect = document.getElementById('val-theme-frame').value;
         const frameColor = document.getElementById('val-frame-color').value;
         const customContainer = document.getElementById('custom-svg-container');
@@ -150,21 +125,17 @@ document.addEventListener("DOMContentLoaded", () => {
             customContainer.style.display = 'block';
             root.style.setProperty('--frame-bg-color', 'transparent'); 
             const savedCustom = localStorage.getItem('sttv_customSvg') || document.getElementById('custom-svg-code').value;
-            if (savedCustom) {
-                const dataUri = `data:image/svg+xml;base64,${btoa(savedCustom)}`;
-                root.style.setProperty('--frame-bg', `url('${dataUri}')`);
-            }
+            if (savedCustom) { root.style.setProperty('--frame-bg', `url('data:image/svg+xml;base64,${btoa(savedCustom)}')`); }
         } else {
             customContainer.style.display = 'none';
             if (frameSelect === 'none') {
                 root.style.setProperty('--frame-bg', 'none');
                 root.style.setProperty('--frame-bg-color', frameColor);
             } else {
-                root.style.setProperty('--frame-bg', `url('${frameSelect}')`);
+                root.style.setProperty('--frame-bg', `url('../${frameSelect}')`); /* Path fix */
                 root.style.setProperty('--frame-bg-color', 'transparent'); 
             }
         }
-
         updateShadow();
         saveSettingsToLocal();
     }
@@ -178,18 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
             else el.value = val !== null ? val : fallback;
         };
 
-        safeSet('val-bg-main', 'bgMain', '#121b22');
-        safeSet('val-text-color', 'textColor', '#ffffff');
+        safeSet('val-bg-main', 'bgMain', '#121b22'); safeSet('val-text-color', 'textColor', '#ffffff');
         safeSet('layout-toggle', 'layoutMode', false, true);
-        safeSet('val-list-bg', 'listBg', 'rgba(255, 255, 255, 0.1)');
-        safeSet('val-list-text', 'listText', '#ffffff');
+        safeSet('val-list-bg', 'listBg', '#1a1a1a'); safeSet('val-list-text', 'listText', '#ffffff');
         safeSet('val-list-svg', 'listSvg', '#ffffff');
-        safeSet('val-theme-frame', 'themeFrame', 'none');
-        safeSet('val-frame-size', 'frameSize', '60');
-        safeSet('val-svg-size', 'svgSize', '28');
-        safeSet('val-svg-opacity', 'svgOpacity', '100');
-        safeSet('val-svg-color', 'svgColor', '#ffffff');
-        safeSet('val-frame-radius', 'frameRadius', '22');
+        safeSet('val-theme-frame', 'themeFrame', 'none'); safeSet('val-frame-size', 'frameSize', '60');
+        safeSet('val-svg-size', 'svgSize', '28'); safeSet('val-svg-opacity', 'svgOpacity', '100');
+        safeSet('val-svg-color', 'svgColor', '#ffffff'); safeSet('val-frame-radius', 'frameRadius', '22');
         safeSet('val-frame-color', 'frameColor', '#000000');
 
         const savedSvg = localStorage.getItem('sttv_customSvg');
@@ -203,11 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (shadowState[mode.id]) {
                         const drawer = document.getElementById(`drawer-${mode.id}`);
                         const checkbox = document.querySelector(`input[name="active_shadow"][value="${mode.id}"]`);
-                        
                         checkbox.checked = shadowState[mode.id].active;
-                        if (checkbox.checked) drawer.classList.add('active');
-                        else drawer.classList.remove('active');
-
+                        if (checkbox.checked) drawer.classList.add('active'); else drawer.classList.remove('active');
                         drawer.querySelector('.s-x').value = shadowState[mode.id].x || 0;
                         drawer.querySelector('.s-y').value = shadowState[mode.id].y || 4;
                         drawer.querySelector('.s-b').value = shadowState[mode.id].b || 10;
@@ -218,16 +181,12 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (e) {}
         } else {
             const defaultShadow = document.querySelector('input[name="active_shadow"][value="outer"]');
-            if(defaultShadow) {
-                defaultShadow.checked = true;
-                document.getElementById('drawer-outer').classList.add('active');
-            }
+            if(defaultShadow) { defaultShadow.checked = true; document.getElementById('drawer-outer').classList.add('active'); }
         }
     }
 
     drawerEl.addEventListener('input', updateLiveVariables);
     document.getElementById('val-theme-frame').addEventListener('change', updateLiveVariables);
     
-    loadSettingsFromLocal();
-    updateLiveVariables();
+    loadSettingsFromLocal(); updateLiveVariables();
 });
