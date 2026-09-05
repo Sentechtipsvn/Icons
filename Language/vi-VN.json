@@ -1,11 +1,9 @@
 {
   "app_title": "Trung tâm điều khiển",
   "settings_title": "Cài đặt Giao diện",
-  
   "lbl_bg_main": "Màu Nền Chính",
   "lbl_text_color": "Màu Chữ Hệ Thống",
   "lbl_theme_frame": "Khung Icon (Theme SVG)",
-  
   "opt_frame_none": "Không khung",
   "opt_frame_black": "Đen bóng",
   "opt_frame_red": "Đỏ ruby",
@@ -14,26 +12,22 @@
   "opt_frame_purple": "Tím dạ",
   "opt_frame_moss": "Xanh rêu",
   "opt_frame_custom": "SVG Tùy chỉnh",
-  
   "lbl_frame_svg_size": "Kích thước: Khung Icon & SVG",
   "lbl_svg_opacity": "Độ đậm SVG",
   "lbl_frame_radius": "Bo góc",
   "lbl_frame_color": "Nền khung",
   "lbl_svg_color": "Màu SVG (Khi dùng currentColor)",
-  
   "lbl_shadow_section": "Chế độ Đổ Bóng",
   "shadow_inset": "Bóng Chìm (Inset)",
   "shadow_outer": "Bóng Ngoài (Drop)",
   "shadow_soft": "Mờ Diện Rộng",
   "shadow_hard": "Nổi Khối 3D",
   "shadow_glow": "Phát Sáng (Glow)",
-  
   "slider_x": "Trục X",
   "slider_y": "Trục Y",
   "slider_blur": "Độ mờ (Blur)",
   "slider_spread": "Lan rộng (Spread)",
   "slider_color": "Màu Bóng",
-  
   "lbl_layout_mode": "Chế độ Danh sách / Lưới",
   
   "lang_wifi": "Wi-Fi",
