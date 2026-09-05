@@ -7,7 +7,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
-    <title>Webclip Control</title>
+    <!-- Cập nhật thẻ Title theo yêu cầu -->
+    <title>Webclip Control - Sentechtipvn</title>
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
@@ -34,7 +35,6 @@
                 <input type="color" id="val-text-color" value="#ffffff">
             </div>
 
-            <!-- Toggle Grid/List (Luôn hiển thị) -->
             <div class="setting-group">
                 <label data-i18n="lbl_layout_mode"></label>
                 <div class="toggle-switch">
@@ -43,7 +43,6 @@
                 </div>
             </div>
 
-            <!-- Màu riêng cho List -->
             <div class="setting-group">
                 <label>Màu nền List</label>
                 <input type="color" id="val-list-bg" value="#ffffff">
@@ -65,7 +64,6 @@
                     <option value="url('Theme/Moss-green.png')" data-i18n="opt_frame_moss"></option>
                     <option value="custom" data-i18n="opt_frame_custom"></option>
                 </select>
-                <!-- Khu vực dán SVG (Áp dụng làm nền sau icon) -->
                 <div id="custom-svg-container">
                     <textarea id="custom-svg-code" placeholder="Paste your SVG code here..."></textarea>
                     <button type="button" id="apply-custom-svg">Apply SVG</button>
@@ -81,6 +79,11 @@
                 <div class="slider-item">
                     <span class="slider-label">SVG</span>
                     <input type="range" id="val-svg-size" min="16" max="60" value="28">
+                </div>
+                <!-- Bổ sung thanh chỉnh độ đậm nhạt SVG -->
+                <div class="slider-item">
+                    <span class="slider-label" data-i18n="lbl_svg_opacity">Độ đậm</span>
+                    <input type="range" id="val-svg-opacity" min="0" max="100" value="100">
                 </div>
             </div>
             
