@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
     <title>Trung tâm điều khiển - Sentechtipvn</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/style.css?v=3.0">
 </head>
 <body>
     <div class="app-container grid-mode" id="main-container">
@@ -26,10 +26,39 @@
         </div>
         
         <div class="settings-body">
-            <!-- Nhập / Xuất Cấu hình -->
+            <!-- Tính năng Pro: Xuất Nhập & Sắp Xếp -->
             <div class="config-actions">
-                <button id="btn-export" class="action-btn">📤 <span data-i18n="btn_export">Xuất cấu hình</span></button>
-                <button id="btn-import" class="action-btn">📥 <span data-i18n="btn_import">Nhập cấu hình</span></button>
+                <button id="btn-export" class="action-btn">📤 <span data-i18n="btn_export">Xuất</span></button>
+                <button id="btn-import" class="action-btn">📥 <span data-i18n="btn_import">Nhập</span></button>
+                <button id="btn-edit-layout" class="action-btn">🔄 <span data-i18n="btn_edit_layout">Sắp xếp</span></button>
+            </div>
+
+            <!-- Tính năng Pro: Preset & Trải nghiệm -->
+            <div class="setting-group highlight-box">
+                <label data-i18n="lbl_theme_presets">Kho Giao diện (Presets)</label>
+                <select id="val-theme-preset">
+                    <option value="none" data-i18n="opt_preset_none">Tự do tùy chỉnh</option>
+                    <option value="WyIjMzMzMzMzIiwiI2ZmZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZmZmZiIsIiNmZmZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIyIiwiI2NjMDAwMCIsIiNmZmZmMDAiLFsiZ2xvdyIsIjAiLCIwIiwiMTUiLCIwIiwiI2ZmZmYwMCJdXQ" data-i18n="opt_preset_vn">🇻🇳 Cờ Việt Nam</option>
+                    <option value="WyIjMGYwZjEzIiwiIzAwZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiIzAwZmZmZiIsIiMwMGZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIwIiwiIzFhMWExYSIsIiMwMGZmZmYiLFsiZ2xvdyIsIjAiLCIwIiwiMjAiLCIyIiwiIzAwZmZmZiJdXQ" data-i18n="opt_preset_neon">🤖 Neon Cyberpunk</option>
+                    <option value="WyIjMDAwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZmZmZiIsIiNmZmZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIyIiwiIzFjMWMxZSIsIiNmZmZmZmYiLFsib3V0ZXIiLCIwIiwiMCIsIjAiLCIwIiwiIzAwMDAwMCJdXQ" data-i18n="opt_preset_dark">🖤 Dark Minimal</option>
+                    <option value="WyIjMTExMTExIiwiI2ZmZDcwMCIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZDcwMCIsIiNmZmQ3MDAiLCJub25lIiwiNjAiLCIzMCIsIjEwMCIsIjUwIiwiIzIyMjIyMiIsIiNmZmQ3MDAiLFsib3V0ZXIiLCIwIiwiNCIsIjEwIiwiMCIsIiMwMDAwMDAiXV0" data-i18n="opt_preset_gold">👑 Gold Sang Trọng</option>
+                </select>
+                
+                <div class="feature-toggles">
+                    <label><span data-i18n="lbl_audio_feedback">Âm thanh Haptic</span><input type="checkbox" id="toggle-audio"></label>
+                    <label><span data-i18n="lbl_parallax">Gia tốc kế 3D (Parallax)</span><input type="checkbox" id="toggle-parallax"></label>
+                </div>
+            </div>
+
+            <!-- Tính năng Pro: Ảnh nền Glassmorphism -->
+            <div class="setting-group">
+                <label data-i18n="lbl_bg_image">Hình nền tự chọn</label>
+                <input type="file" id="upload-bg" accept="image/*" style="font-size: 12px;">
+                <button type="button" id="clear-bg" style="margin-top:5px; padding:5px; background:rgba(255,255,255,0.1); border:none; color:white; border-radius:5px;">Xóa ảnh nền</button>
+            </div>
+            
+            <div class="setting-group">
+                <label><input type="checkbox" id="toggle-glass"> <span data-i18n="lbl_glassmorphism">Bật Kính mờ (Glassmorphism)</span></label>
             </div>
 
             <div class="setting-group">
@@ -41,7 +70,6 @@
                 <input type="color" id="val-text-color" value="#ffffff">
             </div>
 
-            <!-- Nút bấm Lưới / Danh sách -->
             <div class="setting-group">
                 <label data-i18n="lbl_layout_mode">Chế độ Danh sách / Lưới</label>
                 <div class="layout-buttons">
@@ -72,8 +100,8 @@
                     <option value="custom" data-i18n="opt_frame_custom">SVG Tùy chỉnh</option>
                 </select>
                 <div id="custom-svg-container" style="display: none;">
-                    <textarea id="custom-svg-code" placeholder="Dán mã SVG của bạn vào đây..."></textarea>
-                    <button type="button" id="apply-custom-svg">Áp dụng SVG</button>
+                    <textarea id="custom-svg-code" placeholder="Dán mã SVG..." style="width: 100%; height: 80px; margin-top: 10px; border-radius: 8px; padding: 10px; background: rgba(0,0,0,0.3); color: white;"></textarea>
+                    <button type="button" id="apply-custom-svg" style="margin-top: 10px; padding: 8px 15px; border-radius: 8px; background: #007aff; color: white; border: none;">Áp dụng SVG</button>
                 </div>
             </div>
             
@@ -110,16 +138,15 @@
             <div id="shadow-controls"></div>
         </div>
 
-        <!-- Info Button & Popup -->
         <button id="btn-info" class="info-btn">ℹ️</button>
         <div id="info-modal" class="info-modal">
-            <h3>Control Center</h3>
-            <p>Phát triển bởi <a href="https://browse.shortcuty.app/user/Sentechtipsvn" target="_blank">Sentechtipsvn</a></p>
-            <p class="info-desc">Webclip điều khiển đa năng, tích hợp giao diện kính mờ và hệ thống Live Knobs tuỳ biến sống động chuyên nghiệp dành riêng cho iOS.</p>
+            <h3 data-i18n="info_title">Control Center</h3>
+            <p><span data-i18n="info_dev_prefix">Phát triển bởi</span> <a href="https://browse.shortcuty.app/user/Sentechtipsvn" target="_blank">Sentechtipsvn</a></p>
+            <p class="info-desc" data-i18n="info_desc">Webclip điều khiển đa năng, tích hợp giao diện kính mờ và hệ thống Live Knobs tuỳ biến sống động chuyên nghiệp dành riêng cho iOS.</p>
         </div>
     </div>
     
-    <script src="js/theme.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/theme.js?v=3.0"></script>
+    <script src="js/main.js?v=3.0"></script>
 </body>
 </html>
