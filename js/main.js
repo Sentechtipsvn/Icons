@@ -1,3 +1,4 @@
+// main.js
 const SUPPORTED_LANGS = ['ar', 'bn-BD', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'es-MX', 'fa-IR', 'fi-FI', 'fil-PH', 'fr-CA', 'fr-FR', 'hi-IN', 'hu-HU', 'id-ID', 'it-IT', 'ja', 'ko-KR', 'ms-MY', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru', 'sv-SE', 'sw-KE', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW'];
 
 async function loadLanguageData(langCode) {
@@ -20,9 +21,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!SUPPORTED_LANGS.includes(userLang)) userLang = 'en-GB';
     const translations = await loadLanguageData(userLang);
 
+    // Cập nhật thẻ HTML với Fallback ngữ cảnh an toàn, không chứa tên thương hiệu
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
-        if (translations[key]) element.innerText = translations[key];
+        element.innerText = translations[key] || element.innerText || 'Tiêu đề';
     });
 
     try {
@@ -40,7 +42,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const btn = document.createElement('a');
                 btn.className = 'glass-btn';
                 btn.href = item.action;
-                const localizedTitle = translations[item.title_key] || item.title_key;
+                
+                // Fallback ngữ cảnh an toàn
+                const localizedTitle = translations[item.title_key] || item.title_key || 'Chức năng';
 
                 btn.innerHTML = `
                     <div class="icon-box">${item.svg}</div>
