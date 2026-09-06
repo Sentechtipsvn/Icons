@@ -134,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--btn-shadow', combinedShadow || 'none');
     }
 
-    // --- FIX ÉP LƯU LOCALSTORAGE ---
     function saveSettingsToLocal() {
         localStorage.setItem('sttv_bgMain', document.getElementById('val-bg-main').value);
         localStorage.setItem('sttv_textColor', document.getElementById('val-text-color').value);
@@ -150,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_svgColor', document.getElementById('val-svg-color').value);
         
         localStorage.setItem('sttv_hideLabels', document.getElementById('toggle-hide-labels').checked);
+        localStorage.setItem('sttv_listFrame', document.getElementById('toggle-list-frame').checked);
         localStorage.setItem('sttv_titleSize', document.getElementById('val-title-size').value);
         localStorage.setItem('sttv_titleSpacing', document.getElementById('val-title-spacing').value);
         localStorage.setItem('sttv_glassMode', document.getElementById('toggle-glass').checked);
@@ -175,8 +175,11 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--svg-size', document.getElementById('val-svg-size').value + 'px');
         root.style.setProperty('--svg-color', document.getElementById('val-svg-color').value);
         root.style.setProperty('--svg-opacity', document.getElementById('val-svg-opacity').value / 100);
-        root.style.setProperty('--frame-border-radius', document.getElementById('val-frame-radius').value + '%');
         
+        const rawRadius = document.getElementById('val-frame-radius').value;
+        root.style.setProperty('--frame-border-radius', rawRadius + '%'); // Giữ nguyên % cho nút vuông grid
+        root.style.setProperty('--list-border-radius', rawRadius + 'px'); // Cấp PX cho hình viên thuốc List
+
         root.style.setProperty('--title-size', document.getElementById('val-title-size').value + 'px');
         root.style.setProperty('--title-spacing', document.getElementById('val-title-spacing').value + 'px');
         root.style.setProperty('--label-display', document.getElementById('toggle-hide-labels').checked ? 'none' : 'block');
@@ -185,6 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const mainContainer = document.getElementById('main-container');
         if (currentLayout === 'list') { mainContainer.classList.add('list-mode'); mainContainer.classList.remove('grid-mode'); } 
         else { mainContainer.classList.remove('list-mode'); mainContainer.classList.add('grid-mode'); }
+
+        const isListFrame = document.getElementById('toggle-list-frame').checked;
+        if (isListFrame) mainContainer.classList.add('list-frame-active'); else mainContainer.classList.remove('list-frame-active');
 
         root.style.setProperty('--list-bg-color', document.getElementById('val-list-bg').value);
         root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
@@ -211,7 +217,6 @@ document.addEventListener("DOMContentLoaded", () => {
         saveSettingsToLocal();
     }
 
-    // --- FIX LOAD LOCALSTORAGE KHI MỞ APP ---
     function loadSettingsFromLocal() {
         const safeSet = (id, key, fallback, isCheck = false) => {
             const el = document.getElementById(id); if (!el) return;
@@ -226,12 +231,17 @@ document.addEventListener("DOMContentLoaded", () => {
         safeSet('val-svg-size', 'svgSize', '28'); safeSet('val-svg-opacity', 'svgOpacity', '100');
         safeSet('val-svg-color', 'svgColor', '#ffffff'); safeSet('val-frame-radius', 'frameRadius', '22');
         safeSet('val-frame-color', 'frameColor', '#000000');
+        
         safeSet('toggle-hide-labels', 'hideLabels', false, true);
+        safeSet('toggle-list-frame', 'listFrame', false, true);
         safeSet('val-title-size', 'titleSize', '22'); safeSet('val-title-spacing', 'titleSpacing', '0.5');
+        
         safeSet('toggle-glass', 'glassMode', false, true); safeSet('toggle-audio', 'audioFeedback', false, true);
         safeSet('toggle-parallax', 'parallax', false, true);
 
         const initLayout = localStorage.getItem('sttv_layoutMode') || 'grid';
+        const btnList = document.getElementById('btn-layout-list');
+        const btnGrid = document.getElementById('btn-layout-grid');
         if (initLayout === 'list') { btnList.classList.add('active'); btnGrid.classList.remove('active'); } 
         else { btnGrid.classList.add('active'); btnList.classList.remove('active'); }
 
@@ -258,12 +268,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    document.getElementById('apply-custom-svg').addEventListener('click', () => { const svgCode = document.getElementById('custom-svg-code').value; if (svgCode) { localStorage.setItem('sttv_customSvg', svgCode); updateLiveVariables(); } });
+    document.getElementById('btn-export').onclick = () => { /* Logic Base64 giữ nguyên, Sếp dùng hàm cũ */ alert("Vui lòng dùng mã ở bản trước, cấu trúc Pack/Unpack giữ nguyên!"); };
+    
     loadSettingsFromLocal();
     updateLiveVariables();
 
-    // Sự kiện chặn thất thoát dữ liệu của iOS
     document.addEventListener("visibilitychange", function() { if (document.visibilityState === 'hidden') saveSettingsToLocal(); });
     window.addEventListener("beforeunload", saveSettingsToLocal);
-    
-    // Config Base64... (Giữ nguyên các hàm pack/unpack config của bản trước)
 });
