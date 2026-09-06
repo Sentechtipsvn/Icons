@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
     <title>Trung tâm điều khiển - Sentechtipvn</title>
-    <link rel="stylesheet" href="CSS/style.css?v=3.0">
+    <link rel="stylesheet" href="CSS/style.css?v=4.0">
 </head>
 <body>
     <div class="app-container grid-mode" id="main-container">
@@ -26,14 +26,12 @@
         </div>
         
         <div class="settings-body">
-            <!-- Tính năng Pro: Xuất Nhập & Sắp Xếp -->
             <div class="config-actions">
                 <button id="btn-export" class="action-btn">📤 <span data-i18n="btn_export">Xuất</span></button>
                 <button id="btn-import" class="action-btn">📥 <span data-i18n="btn_import">Nhập</span></button>
                 <button id="btn-edit-layout" class="action-btn">🔄 <span data-i18n="btn_edit_layout">Sắp xếp</span></button>
             </div>
 
-            <!-- Tính năng Pro: Preset & Trải nghiệm -->
             <div class="setting-group highlight-box">
                 <label data-i18n="lbl_theme_presets">Kho Giao diện (Presets)</label>
                 <select id="val-theme-preset">
@@ -50,13 +48,25 @@
                 </div>
             </div>
 
-            <!-- Tính năng Pro: Ảnh nền Glassmorphism -->
+            <!-- Các nút mới cho Tiêu đề và Tên Icon -->
+            <div class="setting-group highlight-box">
+                <label data-i18n="lbl_title_adjust">Chỉnh sửa Tiêu đề chính</label>
+                <div class="slider-item">
+                    <span class="slider-label" data-i18n="lbl_title_size">Cỡ chữ</span>
+                    <input type="range" id="val-title-size" min="14" max="40" value="22">
+                </div>
+                <div class="slider-item">
+                    <span class="slider-label" data-i18n="lbl_title_spacing">Khoảng cách</span>
+                    <input type="range" id="val-title-spacing" min="0" max="10" step="0.5" value="0.5">
+                </div>
+                <label style="margin-top: 10px;"><input type="checkbox" id="toggle-hide-labels"> <span data-i18n="lbl_hide_labels">Ẩn tên Icon ngoài màn hình</span></label>
+            </div>
+
             <div class="setting-group">
                 <label data-i18n="lbl_bg_image">Hình nền tự chọn</label>
                 <input type="file" id="upload-bg" accept="image/*" style="font-size: 12px;">
                 <button type="button" id="clear-bg" style="margin-top:5px; padding:5px; background:rgba(255,255,255,0.1); border:none; color:white; border-radius:5px;">Xóa ảnh nền</button>
             </div>
-            
             <div class="setting-group">
                 <label><input type="checkbox" id="toggle-glass"> <span data-i18n="lbl_glassmorphism">Bật Kính mờ (Glassmorphism)</span></label>
             </div>
@@ -79,12 +89,9 @@
             </div>
 
             <div class="setting-group">
-                <label>Màu nền List</label>
-                <input type="color" id="val-list-bg" value="#1a1a1a">
-                <label>Màu chữ List</label>
-                <input type="color" id="val-list-text" value="#ffffff">
-                <label>Màu SVG List</label>
-                <input type="color" id="val-list-svg" value="#ffffff">
+                <label>Màu nền List</label><input type="color" id="val-list-bg" value="#1a1a1a">
+                <label>Màu chữ List</label><input type="color" id="val-list-text" value="#ffffff">
+                <label>Màu SVG List</label><input type="color" id="val-list-svg" value="#ffffff">
             </div>
             
             <div class="setting-group">
@@ -107,46 +114,38 @@
             
             <div class="setting-group">
                 <label data-i18n="lbl_frame_svg_size">Kích thước: Khung Icon & SVG</label>
-                <div class="slider-item">
-                    <span class="slider-label">Khung</span>
-                    <input type="range" id="val-frame-size" min="40" max="100" value="60">
-                </div>
-                <div class="slider-item">
-                    <span class="slider-label" data-i18n="lbl_frame_radius">Bo góc</span>
-                    <input type="range" id="val-frame-radius" min="0" max="50" value="22">
-                </div>
-                <div class="slider-item">
-                    <span class="slider-label">SVG</span>
-                    <input type="range" id="val-svg-size" min="16" max="60" value="28">
-                </div>
-                <div class="slider-item">
-                    <span class="slider-label" data-i18n="lbl_svg_opacity">Độ đậm</span>
-                    <input type="range" id="val-svg-opacity" min="0" max="100" value="100">
-                </div>
-                <div class="slider-item">
-                    <span class="slider-label" data-i18n="lbl_frame_color">Nền khung</span>
-                    <input type="color" id="val-frame-color" value="#000000">
-                </div>
+                <div class="slider-item"><span class="slider-label">Khung</span><input type="range" id="val-frame-size" min="40" max="100" value="60"></div>
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_frame_radius">Bo góc</span><input type="range" id="val-frame-radius" min="0" max="50" value="22"></div>
+                <div class="slider-item"><span class="slider-label">SVG</span><input type="range" id="val-svg-size" min="16" max="60" value="28"></div>
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_svg_opacity">Độ đậm</span><input type="range" id="val-svg-opacity" min="0" max="100" value="100"></div>
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_frame_color">Nền khung</span><input type="color" id="val-frame-color" value="#000000"></div>
             </div>
             
-            <div class="setting-group">
-                <label data-i18n="lbl_svg_color">Màu SVG</label>
-                <input type="color" id="val-svg-color" value="#ffffff">
-            </div>
+            <div class="setting-group"><label data-i18n="lbl_svg_color">Màu SVG</label><input type="color" id="val-svg-color" value="#ffffff"></div>
 
             <h3 class="section-title" data-i18n="lbl_shadow_section">Chế độ Đổ Bóng</h3>
             <div id="shadow-controls"></div>
         </div>
 
         <button id="btn-info" class="info-btn">ℹ️</button>
-        <div id="info-modal" class="info-modal">
+    </div>
+
+    <!-- Info Modal macOS Style Center -->
+    <div class="info-overlay" id="info-overlay"></div>
+    <div id="info-modal" class="info-modal macos-window">
+        <div class="macos-header">
+            <img src="Theme/icon-close.png" class="macos-btn close-btn" id="close-info" alt="Close">
+            <img src="Theme/icon-zoom.png" class="macos-btn" alt="Zoom">
+            <img src="Theme/icon-full.png" class="macos-btn" alt="Full">
+        </div>
+        <div class="macos-body">
             <h3 data-i18n="info_title">Control Center</h3>
             <p><span data-i18n="info_dev_prefix">Phát triển bởi</span> <a href="https://browse.shortcuty.app/user/Sentechtipsvn" target="_blank">Sentechtipsvn</a></p>
             <p class="info-desc" data-i18n="info_desc">Webclip điều khiển đa năng, tích hợp giao diện kính mờ và hệ thống Live Knobs tuỳ biến sống động chuyên nghiệp dành riêng cho iOS.</p>
         </div>
     </div>
     
-    <script src="js/theme.js?v=3.0"></script>
-    <script src="js/main.js?v=3.0"></script>
+    <script src="js/theme.js?v=4.0"></script>
+    <script src="js/main.js?v=4.0"></script>
 </body>
 </html>
