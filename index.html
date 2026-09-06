@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
     <title>Trung tâm điều khiển - Sentechtipvn</title>
-    <link rel="stylesheet" href="CSS/style.css?v=4.0">
+    <link rel="stylesheet" href="CSS/style.css?v=4.2">
 </head>
 <body>
     <div class="app-container grid-mode" id="main-container">
@@ -48,7 +48,6 @@
                 </div>
             </div>
 
-            <!-- Các nút mới cho Tiêu đề và Tên Icon -->
             <div class="setting-group highlight-box">
                 <label data-i18n="lbl_title_adjust">Chỉnh sửa Tiêu đề chính</label>
                 <div class="slider-item">
@@ -74,8 +73,6 @@
             <div class="setting-group">
                 <label data-i18n="lbl_bg_main">Màu Nền Chính</label>
                 <input type="color" id="val-bg-main" value="#121b22">
-            </div>
-            <div class="setting-group">
                 <label data-i18n="lbl_text_color">Màu Chữ Hệ Thống</label>
                 <input type="color" id="val-text-color" value="#ffffff">
             </div>
@@ -88,10 +85,11 @@
                 </div>
             </div>
 
-            <div class="setting-group">
+            <div class="setting-group highlight-box">
                 <label>Màu nền List</label><input type="color" id="val-list-bg" value="#1a1a1a">
                 <label>Màu chữ List</label><input type="color" id="val-list-text" value="#ffffff">
                 <label>Màu SVG List</label><input type="color" id="val-list-svg" value="#ffffff">
+                <label style="margin-top: 10px;"><input type="checkbox" id="toggle-list-frame"> <span data-i18n="lbl_list_frame">Bật Khung Theme cho Danh sách</span></label>
             </div>
             
             <div class="setting-group">
@@ -130,7 +128,6 @@
         <button id="btn-info" class="info-btn">ℹ️</button>
     </div>
 
-    <!-- Info Modal macOS Style Center -->
     <div class="info-overlay" id="info-overlay"></div>
     <div id="info-modal" class="info-modal macos-window">
         <div class="macos-header">
@@ -145,7 +142,7 @@
         </div>
     </div>
     
-    <script src="js/theme.js?v=4.0"></script>
-    <script src="js/main.js?v=4.0"></script>
+    <script src="js/theme.js?v=4.2"></script>
+    <script src="js/main.js?v=4.2"></script>
 </body>
 </html>
