@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="setting-group"><label data-i18n="slider_blur">Độ mờ</label><input type="range" class="s-b" min="0" max="50" value="10"></div>
                 <div class="setting-group"><label data-i18n="slider_spread">Lan rộng</label><input type="range" class="s-s" min="-10" max="30" value="0"></div>
                 <div class="setting-group"><label data-i18n="slider_color">Màu Bóng</label><input type="color" class="s-c" value="#000000"></div>
+                <div class="setting-group"><label data-i18n="slider_opacity">Độ đậm bóng</label><input type="range" class="s-o" min="0" max="100" value="100"></div>
             </div>
         `;
         shadowContainer.appendChild(div);
@@ -120,15 +121,28 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('close-info').onclick = () => { infoModal.classList.remove('show'); infoOverlay.classList.remove('show'); };
     infoOverlay.onclick = () => { infoModal.classList.remove('show'); infoOverlay.classList.remove('show'); };
 
+    // HÀM CHUYỂN MÃ HEX THÀNH RGBA KÈM ĐỘ ĐẬM (ALPHA)
+    function hexToRgba(hex, alpha) {
+        let r = 0, g = 0, b = 0;
+        if (hex.length === 4) { r = parseInt(hex[1] + hex[1], 16); g = parseInt(hex[2] + hex[2], 16); b = parseInt(hex[3] + hex[3], 16); }
+        else if (hex.length === 7) { r = parseInt(hex.substring(1, 3), 16); g = parseInt(hex.substring(3, 5), 16); b = parseInt(hex.substring(5, 7), 16); }
+        return `rgba(${r}, ${g}, ${b}, ${alpha / 100})`;
+    }
+
     function updateShadow() {
         const activeShadows = document.querySelectorAll('input[name="active_shadow"]:checked');
         let combinedShadow = '';
         activeShadows.forEach(checkbox => {
             const drawer = document.getElementById(`drawer-${checkbox.value}`);
             const mode = SHADOW_MODES.find(m => m.id === checkbox.value);
+            const hexColor = drawer.querySelector('.s-c').value;
+            const opacity = drawer.querySelector('.s-o').value;
+            const rgbaColor = hexToRgba(hexColor, opacity);
+
             let shadowStr = mode.template
                 .replace('{x}', drawer.querySelector('.s-x').value).replace('{y}', drawer.querySelector('.s-y').value)
-                .replace('{b}', drawer.querySelector('.s-b').value).replace('{s}', drawer.querySelector('.s-s').value).replace('{c}', drawer.querySelector('.s-c').value);
+                .replace('{b}', drawer.querySelector('.s-b').value).replace('{s}', drawer.querySelector('.s-s').value)
+                .replace('{c}', rgbaColor); // Thay biến {c} thành màu RGBA trong suốt
             if (combinedShadow) combinedShadow += ', '; combinedShadow += shadowStr;
         });
         root.style.setProperty('--btn-shadow', combinedShadow || 'none');
@@ -152,6 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_listFrame', document.getElementById('toggle-list-frame').checked);
         localStorage.setItem('sttv_titleSize', document.getElementById('val-title-size').value);
         localStorage.setItem('sttv_titleSpacing', document.getElementById('val-title-spacing').value);
+        localStorage.setItem('sttv_iconSize', document.getElementById('val-icon-size').value);
+        localStorage.setItem('sttv_iconSpacing', document.getElementById('val-icon-spacing').value);
         localStorage.setItem('sttv_glassMode', document.getElementById('toggle-glass').checked);
         localStorage.setItem('sttv_audioFeedback', document.getElementById('toggle-audio').checked);
 
@@ -162,31 +178,30 @@ document.addEventListener("DOMContentLoaded", () => {
             shadowState[mode.id] = {
                 active: checkbox.checked, x: drawer.querySelector('.s-x').value,
                 y: drawer.querySelector('.s-y').value, b: drawer.querySelector('.s-b').value,
-                s: drawer.querySelector('.s-s').value, c: drawer.querySelector('.s-c').value
+                s: drawer.querySelector('.s-s').value, c: drawer.querySelector('.s-c').value,
+                o: drawer.querySelector('.s-o').value
             };
         });
         localStorage.setItem('sttv_shadowConfig', JSON.stringify(shadowState));
     }
 
-    // --- FIX HỆ THỐNG BASE64 EXPORT/IMPORT ---
     function packConfig() {
         const activeShadow = document.querySelector('input[name="active_shadow"]:checked');
         const sId = activeShadow ? activeShadow.value : '';
         let sData = [];
         if (sId) {
             const drw = document.getElementById(`drawer-${sId}`);
-            sData = [ sId, drw.querySelector('.s-x').value, drw.querySelector('.s-y').value, drw.querySelector('.s-b').value, drw.querySelector('.s-s').value, drw.querySelector('.s-c').value ];
+            sData = [ sId, drw.querySelector('.s-x').value, drw.querySelector('.s-y').value, drw.querySelector('.s-b').value, drw.querySelector('.s-s').value, drw.querySelector('.s-c').value, drw.querySelector('.s-o').value ];
         }
         const dataArr = [
             document.getElementById('val-bg-main').value, document.getElementById('val-text-color').value,
-            localStorage.getItem('sttv_layoutMode') || 'grid',
-            document.getElementById('val-list-bg').value, document.getElementById('val-list-text').value, document.getElementById('val-list-svg').value,
+            localStorage.getItem('sttv_layoutMode') || 'grid', document.getElementById('val-list-bg').value, 
+            document.getElementById('val-list-text').value, document.getElementById('val-list-svg').value,
             document.getElementById('val-theme-frame').value, document.getElementById('val-frame-size').value,
             document.getElementById('val-svg-size').value, document.getElementById('val-svg-opacity').value,
             document.getElementById('val-frame-radius').value, document.getElementById('val-frame-color').value, document.getElementById('val-svg-color').value,
-            sData,
-            document.getElementById('toggle-hide-labels').checked, document.getElementById('val-title-size').value, document.getElementById('val-title-spacing').value,
-            document.getElementById('toggle-list-frame').checked // Thêm biến bật khung List vào Base64
+            sData, document.getElementById('toggle-hide-labels').checked, document.getElementById('val-title-size').value, document.getElementById('val-title-spacing').value,
+            document.getElementById('toggle-list-frame').checked, document.getElementById('val-icon-size').value, document.getElementById('val-icon-spacing').value
         ];
         return btoa(JSON.stringify(dataArr)).replace(/=/g, ''); 
     }
@@ -208,24 +223,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 const drw = document.getElementById(`drawer-${sId}`); drw.classList.add('active');
                 drw.querySelector('.s-x').value = arr[13][1]; drw.querySelector('.s-y').value = arr[13][2];
                 drw.querySelector('.s-b').value = arr[13][3]; drw.querySelector('.s-s').value = arr[13][4]; drw.querySelector('.s-c').value = arr[13][5];
+                if(arr[13].length > 6) drw.querySelector('.s-o').value = arr[13][6]; // Chèn thanh opacity
             }
             if(arr.length >= 17) {
                 document.getElementById('toggle-hide-labels').checked = arr[14];
                 document.getElementById('val-title-size').value = arr[15];
                 document.getElementById('val-title-spacing').value = arr[16];
             }
-            // Giải mã nút List Frame nếu có
-            if(arr.length >= 18) {
-                document.getElementById('toggle-list-frame').checked = arr[17];
-            } else {
-                document.getElementById('toggle-list-frame').checked = false;
+            if(arr.length >= 18) document.getElementById('toggle-list-frame').checked = arr[17];
+            if(arr.length >= 20) {
+                document.getElementById('val-icon-size').value = arr[18];
+                document.getElementById('val-icon-spacing').value = arr[19];
             }
             updateLiveVariables();
         } catch(e) { alert("Mã cấu hình không hợp lệ!"); }
     }
 
     document.getElementById('val-theme-preset').addEventListener('change', (e) => { if(e.target.value !== 'none') unpackConfig(e.target.value); });
-    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (Hỗ trợ 18 biến)!")); };
+    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (20 Biến)!")); };
     document.getElementById('btn-import').onclick = () => { const code = prompt("📥 Dán mã cấu hình vào đây:"); if (code) unpackConfig(code); };
 
     function updateLiveVariables() {
@@ -242,6 +257,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         root.style.setProperty('--title-size', document.getElementById('val-title-size').value + 'px');
         root.style.setProperty('--title-spacing', document.getElementById('val-title-spacing').value + 'px');
+        root.style.setProperty('--icon-font-size', document.getElementById('val-icon-size').value + 'px');
+        root.style.setProperty('--icon-spacing', document.getElementById('val-icon-spacing').value + 'px');
         root.style.setProperty('--label-display', document.getElementById('toggle-hide-labels').checked ? 'none' : 'block');
         
         const currentLayout = localStorage.getItem('sttv_layoutMode') || 'grid';
@@ -295,6 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
         safeSet('toggle-hide-labels', 'hideLabels', false, true);
         safeSet('toggle-list-frame', 'listFrame', false, true);
         safeSet('val-title-size', 'titleSize', '22'); safeSet('val-title-spacing', 'titleSpacing', '0.5');
+        safeSet('val-icon-size', 'iconSize', '14'); safeSet('val-icon-spacing', 'iconSpacing', '0');
         
         safeSet('toggle-glass', 'glassMode', false, true); safeSet('toggle-audio', 'audioFeedback', false, true);
         safeSet('toggle-parallax', 'parallax', false, true);
@@ -322,6 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         drawer.querySelector('.s-b').value = shadowState[mode.id].b || 10;
                         drawer.querySelector('.s-s').value = shadowState[mode.id].s || 0;
                         drawer.querySelector('.s-c').value = shadowState[mode.id].c || '#000000';
+                        drawer.querySelector('.s-o').value = shadowState[mode.id].o || 100;
                     }
                 });
             } catch (e) {}
