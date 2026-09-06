@@ -160,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_svgOpacity', document.getElementById('val-svg-opacity').value);
         localStorage.setItem('sttv_frameRadius', document.getElementById('val-frame-radius').value);
         localStorage.setItem('sttv_frameColor', document.getElementById('val-frame-color').value);
+        localStorage.setItem('sttv_frameBgOpacity', document.getElementById('val-frame-bg-opacity').value); // Lưu độ đậm nền khung
         localStorage.setItem('sttv_svgColor', document.getElementById('val-svg-color').value);
         
         localStorage.setItem('sttv_hideLabels', document.getElementById('toggle-hide-labels').checked);
@@ -202,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('val-frame-radius').value, document.getElementById('val-frame-color').value, document.getElementById('val-svg-color').value,
             sData, document.getElementById('toggle-hide-labels').checked, document.getElementById('val-title-size').value, document.getElementById('val-title-spacing').value,
             document.getElementById('toggle-list-frame').checked, document.getElementById('val-icon-size').value, document.getElementById('val-icon-spacing').value,
-            document.getElementById('val-list-bg-opacity').value
+            document.getElementById('val-list-bg-opacity').value, document.getElementById('val-frame-bg-opacity').value // Bổ sung biến thứ 22
         ];
         return btoa(JSON.stringify(dataArr)).replace(/=/g, ''); 
     }
@@ -241,12 +242,17 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 document.getElementById('val-list-bg-opacity').value = 10;
             }
+            if(arr.length >= 22) {
+                document.getElementById('val-frame-bg-opacity').value = arr[21];
+            } else {
+                document.getElementById('val-frame-bg-opacity').value = 100;
+            }
             updateLiveVariables();
         } catch(e) { alert("Mã cấu hình không hợp lệ!"); }
     }
 
     document.getElementById('val-theme-preset').addEventListener('change', (e) => { if(e.target.value !== 'none') unpackConfig(e.target.value); });
-    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (21 Biến)!")); };
+    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (22 Biến)!")); };
     document.getElementById('btn-import').onclick = () => { const code = prompt("📥 Dán mã cấu hình vào đây:"); if (code) unpackConfig(code); };
 
     function updateLiveVariables() {
@@ -264,7 +270,6 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--title-size', document.getElementById('val-title-size').value + 'px');
         root.style.setProperty('--title-spacing', document.getElementById('val-title-spacing').value + 'px');
         
-        // FIX: Cập nhật CSS Variable cho cỡ chữ icon
         root.style.setProperty('--icon-font-size', document.getElementById('val-icon-size').value + 'px');
         root.style.setProperty('--icon-spacing', document.getElementById('val-icon-spacing').value + 'px');
         root.style.setProperty('--label-display', document.getElementById('toggle-hide-labels').checked ? 'none' : 'block');
@@ -277,17 +282,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const isListFrame = document.getElementById('toggle-list-frame').checked;
         if (isListFrame) mainContainer.classList.add('list-frame-active'); else mainContainer.classList.remove('list-frame-active');
 
-        // FIX: Ghép màu Hex List BG và List BG Opacity lại
         const listBgHex = document.getElementById('val-list-bg').value;
         const listBgOpacity = document.getElementById('val-list-bg-opacity').value;
-        root.style.setProperty('--list-bg-color', listBgHex); // Giữ biến cũ
-        root.style.setProperty('--list-bg-rgba', hexToRgba(listBgHex, listBgOpacity)); // Nạp biến opacity mới
+        root.style.setProperty('--list-bg-color', listBgHex); 
+        root.style.setProperty('--list-bg-rgba', hexToRgba(listBgHex, listBgOpacity)); 
 
         root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
         root.style.setProperty('--list-svg-color', document.getElementById('val-list-svg').value);
 
         const frameSelect = document.getElementById('val-theme-frame').value;
-        const frameColor = document.getElementById('val-frame-color').value;
+        const frameColorHex = document.getElementById('val-frame-color').value;
+        const frameColorOpacity = document.getElementById('val-frame-bg-opacity').value; // Lấy độ đậm nền khung
+        const frameColorRgba = hexToRgba(frameColorHex, frameColorOpacity); // Đổi sang RGBA
+        
         const customContainer = document.getElementById('custom-svg-container');
         
         if (frameSelect === 'custom') {
@@ -296,8 +303,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (savedCustom) { root.style.setProperty('--frame-bg', `url('data:image/svg+xml;base64,${btoa(savedCustom)}')`); }
         } else {
             customContainer.style.display = 'none';
-            if (frameSelect === 'none') { root.style.setProperty('--frame-bg', 'none'); root.style.setProperty('--frame-bg-color', frameColor); } 
-            else { root.style.setProperty('--frame-bg', `url('../${frameSelect}')`); root.style.setProperty('--frame-bg-color', 'transparent'); }
+            if (frameSelect === 'none') { 
+                root.style.setProperty('--frame-bg', 'none'); 
+                root.style.setProperty('--frame-bg-color', frameColorRgba); // Áp dụng RGBA trong suốt thay vì solid 100%
+            } 
+            else { 
+                root.style.setProperty('--frame-bg', `url('../${frameSelect}')`); 
+                root.style.setProperty('--frame-bg-color', 'transparent'); 
+            }
         }
         
         const glassMode = document.getElementById('toggle-glass').checked;
@@ -322,6 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
         safeSet('val-svg-size', 'svgSize', '28'); safeSet('val-svg-opacity', 'svgOpacity', '100');
         safeSet('val-svg-color', 'svgColor', '#ffffff'); safeSet('val-frame-radius', 'frameRadius', '22');
         safeSet('val-frame-color', 'frameColor', '#000000');
+        safeSet('val-frame-bg-opacity', 'frameBgOpacity', '100'); // Load độ đậm nền khung
         
         safeSet('toggle-hide-labels', 'hideLabels', false, true);
         safeSet('toggle-list-frame', 'listFrame', false, true);
