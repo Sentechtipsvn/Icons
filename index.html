@@ -2,17 +2,17 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
     <title>Trung tâm điều khiển - Sentechtipvn</title>
-    <link rel="stylesheet" href="CSS/style.css?v=4.3">
+    <link rel="stylesheet" href="CSS/style.css?v=5.0">
 </head>
 <body>
     <div class="app-container grid-mode" id="main-container">
-        <div class="app-header" data-i18n="app_title">Trung tâm điều khiển</div>
+        <div class="app-header" data-i18n="app_title">Quick Control</div>
         <div class="grid-layout" id="control-panel"></div>
         <button class="settings-fab" id="open-settings">⚙️</button>
     </div>
@@ -21,7 +21,7 @@
 
     <div class="settings-drawer" id="settings-drawer">
         <div class="settings-header">
-            <h2 data-i18n="settings_title">Cài đặt Giao diện</h2>
+            <h2 data-i18n="settings_title">⚙️ Cài đặt</h2>
             <button id="close-settings">✕</button>
         </div>
         
@@ -33,52 +33,48 @@
             </div>
 
             <div class="setting-group highlight-box">
-                <label data-i18n="lbl_theme_presets">Kho Giao diện (Presets)</label>
+                <label data-i18n="lbl_theme_presets">🪄 Giao diện</label>
                 <select id="val-theme-preset">
                     <option value="none" data-i18n="opt_preset_none">Tự do tùy chỉnh</option>
-                    <option value="WyIjMzMzMzMzIiwiI2ZmZmZmZiIsImdyaWQiLCIjZWMxYzI0IiwiI2ZmZmZmZiIsIiNmZmZmMDAiLCJUaGVtZS9SZWQtQ29sb3VyLnBuZyIsIjYwIiwiMjgiLCIxMDAiLCI1MCIsIiNjYzAwMDAiLCIjZmZmZj","bSIsW2dsb3ciLCIwIiwiMCIsIjE1IiwiMCIsIiNmZmZmMDAiXSxmYWxzZSwyMiwwLjUsdHJ1ZV0=" data-i18n="opt_preset_vn">🇻🇳 Cờ Việt Nam</option>
-                    <option value="WyIjMGYwZjEzIiwiIzAwZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiIzAwZmZmZiIsIiMwMGZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIwIiwiIzFhMWExYSIsIiMwMGZmZmYiLFsiZ2xvdyIsIjAiLCIwIiwiMjAiLCIyIiwiIzAwZmZmZiJdLGZhbHNlLDIyLDAuNSxmYWxzZV0=" data-i18n="opt_preset_neon">🤖 Neon Cyberpunk</option>
-                    <option value="WyIjMDAwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZmZmZiIsIiNmZmZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIyIiwiIzFjMWMxZSIsIiNmZmZmZmYiLFsib3V0ZXIiLCIwIiwiMCIsIjAiLCIwIiwiIzAwMDAwMCJdLGZhbHNlLDIyLDAuNSxmYWxzZV0=" data-i18n="opt_preset_dark">🖤 Dark Minimal</option>
-                    <option value="WyIjMTExMTExIiwiI2ZmZDcwMCIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZDcwMCIsIiNmZmD3MDAiLCJub25lIiwiNjAiLCIzMCIsIjEwMCIsIjUwIiwiIzIyMjIyMiIsIiNmZmD3MDAiLFsib3V0ZXIiLCIwIiwiNCIsIjEwIiwiMCIsIiMwMDAwMDAiXSxmYWxzZSwyMiwwLjUsdHJ1ZV0=" data-i18n="opt_preset_gold">👑 Gold Sang Trọng</option>
+                    <option value="WyIjY2MwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjY2MwMDAwIiwiI2ZmZmZmZiIsIiNmZmZmMDAiLCJUaGVtZS9SZWQtQ29sb3VyLnBuZyIsIjYwIiwiMjgiLCIxMDAiLCI1MCIsIiNjYzAwMDAiLCIjZmZmZjAwIixbImdsb3ciLCIwIiwiMCIsIjE1IiwiMCIsIiNmZmZmMDAiLCIxMDAiXSxmYWxzZSwyMiwwLjUsdHJ1ZSwxNCwwXQ==" data-i18n="opt_preset_vn">🇻🇳 Cờ Việt Nam</option>
+                    <option value="WyIjMGYwZjEzIiwiIzAwZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiIzAwZmZmZiIsIiMwMGZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIwIiwiIzFhMWExYSIsIiMwMGZmZmYiLFsiZ2xvdyIsIjAiLCIwIiwiMjAiLCIyIiwiIzAwZmZmZiIsIjEwMCJdLGZhbHNlLDIyLDAuNSxmYWxzZSwxNCwwXQ==" data-i18n="opt_preset_neon">🤖 Neon</option>
+                    <option value="WyIjMDAwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZmZmZiIsIiNmZmZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIyIiwiIzFjMWMxZSIsIiNmZmZmZmYiLFsib3V0ZXIiLCIwIiwiMCIsIjAiLCIwIiwiIzAwMDAwMCIsIjEwMCJdLGZhbHNlLDIyLDAuNSxmYWxzZSwxNCwwXQ==" data-i18n="opt_preset_dark">🖤 Dark</option>
+                    <option value="WyIjMTExMTExIiwiI2ZmZDcwMCIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZDcwMCIsIiNmZmQ3MDAiLCJub25lIiwiNjAiLCIzMCIsIjEwMCIsIjUwIiwiIzIyMjIyMiIsIiNmZmQ3MDAiLFsib3V0ZXIiLCIwIiwiNCIsIjEwIiwiMCIsIiMwMDAwMDAiLCI4MCJdLGZhbHNlLDIyLDAuNSx0cnVlLDE0LDBd" data-i18n="opt_preset_gold">👑 Gold</option>
                 </select>
                 
                 <div class="feature-toggles">
-                    <label><span data-i18n="lbl_audio_feedback">Âm thanh Haptic</span><input type="checkbox" id="toggle-audio"></label>
-                    <label><span data-i18n="lbl_parallax">Gia tốc kế 3D (Parallax)</span><input type="checkbox" id="toggle-parallax"></label>
+                    <label><span data-i18n="lbl_audio_feedback">🎚️ Âm thanh</span><input type="checkbox" id="toggle-audio"></label>
+                    <label><span data-i18n="lbl_parallax">🧭 Gia tốc kế 3D</span><input type="checkbox" id="toggle-parallax"></label>
                 </div>
             </div>
 
+            <!-- ĐÃ BỔ SUNG 2 THANH TRƯỢT SỬA CHỮ ICON -->
             <div class="setting-group highlight-box">
-                <label data-i18n="lbl_title_adjust">Chỉnh sửa Tiêu đề chính</label>
-                <div class="slider-item">
-                    <span class="slider-label" data-i18n="lbl_title_size">Cỡ chữ</span>
-                    <input type="range" id="val-title-size" min="14" max="40" value="22">
-                </div>
-                <div class="slider-item">
-                    <span class="slider-label" data-i18n="lbl_title_spacing">Khoảng cách</span>
-                    <input type="range" id="val-title-spacing" min="0" max="10" step="0.5" value="0.5">
-                </div>
-                <label style="margin-top: 10px;"><input type="checkbox" id="toggle-hide-labels"> <span data-i18n="lbl_hide_labels">Ẩn tên Icon ngoài màn hình</span></label>
+                <label data-i18n="lbl_title_adjust">Sửa tiêu đề</label>
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_title_size">💫 Cỡ chữ chính</span><input type="range" id="val-title-size" min="14" max="40" value="22"></div>
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_title_spacing">📐 Dãn chữ chính</span><input type="range" id="val-title-spacing" min="0" max="10" step="0.5" value="0.5"></div>
+                <hr style="border: 0; border-top: 1px solid rgba(150,150,150,0.2); margin: 10px 0;">
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_icon_size">💫 Cỡ chữ Icon</span><input type="range" id="val-icon-size" min="10" max="25" value="14"></div>
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_icon_spacing">📐 Dãn chữ Icon</span><input type="range" id="val-icon-spacing" min="0" max="5" step="0.1" value="0"></div>
+                <label style="margin-top: 10px;"><input type="checkbox" id="toggle-hide-labels"> <span data-i18n="lbl_hide_labels">Ẩn tên</span></label>
             </div>
 
             <div class="setting-group">
-                <label data-i18n="lbl_bg_image">Hình nền tự chọn</label>
+                <label data-i18n="lbl_bg_image">📱 Hình nền tự chọn</label>
                 <input type="file" id="upload-bg" accept="image/*" style="font-size: 12px;">
-                <button type="button" id="clear-bg" style="margin-top:5px; padding:5px; background:rgba(255,255,255,0.1); border:none; color:white; border-radius:5px;">Xóa ảnh nền</button>
+                <button type="button" id="clear-bg" style="margin-top:5px; padding:5px; background:rgba(150,150,150,0.2); border:none; color:inherit; border-radius:5px;">Xóa ảnh nền</button>
             </div>
             <div class="setting-group">
-                <label><input type="checkbox" id="toggle-glass"> <span data-i18n="lbl_glassmorphism">Bật Kính mờ (Glassmorphism)</span></label>
-            </div>
-
-            <div class="setting-group">
-                <label data-i18n="lbl_bg_main">Màu Nền Chính</label>
-                <input type="color" id="val-bg-main" value="#121b22">
-                <label data-i18n="lbl_text_color">Màu Chữ Hệ Thống</label>
-                <input type="color" id="val-text-color" value="#ffffff">
+                <label><input type="checkbox" id="toggle-glass"> <span data-i18n="lbl_glassmorphism">Bật Kính mờ</span></label>
             </div>
 
             <div class="setting-group">
-                <label data-i18n="lbl_layout_mode">Chế độ Danh sách / Lưới</label>
+                <label data-i18n="lbl_bg_main">🏳️‍🌈 Màu Nền Chính</label><input type="color" id="val-bg-main" value="#121b22">
+                <label data-i18n="lbl_text_color">🏳️‍🌈 Màu Chữ Hệ Thống</label><input type="color" id="val-text-color" value="#ffffff">
+            </div>
+
+            <div class="setting-group">
+                <label data-i18n="lbl_layout_mode">Danh sách/Lưới</label>
                 <div class="layout-buttons">
                     <button id="btn-layout-list" class="layout-btn" data-i18n="btn_list">Danh sách</button>
                     <button id="btn-layout-grid" class="layout-btn active" data-i18n="btn_grid">Lưới</button>
@@ -86,42 +82,42 @@
             </div>
 
             <div class="setting-group highlight-box">
-                <label>Màu nền List</label><input type="color" id="val-list-bg" value="#1a1a1a">
-                <label>Màu chữ List</label><input type="color" id="val-list-text" value="#ffffff">
-                <label>Màu SVG List</label><input type="color" id="val-list-svg" value="#ffffff">
-                <label style="margin-top: 10px;"><input type="checkbox" id="toggle-list-frame"> <span data-i18n="lbl_list_frame">Bật Khung Theme cho Danh sách</span></label>
+                <label data-i18n="lbl_list_bg">Màu nền Danh sách</label><input type="color" id="val-list-bg" value="#1a1a1a">
+                <label data-i18n="lbl_list_text">Màu chữ Danh sách</label><input type="color" id="val-list-text" value="#ffffff">
+                <label data-i18n="lbl_list_svg">Màu SVG Danh sách</label><input type="color" id="val-list-svg" value="#ffffff">
+                <label style="margin-top: 10px;"><input type="checkbox" id="toggle-list-frame"> <span data-i18n="lbl_list_frame">Theme cho Danh sách</span></label>
             </div>
             
             <div class="setting-group">
-                <label data-i18n="lbl_theme_frame">Khung Icon (Theme SVG)</label>
+                <label data-i18n="lbl_theme_frame">💠 Theme SVG</label>
                 <select id="val-theme-frame">
                     <option value="none" data-i18n="opt_frame_none">Không khung</option>
-                    <option value="Theme/Black-Colour.png" data-i18n="opt_frame_black">Đen bóng</option>
-                    <option value="Theme/Red-Colour.png" data-i18n="opt_frame_red">Đỏ ruby</option>
-                    <option value="Theme/Green-colour.png" data-i18n="opt_frame_green">Xanh lá</option>
-                    <option value="Theme/Orange-colour.png" data-i18n="opt_frame_orange">Cam rực</option>
-                    <option value="Theme/Purple-colour.png" data-i18n="opt_frame_purple">Tím dạ</option>
-                    <option value="Theme/Moss-green.png" data-i18n="opt_frame_moss">Xanh rêu</option>
+                    <option value="Theme/Black-Colour.png" data-i18n="opt_frame_black">⚫️</option>
+                    <option value="Theme/Red-Colour.png" data-i18n="opt_frame_red">🔴</option>
+                    <option value="Theme/Green-colour.png" data-i18n="opt_frame_green">🟢</option>
+                    <option value="Theme/Orange-colour.png" data-i18n="opt_frame_orange">🟠</option>
+                    <option value="Theme/Purple-colour.png" data-i18n="opt_frame_purple">🟣</option>
+                    <option value="Theme/Moss-green.png" data-i18n="opt_frame_moss">🔵</option>
                     <option value="custom" data-i18n="opt_frame_custom">SVG Tùy chỉnh</option>
                 </select>
                 <div id="custom-svg-container" style="display: none;">
-                    <textarea id="custom-svg-code" placeholder="Dán mã SVG..." style="width: 100%; height: 80px; margin-top: 10px; border-radius: 8px; padding: 10px; background: rgba(0,0,0,0.3); color: white;"></textarea>
+                    <textarea id="custom-svg-code" placeholder="Dán mã SVG..." style="width: 100%; height: 80px; margin-top: 10px; border-radius: 8px; padding: 10px; background: rgba(0,0,0,0.1); color: inherit;"></textarea>
                     <button type="button" id="apply-custom-svg" style="margin-top: 10px; padding: 8px 15px; border-radius: 8px; background: #007aff; color: white; border: none;">Áp dụng SVG</button>
                 </div>
             </div>
             
             <div class="setting-group">
-                <label data-i18n="lbl_frame_svg_size">Kích thước: Khung Icon & SVG</label>
+                <label data-i18n="lbl_frame_svg_size">🖼️ Khung Icon & SVG</label>
                 <div class="slider-item"><span class="slider-label">Khung</span><input type="range" id="val-frame-size" min="40" max="100" value="60"></div>
                 <div class="slider-item"><span class="slider-label" data-i18n="lbl_frame_radius">Bo góc</span><input type="range" id="val-frame-radius" min="0" max="50" value="22"></div>
                 <div class="slider-item"><span class="slider-label">SVG</span><input type="range" id="val-svg-size" min="16" max="60" value="28"></div>
-                <div class="slider-item"><span class="slider-label" data-i18n="lbl_svg_opacity">Độ đậm</span><input type="range" id="val-svg-opacity" min="0" max="100" value="100"></div>
+                <div class="slider-item"><span class="slider-label" data-i18n="lbl_svg_opacity">Độ đậm SVG</span><input type="range" id="val-svg-opacity" min="0" max="100" value="100"></div>
                 <div class="slider-item"><span class="slider-label" data-i18n="lbl_frame_color">Nền khung</span><input type="color" id="val-frame-color" value="#000000"></div>
             </div>
             
             <div class="setting-group"><label data-i18n="lbl_svg_color">Màu SVG</label><input type="color" id="val-svg-color" value="#ffffff"></div>
 
-            <h3 class="section-title" data-i18n="lbl_shadow_section">Chế độ Đổ Bóng</h3>
+            <h3 class="section-title" data-i18n="lbl_shadow_section">🔘 Đổ Bóng</h3>
             <div id="shadow-controls"></div>
         </div>
 
@@ -136,13 +132,13 @@
             <img src="Theme/icon-full.png" class="macos-btn" alt="Full">
         </div>
         <div class="macos-body">
-            <h3 data-i18n="info_title">Control Center</h3>
-            <p><span data-i18n="info_dev_prefix">Phát triển bởi</span> <a href="https://browse.shortcuty.app/user/Sentechtipsvn" target="_blank">Sentechtipsvn</a></p>
+            <h3 data-i18n="info_title">Quick Control</h3>
+            <p><span class="dev-text"><span data-i18n="info_dev_prefix">Phát triển bởi</span></span> <a href="https://browse.shortcuty.app/user/Sentechtipsvn" target="_blank">Sentechtipsvn</a></p>
             <p class="info-desc" data-i18n="info_desc">Webclip điều khiển đa năng, tích hợp giao diện kính mờ và hệ thống Live Knobs tuỳ biến sống động chuyên nghiệp dành riêng cho iOS.</p>
         </div>
     </div>
     
-    <script src="js/theme.js?v=4.3"></script>
-    <script src="js/main.js?v=4.3"></script>
+    <script src="js/theme.js?v=5.0"></script>
+    <script src="js/main.js?v=5.0"></script>
 </body>
 </html>
