@@ -16,12 +16,12 @@ body { background-color: var(--bg-main); background-size: cover; background-posi
 
 .app-header { text-align: center; padding: 60px 0 20px 0; font-size: var(--title-size); font-weight: bold; letter-spacing: var(--title-spacing); text-shadow: 0 2px 5px rgba(0,0,0,0.5); transition: font-size 0.2s, letter-spacing 0.2s; }
 
-/* Grid Mode (Khung nhận %) */
+/* Grid Mode */
 .grid-layout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 20px; max-width: 600px; margin: 0 auto; position: relative; }
 .glass-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--text-color); user-select: none; }
 .icon-box {
     width: var(--frame-size); height: var(--frame-size); background-image: var(--frame-bg); background-color: var(--frame-bg-color);
-    background-size: cover; background-position: center; border-radius: var(--frame-border-radius);
+    background-size: cover; background-position: center; background-repeat: no-repeat; border-radius: var(--frame-border-radius);
     display: flex; justify-content: center; align-items: center; box-shadow: var(--btn-shadow);
     transition: transform 0.1s ease, box-shadow 0.2s ease; transform: perspective(500px) translate3d(var(--tilt-x), var(--tilt-y), 0);
 }
@@ -37,45 +37,50 @@ body { background-color: var(--bg-main); background-size: cover; background-posi
 .edit-mode .glass-btn.dragging { opacity: 0.5; animation: none; transform: scale(1.1); }
 .edit-mode .grid-layout { background: rgba(255,255,255,0.05); border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; }
 
-/* FIX 1: Chế độ List Cơ Bản (Bo góc dùng px để thành viên thuốc, hỗ trợ bóng và kích thước SVG) */
+/* FIX: List Mode Mặc Định */
 .app-container.list-mode .grid-layout { grid-template-columns: 1fr; gap: 12px; }
 .app-container.list-mode .glass-btn { 
     flex-direction: row; justify-content: flex-start; align-items: center; gap: 15px; 
     background: var(--list-bg-color); padding: 12px 18px; 
-    border-radius: var(--list-border-radius); /* Bắt buộc dùng PX chống méo */
+    border-radius: var(--list-border-radius); 
     color: var(--list-text-color); 
-    box-shadow: var(--btn-shadow); /* Nhận bóng cho thanh ngang */
+    box-shadow: var(--btn-shadow); /* Ép nhận đổ bóng cho khung List */
 }
-.app-container.list-mode .icon-box { 
+/* Khi không bật Khung List: Ẩn nền, chỉ hiện SVG */
+.app-container.list-mode:not(.list-frame-active) .icon-box { 
     background: transparent !important; box-shadow: none !important; 
-    width: var(--svg-size); height: var(--svg-size); /* SVG Box co dãn theo thanh trượt */
+    width: var(--svg-size); height: var(--svg-size); 
     transform: none; border-radius: 0; 
 }
-.app-container.list-mode .icon-box svg { 
+.app-container.list-mode:not(.list-frame-active) .icon-box svg { 
     fill: var(--list-svg-color); color: var(--list-svg-color); 
     width: 100%; height: 100%; transform: none; 
-    opacity: var(--svg-opacity); /* Nhận độ đậm nhạt */
+    opacity: var(--svg-opacity); 
 }
 .app-container.list-mode .label { text-align: left; font-size: 15px; }
 
-/* FIX 2: Chế độ List được BẬT KHUNG THEME (Trở thành nút Grid thu nhỏ nằm ngang) */
+/* FIX: List Mode Bật Khung (List Frame Active) - Xử lý lệch nền */
 .app-container.list-mode.list-frame-active .glass-btn { 
-    background: var(--list-bg-color); box-shadow: none; /* Dồn bóng vào icon */
+    background: var(--list-bg-color); box-shadow: none; /* Tắt bóng của thanh ngang */
 }
 .app-container.list-mode.list-frame-active .icon-box {
     width: var(--frame-size); height: var(--frame-size); 
+    min-width: var(--frame-size); /* Ép cứng chiều rộng chống lệch */
     background-image: var(--frame-bg) !important; 
     background-color: var(--frame-bg-color) !important;
-    border-radius: var(--frame-border-radius); /* Bo góc % cho khung */
-    box-shadow: var(--btn-shadow) !important;
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    border-radius: var(--frame-border-radius); 
+    box-shadow: var(--btn-shadow) !important; /* Dồn bóng vào icon */
     transform: perspective(500px) translate3d(var(--tilt-x), var(--tilt-y), 0);
+    display: flex; justify-content: center; align-items: center;
 }
 .app-container.list-mode.list-frame-active .icon-box svg { 
     fill: var(--svg-color); color: var(--svg-color); 
     width: var(--svg-size); height: var(--svg-size); 
+    opacity: var(--svg-opacity);
 }
 
-/* Các UI Setting khác giữ nguyên */
+/* UI Settings */
 .settings-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: opacity 0.3s ease; z-index: 998; }
 .settings-overlay.open { opacity: 1; visibility: visible; }
 .settings-fab { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 25px; background: var(--accent-color); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 100; display: flex; justify-content: center; align-items: center; font-size: 24px; cursor: pointer; }
