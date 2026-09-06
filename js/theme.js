@@ -29,41 +29,31 @@ document.addEventListener("DOMContentLoaded", () => {
         shadowContainer.appendChild(div);
     });
 
-    // --- HỆ THỐNG ÂM THANH HAPTIC (Web Audio API) ---
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx;
     function playTick() {
         if (!document.getElementById('toggle-audio').checked) return;
         if (!audioCtx) audioCtx = new AudioContext();
         if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+        osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
         osc.connect(gain); gain.connect(audioCtx.destination);
         osc.start(); osc.stop(audioCtx.currentTime + 0.05);
     }
-
-    // Gắn âm thanh vào mọi tương tác click và kéo
     document.addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON' || e.target.type === 'checkbox') playTick(); });
     document.getElementById('settings-drawer').addEventListener('input', (e) => { if (e.target.type === 'range') playTick(); });
 
-    // --- HỆ THỐNG PARALLAX 3D TILT ---
     function handleOrientation(e) {
         if (!document.getElementById('toggle-parallax').checked) return;
         let x = e.gamma; let y = e.beta; 
         if (x > 30) x = 30; if (x < -30) x = -30;
         if (y > 30) y = 30; if (y < -30) y = -30;
-        root.style.setProperty('--tilt-x', (x / 2) + 'px');
-        root.style.setProperty('--tilt-y', (y / 2) + 'px');
+        root.style.setProperty('--tilt-x', (x / 2) + 'px'); root.style.setProperty('--tilt-y', (y / 2) + 'px');
     }
-    
     document.getElementById('toggle-parallax').addEventListener('change', (e) => {
         if (e.target.checked) {
-            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission().then(state => {
                     if (state === 'granted') window.addEventListener('deviceorientation', handleOrientation);
                     else { e.target.checked = false; alert('Vui lòng cấp quyền cảm biến trong Cài đặt iOS!'); }
@@ -76,28 +66,20 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_parallax', e.target.checked);
     });
 
-    // --- HÌNH NỀN & GLASSMORPHISM ---
     const uploadBg = document.getElementById('upload-bg');
     uploadBg.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (ev) => {
-                const b64 = ev.target.result;
-                localStorage.setItem('sttv_customBgImage', b64);
+                const b64 = ev.target.result; localStorage.setItem('sttv_customBgImage', b64);
                 document.body.style.backgroundImage = `url('${b64}')`;
             };
             reader.readAsDataURL(file);
         }
     });
-    
-    document.getElementById('clear-bg').addEventListener('click', () => {
-        localStorage.removeItem('sttv_customBgImage');
-        document.body.style.backgroundImage = 'none';
-        uploadBg.value = "";
-    });
+    document.getElementById('clear-bg').addEventListener('click', () => { localStorage.removeItem('sttv_customBgImage'); document.body.style.backgroundImage = 'none'; uploadBg.value = ""; });
 
-    // Các tính năng cơ bản
     document.querySelectorAll('.shadow-switch').forEach(switchBtn => {
         switchBtn.addEventListener('change', (e) => {
             const drawer = document.getElementById(`drawer-${e.target.value}`);
@@ -116,8 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let adjustTimeout;
     drawerEl.addEventListener('input', (e) => {
         if (e.target.tagName === 'INPUT') {
-            drawerEl.classList.add('adjusting');
-            clearTimeout(adjustTimeout);
+            drawerEl.classList.add('adjusting'); clearTimeout(adjustTimeout);
             adjustTimeout = setTimeout(() => drawerEl.classList.remove('adjusting'), 800);
         }
         updateLiveVariables();
@@ -133,7 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     btnList.onclick = () => setLayoutMode('list'); btnGrid.onclick = () => setLayoutMode('grid');
 
-    document.getElementById('btn-info').onclick = () => document.getElementById('info-modal').classList.toggle('show');
+    // Mở / Đóng Modal Info macOS Style
+    const infoModal = document.getElementById('info-modal');
+    const infoOverlay = document.getElementById('info-overlay');
+    document.getElementById('btn-info').onclick = () => { infoModal.classList.add('show'); infoOverlay.classList.add('show'); };
+    document.getElementById('close-info').onclick = () => { infoModal.classList.remove('show'); infoOverlay.classList.remove('show'); };
+    infoOverlay.onclick = () => { infoModal.classList.remove('show'); infoOverlay.classList.remove('show'); };
 
     function packConfig() {
         const activeShadow = document.querySelector('input[name="active_shadow"]:checked');
@@ -150,7 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('val-theme-frame').value, document.getElementById('val-frame-size').value,
             document.getElementById('val-svg-size').value, document.getElementById('val-svg-opacity').value,
             document.getElementById('val-frame-radius').value, document.getElementById('val-frame-color').value, document.getElementById('val-svg-color').value,
-            sData
+            sData,
+            document.getElementById('toggle-hide-labels').checked, document.getElementById('val-title-size').value, document.getElementById('val-title-spacing').value
         ];
         return btoa(JSON.stringify(dataArr)).replace(/=/g, ''); 
     }
@@ -169,11 +156,15 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll('.shadow-switch').forEach(c => { c.checked = false; document.getElementById(`drawer-${c.value}`).classList.remove('active'); });
             
             if (arr[13] && arr[13].length > 0) {
-                const sId = arr[13][0];
-                document.querySelector(`input[name="active_shadow"][value="${sId}"]`).checked = true;
+                const sId = arr[13][0]; document.querySelector(`input[name="active_shadow"][value="${sId}"]`).checked = true;
                 const drw = document.getElementById(`drawer-${sId}`); drw.classList.add('active');
                 drw.querySelector('.s-x').value = arr[13][1]; drw.querySelector('.s-y').value = arr[13][2];
                 drw.querySelector('.s-b').value = arr[13][3]; drw.querySelector('.s-s').value = arr[13][4]; drw.querySelector('.s-c').value = arr[13][5];
+            }
+            if(arr.length > 14) {
+                document.getElementById('toggle-hide-labels').checked = arr[14];
+                document.getElementById('val-title-size').value = arr[15];
+                document.getElementById('val-title-spacing').value = arr[16];
             }
             updateLiveVariables();
         } catch(e) { alert("Mã cấu hình không hợp lệ!"); }
@@ -181,10 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình!")); };
     document.getElementById('btn-import').onclick = () => { const code = prompt("📥 Dán mã cấu hình vào đây:"); if (code) unpackConfig(code); };
-    
-    document.getElementById('val-theme-preset').addEventListener('change', (e) => {
-        if(e.target.value !== 'none') unpackConfig(e.target.value);
-    });
+    document.getElementById('val-theme-preset').addEventListener('change', (e) => { if(e.target.value !== 'none') unpackConfig(e.target.value); });
+    document.getElementById('apply-custom-svg').addEventListener('click', () => { const svgCode = document.getElementById('custom-svg-code').value; if (svgCode) { localStorage.setItem('sttv_customSvg', svgCode); updateLiveVariables(); } });
 
     function updateShadow() {
         const activeShadows = document.querySelectorAll('input[name="active_shadow"]:checked');
@@ -209,6 +198,11 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--svg-opacity', document.getElementById('val-svg-opacity').value / 100);
         root.style.setProperty('--frame-border-radius', document.getElementById('val-frame-radius').value + '%');
         
+        // Mới: Size, Spacing và Ẩn tên
+        root.style.setProperty('--title-size', document.getElementById('val-title-size').value + 'px');
+        root.style.setProperty('--title-spacing', document.getElementById('val-title-spacing').value + 'px');
+        root.style.setProperty('--label-display', document.getElementById('toggle-hide-labels').checked ? 'none' : 'block');
+        
         const currentLayout = localStorage.getItem('sttv_layoutMode') || 'grid';
         const mainContainer = document.getElementById('main-container');
         if (currentLayout === 'list') { mainContainer.classList.add('list-mode'); mainContainer.classList.remove('grid-mode'); } 
@@ -220,13 +214,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const frameSelect = document.getElementById('val-theme-frame').value;
         const frameColor = document.getElementById('val-frame-color').value;
+        const customContainer = document.getElementById('custom-svg-container');
         
         if (frameSelect === 'custom') {
-            root.style.setProperty('--frame-bg-color', 'transparent'); 
-        } else if (frameSelect === 'none') {
-            root.style.setProperty('--frame-bg', 'none'); root.style.setProperty('--frame-bg-color', frameColor);
+            customContainer.style.display = 'block'; root.style.setProperty('--frame-bg-color', 'transparent'); 
+            const savedCustom = localStorage.getItem('sttv_customSvg') || document.getElementById('custom-svg-code').value;
+            if (savedCustom) { root.style.setProperty('--frame-bg', `url('data:image/svg+xml;base64,${btoa(savedCustom)}')`); }
         } else {
-            root.style.setProperty('--frame-bg', `url('../${frameSelect}')`); root.style.setProperty('--frame-bg-color', 'transparent'); 
+            customContainer.style.display = 'none';
+            if (frameSelect === 'none') { root.style.setProperty('--frame-bg', 'none'); root.style.setProperty('--frame-bg-color', frameColor); } 
+            else { root.style.setProperty('--frame-bg', `url('../${frameSelect}')`); root.style.setProperty('--frame-bg-color', 'transparent'); }
         }
         
         const glassMode = document.getElementById('toggle-glass').checked;
@@ -236,12 +233,21 @@ document.addEventListener("DOMContentLoaded", () => {
         updateShadow();
         localStorage.setItem('sttv_audioFeedback', document.getElementById('toggle-audio').checked);
         localStorage.setItem('sttv_bgMain', document.getElementById('val-bg-main').value);
+        
+        // Lưu biến mới
+        localStorage.setItem('sttv_hideLabels', document.getElementById('toggle-hide-labels').checked);
+        localStorage.setItem('sttv_titleSize', document.getElementById('val-title-size').value);
+        localStorage.setItem('sttv_titleSpacing', document.getElementById('val-title-spacing').value);
     }
 
-    // Tải thông số khởi tạo
     const initLayout = localStorage.getItem('sttv_layoutMode') || 'grid'; setLayoutMode(initLayout);
     const savedBg = localStorage.getItem('sttv_customBgImage'); if (savedBg) document.body.style.backgroundImage = `url('${savedBg}')`;
     document.getElementById('toggle-glass').checked = localStorage.getItem('sttv_glassMode') === 'true';
     document.getElementById('toggle-audio').checked = localStorage.getItem('sttv_audioFeedback') === 'true';
     document.getElementById('toggle-parallax').checked = localStorage.getItem('sttv_parallax') === 'true';
+    
+    // Tải biến mới
+    document.getElementById('toggle-hide-labels').checked = localStorage.getItem('sttv_hideLabels') === 'true';
+    document.getElementById('val-title-size').value = localStorage.getItem('sttv_titleSize') || 22;
+    document.getElementById('val-title-spacing').value = localStorage.getItem('sttv_titleSpacing') || 0.5;
 });
