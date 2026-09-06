@@ -1,6 +1,6 @@
 {
   "app_title": "Quick Control",
-  "settings_title": "Cài đặt",
+  "settings_title": "⚙️ Cài đặt",
   
   "btn_list": "Danh sách",
   "btn_grid": "Lưới",
@@ -16,15 +16,15 @@
   "opt_preset_gold": "👑 Gold",
 
   "lbl_title_adjust": "Sửa tiêu đề",
-  "lbl_title_size": "Cỡ chữ",
-  "lbl_title_spacing": "Khoảng cách",
-  "lbl_hide_labels": "Ẩn tên",
+  "lbl_title_size": "💫 Cỡ chữ",
+  "lbl_title_spacing": "📐Khoảng cách",
+  "lbl_hide_labels": "🚫 Ẩn tên",
   "lbl_list_frame": "Theme cho Danh sách",
 
-  "lbl_audio_feedback": "Âm thanh",
-  "lbl_parallax": "Gia tốc kế 3D",
-  "lbl_bg_image": "Hình nền tự chọn",
-  "lbl_glassmorphism": "Bật Kính mờ",
+  "lbl_audio_feedback": "🎚️ Âm thanh",
+  "lbl_parallax": "🧭 Gia tốc kế 3D",
+  "lbl_bg_image": "📱 Hình nền tự chọn",
+  "lbl_glassmorphism": "⚪️ Bật Kính mờ",
 
   "info_title": "Quick Control",
   "info_dev_prefix": "Phát triển bởi",
