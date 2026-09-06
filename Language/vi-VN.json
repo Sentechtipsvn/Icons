@@ -30,9 +30,9 @@
   "info_dev_prefix": "Phát triển bởi",
   "info_desc": "Webclip điều khiển đa năng, tích hợp giao diện kính mờ và hệ thống Live Knobs tuỳ biến sống động chuyên nghiệp dành riêng cho iOS.",
 
-  "lbl_bg_main": "🌈 Màu Nền Chính",
-  "lbl_text_color": "🌈 Màu Chữ Hệ Thống",
-  "lbl_theme_frame": "🎨 Theme SVG",
+  "lbl_bg_main": "🏳️‍🌈 Màu Nền Chính",
+  "lbl_text_color": "🏳️‍🌈 Màu Chữ Hệ Thống",
+  "lbl_theme_frame": "💠 Theme SVG",
   "opt_frame_none": "Không khung",
   "opt_frame_black": "⚫️",
   "opt_frame_red": "🔴",
@@ -65,10 +65,10 @@
   "lang_wifi": "Wi-Fi",
   "lang_bluetooth": "Bluetooth",
   "lang_cellular": "Di động",
-  "lang_airplane": "Chế độ máy bay",
+  "lang_airplane": "Máy bay",
   "lang_power": "Tắt máy",
   "lang_5g": "5G",
   "lang_vpn": "VPN",
-  "lang_dnd": "Không làm phiền",
+  "lang_dnd": "Tập Trung",
   "lang_flashlight": "Đèn pin"
 }
