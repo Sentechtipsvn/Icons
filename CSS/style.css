@@ -5,7 +5,7 @@
     --svg-color: #ffffff; --btn-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     --list-bg-color: rgba(255, 255, 255, 0.1); --list-text-color: #ffffff; --list-svg-color: #ffffff;
     --tilt-x: 0px; --tilt-y: 0px;
-    --title-size: 22px; --title-spacing: 0.5px; --label-display: block; /* Biến mới */
+    --title-size: 22px; --title-spacing: 0.5px; --label-display: block;
 }
 @media (prefers-color-scheme: light) {
     :root { --bg-main: #f2f2f7; --text-color: #000000; --list-bg-color: rgba(0,0,0,0.05); --list-text-color: #000; --list-svg-color: #000; }
@@ -13,9 +13,9 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
 body { background-color: var(--bg-main); background-size: cover; background-position: center; background-attachment: fixed; color: var(--text-color); min-height: 100vh; overflow-x: hidden; transition: background-color 0.3s ease; }
 
-/* Tiêu đề nhận biến mới */
 .app-header { text-align: center; padding: 60px 0 20px 0; font-size: var(--title-size); font-weight: bold; letter-spacing: var(--title-spacing); text-shadow: 0 2px 5px rgba(0,0,0,0.5); transition: font-size 0.2s, letter-spacing 0.2s; }
 
+/* Grid Mode */
 .grid-layout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 20px; max-width: 600px; margin: 0 auto; position: relative; }
 .glass-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--text-color); user-select: none; }
 .icon-box {
@@ -26,8 +26,6 @@ body { background-color: var(--bg-main); background-size: cover; background-posi
 }
 .icon-box svg { width: var(--svg-size); height: var(--svg-size); fill: var(--svg-color); color: var(--svg-color); opacity: var(--svg-opacity); position: relative; z-index: 2; transform: perspective(500px) translate3d(calc(var(--tilt-x) * 1.5), calc(var(--tilt-y) * 1.5), 10px); }
 .glass-btn:active .icon-box { transform: scale(0.92); }
-
-/* Ẩn hiện nhãn nhận biến */
 .label { font-size: var(--font-size); font-weight: 500; text-align: center; text-shadow: 0 1px 3px rgba(0,0,0,0.5); display: var(--label-display); }
 
 .glass-active .icon-box { background: rgba(255,255,255,0.15); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); }
@@ -38,12 +36,27 @@ body { background-color: var(--bg-main); background-size: cover; background-posi
 .edit-mode .glass-btn.dragging { opacity: 0.5; animation: none; transform: scale(1.1); }
 .edit-mode .grid-layout { background: rgba(255,255,255,0.05); border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; }
 
+/* FIX: List Mode (Áp dụng Bo góc, Đổ bóng, Độ đậm nhạt) */
 .app-container.list-mode .grid-layout { grid-template-columns: 1fr; gap: 12px; }
-.app-container.list-mode .glass-btn { flex-direction: row; justify-content: flex-start; align-items: center; gap: 15px; background: var(--list-bg-color); padding: 12px 18px; border-radius: 12px; color: var(--list-text-color); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.app-container.list-mode .icon-box { background-color: transparent; background-image: none; box-shadow: none; width: 35px; height: 35px; transform: none; }
-.app-container.list-mode .icon-box svg { fill: var(--list-svg-color); color: var(--list-svg-color); width: 25px; height: 25px; transform: none; }
+.app-container.list-mode .glass-btn { 
+    flex-direction: row; justify-content: flex-start; align-items: center; gap: 15px; 
+    background: var(--list-bg-color); padding: 12px 18px; 
+    border-radius: var(--frame-border-radius); /* Fix bo góc */
+    color: var(--list-text-color); 
+    box-shadow: var(--btn-shadow); /* Fix đổ bóng cho thanh List */
+}
+.app-container.list-mode .icon-box { 
+    background-color: transparent; background-image: none; box-shadow: none; 
+    width: 35px; height: 35px; transform: none; border-radius: 0; 
+}
+.app-container.list-mode .icon-box svg { 
+    fill: var(--list-svg-color); color: var(--list-svg-color); 
+    width: 25px; height: 25px; transform: none; 
+    opacity: var(--svg-opacity); /* Fix độ đậm nhạt SVG */
+}
 .app-container.list-mode .label { text-align: left; font-size: 15px; }
 
+/* Các thành phần UI Setting */
 .settings-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: opacity 0.3s ease; z-index: 998; }
 .settings-overlay.open { opacity: 1; visibility: visible; }
 .settings-fab { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 25px; background: var(--accent-color); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 100; display: flex; justify-content: center; align-items: center; font-size: 24px; cursor: pointer; }
@@ -76,21 +89,12 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 25px
 .shadow-drawer.active { max-height: 400px; padding: 15px; }
 select { width: 100%; padding: 10px; border-radius: 8px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 14px; }
 
-/* Info Nút chữ I góc */
+/* Info Popup macOS */
 .info-btn { position: absolute; bottom: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; opacity: 0.8; z-index: 10; }
-
-/* Info Popup chuẩn macOS nằm giữa màn hình */
 .info-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); opacity: 0; visibility: hidden; transition: opacity 0.3s ease; z-index: 2000; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
 .info-overlay.show { opacity: 1; visibility: visible; }
-.macos-window {
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
-    width: 85%; max-width: 320px; background: rgba(30, 30, 32, 0.85);
-    border-radius: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 2001;
-    border: 1px solid rgba(255,255,255,0.15); opacity: 0; visibility: hidden; transition: all 0.3s ease;
-    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-}
+.macos-window { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); width: 85%; max-width: 320px; background: rgba(30, 30, 32, 0.85); border-radius: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 2001; border: 1px solid rgba(255,255,255,0.15); opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); }
 .macos-window.show { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-
 .macos-header { padding: 12px 15px; display: flex; gap: 8px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); border-radius: 14px 14px 0 0; }
 .macos-btn { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; display: block; object-fit: cover; }
 .close-btn:hover { opacity: 0.8; }
