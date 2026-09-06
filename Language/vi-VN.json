@@ -75,7 +75,9 @@
   "slider_opacity": "Độ đậm bóng",
   
   "lbl_layout_mode": "Danh sách/Lưới",
-  
+  "msg_copy_success": "Đã sao chép mã cấu hình (22 Biến)!",
+  "msg_prompt_import": "📥 Dán mã cấu hình vào đây:",
+
   "lang_wifi": "Wi-Fi",
   "lang_bluetooth": "Bluetooth",
   "lang_cellular": "Di động",
