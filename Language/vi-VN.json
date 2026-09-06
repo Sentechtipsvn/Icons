@@ -16,8 +16,10 @@
   "opt_preset_gold": "👑 Gold",
 
   "lbl_title_adjust": "Sửa tiêu đề",
-  "lbl_title_size": "💫 Cỡ chữ",
-  "lbl_title_spacing": "📐Khoảng cách",
+  "lbl_title_size": "💫 Cỡ chữ chính",
+  "lbl_title_spacing": "📐 Dãn chữ chính",
+  "lbl_icon_size": "💫 Cỡ chữ Icon",
+  "lbl_icon_spacing": "📐 Dãn chữ Icon",
   "lbl_hide_labels": "Ẩn tên",
   "lbl_list_frame": "Theme cho Danh sách",
 
@@ -32,6 +34,10 @@
 
   "lbl_bg_main": "🏳️‍🌈 Màu Nền Chính",
   "lbl_text_color": "🏳️‍🌈 Màu Chữ Hệ Thống",
+  "lbl_list_bg": "🏳️‍🌈 Màu nền Danh sách",
+  "lbl_list_text": "🏳️‍🌈 Màu chữ Danh sách",
+  "lbl_list_svg": "🏳️‍🌈 Màu SVG Danh sách",
+
   "lbl_theme_frame": "💠 Theme SVG",
   "opt_frame_none": "Không khung",
   "opt_frame_black": "⚫️",
@@ -60,6 +66,8 @@
   "slider_blur": "Độ mờ",
   "slider_spread": "Lan rộng",
   "slider_color": "Màu Bóng",
+  "slider_opacity": "Độ đậm bóng",
+  
   "lbl_layout_mode": "Danh sách/Lưới",
   
   "lang_wifi": "Wi-Fi",
