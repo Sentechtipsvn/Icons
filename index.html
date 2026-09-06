@@ -2,13 +2,13 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Control Panel">
     <link rel="apple-touch-icon" href="icon.png">
     <title>Trung tâm điều khiển - Sentechtipvn</title>
-    <link rel="stylesheet" href="CSS/style.css?v=5.0">
+    <link rel="stylesheet" href="CSS/style.css?v=6.0">
 </head>
 <body>
     <div class="app-container grid-mode" id="main-container">
@@ -36,10 +36,10 @@
                 <label data-i18n="lbl_theme_presets">🪄 Giao diện</label>
                 <select id="val-theme-preset">
                     <option value="none" data-i18n="opt_preset_none">Tự do tùy chỉnh</option>
-                    <option value="WyIjY2MwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjY2MwMDAwIiwiI2ZmZmZmZiIsIiNmZmZmMDAiLCJUaGVtZS9SZWQtQ29sb3VyLnBuZyIsIjYwIiwiMjgiLCIxMDAiLCI1MCIsIiNjYzAwMDAiLCIjZmZmZjAwIixbImdsb3ciLCIwIiwiMCIsIjE1IiwiMCIsIiNmZmZmMDAiLCIxMDAiXSxmYWxzZSwyMiwwLjUsdHJ1ZSwxNCwwXQ==" data-i18n="opt_preset_vn">🇻🇳 Cờ Việt Nam</option>
-                    <option value="WyIjMGYwZjEzIiwiIzAwZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiIzAwZmZmZiIsIiMwMGZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIwIiwiIzFhMWExYSIsIiMwMGZmZmYiLFsiZ2xvdyIsIjAiLCIwIiwiMjAiLCIyIiwiIzAwZmZmZiIsIjEwMCJdLGZhbHNlLDIyLDAuNSxmYWxzZSwxNCwwXQ==" data-i18n="opt_preset_neon">🤖 Neon</option>
-                    <option value="WyIjMDAwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZmZmZiIsIiNmZmZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIyIiwiIzFjMWMxZSIsIiNmZmZmZmYiLFsib3V0ZXIiLCIwIiwiMCIsIjAiLCIwIiwiIzAwMDAwMCIsIjEwMCJdLGZhbHNlLDIyLDAuNSxmYWxzZSwxNCwwXQ==" data-i18n="opt_preset_dark">🖤 Dark</option>
-                    <option value="WyIjMTExMTExIiwiI2ZmZDcwMCIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZDcwMCIsIiNmZmQ3MDAiLCJub25lIiwiNjAiLCIzMCIsIjEwMCIsIjUwIiwiIzIyMjIyMiIsIiNmZmQ3MDAiLFsib3V0ZXIiLCIwIiwiNCIsIjEwIiwiMCIsIiMwMDAwMDAiLCI4MCJdLGZhbHNlLDIyLDAuNSx0cnVlLDE0LDBd" data-i18n="opt_preset_gold">👑 Gold</option>
+                    <option value="WyIjY2MwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjY2MwMDAwIiwiI2ZmZmZmZiIsIiNmZmZmMDAiLCJUaGVtZS9SZWQtQ29sb3VyLnBuZyIsIjYwIiwiMjgiLCIxMDAiLCI1MCIsIiNjYzAwMDAiLCIjZmZmZjAwIixbImdsb3ciLCIwIiwiMCIsIjE1IiwiMCIsIiNmZmZmMDAiLCIxMDAiXSxmYWxzZSwyMiwwLjUsdHJ1ZSwxNCwwLDEwXQ==" data-i18n="opt_preset_vn">🇻🇳 Cờ Việt Nam</option>
+                    <option value="WyIjMGYwZjEzIiwiIzAwZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiIzAwZmZmZiIsIiMwMGZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIwIiwiIzFhMWExYSIsIiMwMGZmZmYiLFsiZ2xvdyIsIjAiLCIwIiwiMjAiLCIyIiwiIzAwZmZmZiIsIjEwMCJdLGZhbHNlLDIyLDAuNSxmYWxzZSwxNCwwLDEwXQ==" data-i18n="opt_preset_neon">🤖 Neon</option>
+                    <option value="WyIjMDAwMDAwIiwiI2ZmZmZmZiIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZmZmZiIsIiNmZmZmZmYiLCJub25lIiwiNjAiLCIyOCIsIjEwMCIsIjIyIiwiIzFjMWMxZSIsIiNmZmZmZmYiLFsib3V0ZXIiLCIwIiwiMCIsIjAiLCIwIiwiIzAwMDAwMCIsIjEwMCJdLGZhbHNlLDIyLDAuNSxmYWxzZSwxNCwwLDEwXQ==" data-i18n="opt_preset_dark">🖤 Dark</option>
+                    <option value="WyIjMTExMTExIiwiI2ZmZDcwMCIsImdyaWQiLCIjMWExYTFhIiwiI2ZmZDcwMCIsIiNmZmQ3MDAiLCJub25lIiwiNjAiLCIzMCIsIjEwMCIsIjUwIiwiIzIyMjIyMiIsIiNmZmQ3MDAiLFsib3V0ZXIiLCIwIiwiNCIsIjEwIiwiMCIsIiMwMDAwMDAiLCI4MCJdLGZhbHNlLDIyLDAuNSx0cnVlLDE0LDAsMTBd" data-i18n="opt_preset_gold">👑 Gold</option>
                 </select>
                 
                 <div class="feature-toggles">
@@ -48,7 +48,6 @@
                 </div>
             </div>
 
-            <!-- ĐÃ BỔ SUNG 2 THANH TRƯỢT SỬA CHỮ ICON -->
             <div class="setting-group highlight-box">
                 <label data-i18n="lbl_title_adjust">Sửa tiêu đề</label>
                 <div class="slider-item"><span class="slider-label" data-i18n="lbl_title_size">💫 Cỡ chữ chính</span><input type="range" id="val-title-size" min="14" max="40" value="22"></div>
@@ -85,6 +84,10 @@
                 <label data-i18n="lbl_list_bg">Màu nền Danh sách</label><input type="color" id="val-list-bg" value="#1a1a1a">
                 <label data-i18n="lbl_list_text">Màu chữ Danh sách</label><input type="color" id="val-list-text" value="#ffffff">
                 <label data-i18n="lbl_list_svg">Màu SVG Danh sách</label><input type="color" id="val-list-svg" value="#ffffff">
+                <div class="slider-item" style="margin-top: 10px;">
+                    <span class="slider-label" data-i18n="lbl_list_bg_opacity" style="width: 120px;">Đậm nhạt màu nút</span>
+                    <input type="range" id="val-list-bg-opacity" min="0" max="100" value="10">
+                </div>
                 <label style="margin-top: 10px;"><input type="checkbox" id="toggle-list-frame"> <span data-i18n="lbl_list_frame">Theme cho Danh sách</span></label>
             </div>
             
@@ -138,7 +141,7 @@
         </div>
     </div>
     
-    <script src="js/theme.js?v=5.0"></script>
-    <script src="js/main.js?v=5.0"></script>
+    <script src="js/theme.js?v=6.0"></script>
+    <script src="js/main.js?v=6.0"></script>
 </body>
 </html>
