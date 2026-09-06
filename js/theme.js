@@ -168,6 +168,66 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_shadowConfig', JSON.stringify(shadowState));
     }
 
+    // --- FIX HỆ THỐNG BASE64 EXPORT/IMPORT ---
+    function packConfig() {
+        const activeShadow = document.querySelector('input[name="active_shadow"]:checked');
+        const sId = activeShadow ? activeShadow.value : '';
+        let sData = [];
+        if (sId) {
+            const drw = document.getElementById(`drawer-${sId}`);
+            sData = [ sId, drw.querySelector('.s-x').value, drw.querySelector('.s-y').value, drw.querySelector('.s-b').value, drw.querySelector('.s-s').value, drw.querySelector('.s-c').value ];
+        }
+        const dataArr = [
+            document.getElementById('val-bg-main').value, document.getElementById('val-text-color').value,
+            localStorage.getItem('sttv_layoutMode') || 'grid',
+            document.getElementById('val-list-bg').value, document.getElementById('val-list-text').value, document.getElementById('val-list-svg').value,
+            document.getElementById('val-theme-frame').value, document.getElementById('val-frame-size').value,
+            document.getElementById('val-svg-size').value, document.getElementById('val-svg-opacity').value,
+            document.getElementById('val-frame-radius').value, document.getElementById('val-frame-color').value, document.getElementById('val-svg-color').value,
+            sData,
+            document.getElementById('toggle-hide-labels').checked, document.getElementById('val-title-size').value, document.getElementById('val-title-spacing').value,
+            document.getElementById('toggle-list-frame').checked // Thêm biến bật khung List vào Base64
+        ];
+        return btoa(JSON.stringify(dataArr)).replace(/=/g, ''); 
+    }
+
+    function unpackConfig(base64Str) {
+        try {
+            const arr = JSON.parse(atob(base64Str));
+            if (arr.length < 13) throw 'Lỗi';
+            document.getElementById('val-bg-main').value = arr[0]; document.getElementById('val-text-color').value = arr[1];
+            setLayoutMode(arr[2]);
+            document.getElementById('val-list-bg').value = arr[3]; document.getElementById('val-list-text').value = arr[4]; document.getElementById('val-list-svg').value = arr[5];
+            document.getElementById('val-theme-frame').value = arr[6]; document.getElementById('val-frame-size').value = arr[7];
+            document.getElementById('val-svg-size').value = arr[8]; document.getElementById('val-svg-opacity').value = arr[9];
+            document.getElementById('val-frame-radius').value = arr[10]; document.getElementById('val-frame-color').value = arr[11]; document.getElementById('val-svg-color').value = arr[12];
+            
+            document.querySelectorAll('.shadow-switch').forEach(c => { c.checked = false; document.getElementById(`drawer-${c.value}`).classList.remove('active'); });
+            if (arr[13] && arr[13].length > 0) {
+                const sId = arr[13][0]; document.querySelector(`input[name="active_shadow"][value="${sId}"]`).checked = true;
+                const drw = document.getElementById(`drawer-${sId}`); drw.classList.add('active');
+                drw.querySelector('.s-x').value = arr[13][1]; drw.querySelector('.s-y').value = arr[13][2];
+                drw.querySelector('.s-b').value = arr[13][3]; drw.querySelector('.s-s').value = arr[13][4]; drw.querySelector('.s-c').value = arr[13][5];
+            }
+            if(arr.length >= 17) {
+                document.getElementById('toggle-hide-labels').checked = arr[14];
+                document.getElementById('val-title-size').value = arr[15];
+                document.getElementById('val-title-spacing').value = arr[16];
+            }
+            // Giải mã nút List Frame nếu có
+            if(arr.length >= 18) {
+                document.getElementById('toggle-list-frame').checked = arr[17];
+            } else {
+                document.getElementById('toggle-list-frame').checked = false;
+            }
+            updateLiveVariables();
+        } catch(e) { alert("Mã cấu hình không hợp lệ!"); }
+    }
+
+    document.getElementById('val-theme-preset').addEventListener('change', (e) => { if(e.target.value !== 'none') unpackConfig(e.target.value); });
+    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (Hỗ trợ 18 biến)!")); };
+    document.getElementById('btn-import').onclick = () => { const code = prompt("📥 Dán mã cấu hình vào đây:"); if (code) unpackConfig(code); };
+
     function updateLiveVariables() {
         root.style.setProperty('--bg-main', document.getElementById('val-bg-main').value);
         root.style.setProperty('--text-color', document.getElementById('val-text-color').value);
@@ -177,8 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
         root.style.setProperty('--svg-opacity', document.getElementById('val-svg-opacity').value / 100);
         
         const rawRadius = document.getElementById('val-frame-radius').value;
-        root.style.setProperty('--frame-border-radius', rawRadius + '%'); // Giữ nguyên % cho nút vuông grid
-        root.style.setProperty('--list-border-radius', rawRadius + 'px'); // Cấp PX cho hình viên thuốc List
+        root.style.setProperty('--frame-border-radius', rawRadius + '%'); 
+        root.style.setProperty('--list-border-radius', rawRadius + 'px'); 
 
         root.style.setProperty('--title-size', document.getElementById('val-title-size').value + 'px');
         root.style.setProperty('--title-spacing', document.getElementById('val-title-spacing').value + 'px');
@@ -269,7 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.getElementById('apply-custom-svg').addEventListener('click', () => { const svgCode = document.getElementById('custom-svg-code').value; if (svgCode) { localStorage.setItem('sttv_customSvg', svgCode); updateLiveVariables(); } });
-    document.getElementById('btn-export').onclick = () => { /* Logic Base64 giữ nguyên, Sếp dùng hàm cũ */ alert("Vui lòng dùng mã ở bản trước, cấu trúc Pack/Unpack giữ nguyên!"); };
     
     loadSettingsFromLocal();
     updateLiveVariables();
