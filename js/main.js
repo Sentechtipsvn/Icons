@@ -32,13 +32,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById('open-settings').innerHTML = data.config.settings_icon;
         }
 
-        // --- Logic Đọc mảng vị trí lưu trữ (Reordering) ---
         let renderArray = data.buttons;
         const savedOrder = localStorage.getItem('sttv_iconOrder');
         if (savedOrder) {
             const orderIds = JSON.parse(savedOrder);
             renderArray = orderIds.map(id => data.buttons.find(b => b.id === id)).filter(b => b !== undefined);
-            // Thêm các nút mới nếu có trong data mà chưa có trong bộ nhớ
             data.buttons.forEach(b => { if(!renderArray.includes(b)) renderArray.push(b); });
         }
 
@@ -48,7 +46,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 btn.className = 'glass-btn';
                 btn.href = item.action;
                 btn.dataset.id = item.id;
-                btn.setAttribute('draggable', true);
                 
                 const localizedTitle = translations[item.title_key] || item.title || 'Phím tắt';
                 btn.innerHTML = `<div class="icon-box">${item.svg}</div><span class="label">${localizedTitle}</span>`;
@@ -56,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
 
-        // --- HỆ THỐNG KÉO THẢ SẮP XẾP ---
+        // --- HỆ THỐNG KÉO THẢ CẢM ỨNG (TOUCH DRAG & DROP CHO iOS) ---
         const btnEditLayout = document.getElementById('btn-edit-layout');
         let editMode = false;
         
@@ -65,48 +62,76 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.body.classList.toggle('edit-mode', editMode);
             btnEditLayout.style.background = editMode ? 'red' : '';
             btnEditLayout.innerHTML = editMode ? 'Xong' : '🔄 Sắp xếp';
-            // Vô hiệu hóa link khi sửa
             document.querySelectorAll('.glass-btn').forEach(b => {
                 b.onclick = editMode ? (e) => e.preventDefault() : null;
             });
         });
 
-        // HTML5 Drag and Drop Events
         let draggedItem = null;
-        container.addEventListener('dragstart', (e) => {
-            if (!editMode) { e.preventDefault(); return; }
-            draggedItem = e.target.closest('.glass-btn');
-            draggedItem.classList.add('dragging');
-        });
-        
-        container.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            if (!editMode || !draggedItem) return;
-            const afterElement = getDragAfterElement(container, e.clientY, e.clientX);
-            if (afterElement == null) { container.appendChild(draggedItem); } 
-            else { container.insertBefore(draggedItem, afterElement); }
-        });
-        
-        container.addEventListener('dragend', () => {
-            if (draggedItem) draggedItem.classList.remove('dragging');
-            draggedItem = null;
-            // Lưu mảng ID mới vào LocalStorage
-            const newOrder = Array.from(container.querySelectorAll('.glass-btn')).map(b => b.dataset.id);
-            localStorage.setItem('sttv_iconOrder', JSON.stringify(newOrder));
-        });
+        let ghostEl = null;
 
-        function getDragAfterElement(container, y, x) {
+        function getDragAfterElement(y, x) {
             const draggableElements = [...container.querySelectorAll('.glass-btn:not(.dragging)')];
             return draggableElements.reduce((closest, child) => {
                 const box = child.getBoundingClientRect();
                 const offsetY = y - box.top - box.height / 2;
                 const offsetX = x - box.left - box.width / 2;
-                // Tính khoảng cách 2D để tìm phần tử gần nhất
                 const distance = Math.sqrt(offsetY*offsetY + offsetX*offsetX);
                 if (offsetY < 0 && distance < closest.distance) { return { distance: distance, element: child }; } 
                 else { return closest; }
             }, { distance: Number.POSITIVE_INFINITY }).element;
         }
+
+        // Bắt sự kiện chạm ngón tay
+        container.addEventListener('touchstart', (e) => {
+            if (!editMode) return;
+            const target = e.target.closest('.glass-btn');
+            if (!target) return;
+            
+            draggedItem = target;
+            draggedItem.classList.add('dragging');
+            
+            // Tạo phần tử ảo bay theo ngón tay
+            ghostEl = draggedItem.cloneNode(true);
+            ghostEl.style.position = 'absolute';
+            ghostEl.style.zIndex = 1000;
+            ghostEl.style.opacity = '0.8';
+            ghostEl.style.transform = 'scale(1.1)';
+            ghostEl.style.pointerEvents = 'none'; // Ngăn lỗi che khuất element
+            document.body.appendChild(ghostEl);
+            
+            const touch = e.touches[0];
+            ghostEl.style.left = (touch.pageX - ghostEl.offsetWidth / 2) + 'px';
+            ghostEl.style.top = (touch.pageY - ghostEl.offsetHeight / 2) + 'px';
+        }, {passive: false});
+        
+        // Bắt sự kiện di chuyển ngón tay
+        container.addEventListener('touchmove', (e) => {
+            if (!editMode || !draggedItem || !ghostEl) return;
+            e.preventDefault(); // Ngăn cuộn trang khi đang kéo
+            const touch = e.touches[0];
+            
+            // Di chuyển bóng mờ
+            ghostEl.style.left = (touch.pageX - ghostEl.offsetWidth / 2) + 'px';
+            ghostEl.style.top = (touch.pageY - ghostEl.offsetHeight / 2) + 'px';
+            
+            // Sắp xếp lại lưới DOM
+            const afterElement = getDragAfterElement(touch.clientY, touch.clientX);
+            if (afterElement == null) { container.appendChild(draggedItem); } 
+            else { container.insertBefore(draggedItem, afterElement); }
+        }, {passive: false});
+        
+        // Bắt sự kiện thả ngón tay
+        container.addEventListener('touchend', () => {
+            if (!editMode || !draggedItem) return;
+            if (ghostEl) { document.body.removeChild(ghostEl); ghostEl = null; }
+            draggedItem.classList.remove('dragging');
+            draggedItem = null;
+            
+            // Lưu mảng ID mới vào LocalStorage
+            const newOrder = Array.from(container.querySelectorAll('.glass-btn')).map(b => b.dataset.id);
+            localStorage.setItem('sttv_iconOrder', JSON.stringify(newOrder));
+        });
 
     } catch (e) { console.error("Lỗi:", e); }
 });
