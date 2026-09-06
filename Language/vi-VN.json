@@ -42,13 +42,13 @@
   "opt_frame_moss": "🔵",
   "opt_frame_custom": "SVG Tùy chỉnh",
   
-  "lbl_frame_svg_size": "Khung Icon & SVG",
+  "lbl_frame_svg_size": "🖼️ Khung Icon & SVG",
   "lbl_svg_opacity": "Độ đậm SVG",
   "lbl_frame_radius": "Bo góc",
   "lbl_frame_color": "Nền khung",
   "lbl_svg_color": "Màu SVG",
   
-  "lbl_shadow_section": "Đổ Bóng",
+  "lbl_shadow_section": "🔘 Đổ Bóng",
   "shadow_inset": "Bóng Chìm",
   "shadow_outer": "Bóng Ngoài",
   "shadow_soft": "Mờ Diện Rộng",
