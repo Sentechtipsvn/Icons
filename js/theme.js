@@ -251,9 +251,18 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch(e) { alert("Mã cấu hình không hợp lệ!"); }
     }
 
-    document.getElementById('val-theme-preset').addEventListener('change', (e) => { if(e.target.value !== 'none') unpackConfig(e.target.value); });
-    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (22 Biến)!")); };
-    document.getElementById('btn-import').onclick = () => { const code = prompt("📥 Dán mã cấu hình vào đây:"); if (code) unpackConfig(code); };
+        document.getElementById('btn-export').onclick = () => { 
+        navigator.clipboard.writeText(packConfig()).then(() => {
+            const msg = window.i18nData?.['msg_copy_success'] || "Đã sao chép mã cấu hình (22 Biến)!";
+            alert(msg);
+        }); 
+    };
+
+    document.getElementById('btn-import').onclick = () => { 
+        const promptText = window.i18nData?.['msg_prompt_import'] || "📥 Dán mã cấu hình vào đây:";
+        const code = prompt(promptText); 
+        if (code) unpackConfig(code); 
+    };
 
     function updateLiveVariables() {
         root.style.setProperty('--bg-main', document.getElementById('val-bg-main').value);
