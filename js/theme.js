@@ -121,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('close-info').onclick = () => { infoModal.classList.remove('show'); infoOverlay.classList.remove('show'); };
     infoOverlay.onclick = () => { infoModal.classList.remove('show'); infoOverlay.classList.remove('show'); };
 
-    // HÀM CHUYỂN MÃ HEX THÀNH RGBA KÈM ĐỘ ĐẬM (ALPHA)
     function hexToRgba(hex, alpha) {
         let r = 0, g = 0, b = 0;
         if (hex.length === 4) { r = parseInt(hex[1] + hex[1], 16); g = parseInt(hex[2] + hex[2], 16); b = parseInt(hex[3] + hex[3], 16); }
@@ -142,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let shadowStr = mode.template
                 .replace('{x}', drawer.querySelector('.s-x').value).replace('{y}', drawer.querySelector('.s-y').value)
                 .replace('{b}', drawer.querySelector('.s-b').value).replace('{s}', drawer.querySelector('.s-s').value)
-                .replace('{c}', rgbaColor); // Thay biến {c} thành màu RGBA trong suốt
+                .replace('{c}', rgbaColor);
             if (combinedShadow) combinedShadow += ', '; combinedShadow += shadowStr;
         });
         root.style.setProperty('--btn-shadow', combinedShadow || 'none');
@@ -152,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('sttv_bgMain', document.getElementById('val-bg-main').value);
         localStorage.setItem('sttv_textColor', document.getElementById('val-text-color').value);
         localStorage.setItem('sttv_listBg', document.getElementById('val-list-bg').value);
+        localStorage.setItem('sttv_listBgOpacity', document.getElementById('val-list-bg-opacity').value);
         localStorage.setItem('sttv_listText', document.getElementById('val-list-text').value);
         localStorage.setItem('sttv_listSvg', document.getElementById('val-list-svg').value);
         localStorage.setItem('sttv_themeFrame', document.getElementById('val-theme-frame').value);
@@ -201,7 +201,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('val-svg-size').value, document.getElementById('val-svg-opacity').value,
             document.getElementById('val-frame-radius').value, document.getElementById('val-frame-color').value, document.getElementById('val-svg-color').value,
             sData, document.getElementById('toggle-hide-labels').checked, document.getElementById('val-title-size').value, document.getElementById('val-title-spacing').value,
-            document.getElementById('toggle-list-frame').checked, document.getElementById('val-icon-size').value, document.getElementById('val-icon-spacing').value
+            document.getElementById('toggle-list-frame').checked, document.getElementById('val-icon-size').value, document.getElementById('val-icon-spacing').value,
+            document.getElementById('val-list-bg-opacity').value
         ];
         return btoa(JSON.stringify(dataArr)).replace(/=/g, ''); 
     }
@@ -223,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const drw = document.getElementById(`drawer-${sId}`); drw.classList.add('active');
                 drw.querySelector('.s-x').value = arr[13][1]; drw.querySelector('.s-y').value = arr[13][2];
                 drw.querySelector('.s-b').value = arr[13][3]; drw.querySelector('.s-s').value = arr[13][4]; drw.querySelector('.s-c').value = arr[13][5];
-                if(arr[13].length > 6) drw.querySelector('.s-o').value = arr[13][6]; // Chèn thanh opacity
+                if(arr[13].length > 6) drw.querySelector('.s-o').value = arr[13][6];
             }
             if(arr.length >= 17) {
                 document.getElementById('toggle-hide-labels').checked = arr[14];
@@ -235,12 +236,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('val-icon-size').value = arr[18];
                 document.getElementById('val-icon-spacing').value = arr[19];
             }
+            if(arr.length >= 21) {
+                document.getElementById('val-list-bg-opacity').value = arr[20];
+            } else {
+                document.getElementById('val-list-bg-opacity').value = 10;
+            }
             updateLiveVariables();
         } catch(e) { alert("Mã cấu hình không hợp lệ!"); }
     }
 
     document.getElementById('val-theme-preset').addEventListener('change', (e) => { if(e.target.value !== 'none') unpackConfig(e.target.value); });
-    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (20 Biến)!")); };
+    document.getElementById('btn-export').onclick = () => { navigator.clipboard.writeText(packConfig()).then(() => alert("Đã sao chép mã cấu hình (21 Biến)!")); };
     document.getElementById('btn-import').onclick = () => { const code = prompt("📥 Dán mã cấu hình vào đây:"); if (code) unpackConfig(code); };
 
     function updateLiveVariables() {
@@ -257,6 +263,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         root.style.setProperty('--title-size', document.getElementById('val-title-size').value + 'px');
         root.style.setProperty('--title-spacing', document.getElementById('val-title-spacing').value + 'px');
+        
+        // FIX: Cập nhật CSS Variable cho cỡ chữ icon
         root.style.setProperty('--icon-font-size', document.getElementById('val-icon-size').value + 'px');
         root.style.setProperty('--icon-spacing', document.getElementById('val-icon-spacing').value + 'px');
         root.style.setProperty('--label-display', document.getElementById('toggle-hide-labels').checked ? 'none' : 'block');
@@ -269,7 +277,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const isListFrame = document.getElementById('toggle-list-frame').checked;
         if (isListFrame) mainContainer.classList.add('list-frame-active'); else mainContainer.classList.remove('list-frame-active');
 
-        root.style.setProperty('--list-bg-color', document.getElementById('val-list-bg').value);
+        // FIX: Ghép màu Hex List BG và List BG Opacity lại
+        const listBgHex = document.getElementById('val-list-bg').value;
+        const listBgOpacity = document.getElementById('val-list-bg-opacity').value;
+        root.style.setProperty('--list-bg-color', listBgHex); // Giữ biến cũ
+        root.style.setProperty('--list-bg-rgba', hexToRgba(listBgHex, listBgOpacity)); // Nạp biến opacity mới
+
         root.style.setProperty('--list-text-color', document.getElementById('val-list-text').value);
         root.style.setProperty('--list-svg-color', document.getElementById('val-list-svg').value);
 
@@ -303,7 +316,8 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         safeSet('val-bg-main', 'bgMain', '#121b22'); safeSet('val-text-color', 'textColor', '#ffffff');
-        safeSet('val-list-bg', 'listBg', '#1a1a1a'); safeSet('val-list-text', 'listText', '#ffffff'); safeSet('val-list-svg', 'listSvg', '#ffffff');
+        safeSet('val-list-bg', 'listBg', '#1a1a1a'); safeSet('val-list-bg-opacity', 'listBgOpacity', '10');
+        safeSet('val-list-text', 'listText', '#ffffff'); safeSet('val-list-svg', 'listSvg', '#ffffff');
         safeSet('val-theme-frame', 'themeFrame', 'none'); safeSet('val-frame-size', 'frameSize', '60');
         safeSet('val-svg-size', 'svgSize', '28'); safeSet('val-svg-opacity', 'svgOpacity', '100');
         safeSet('val-svg-color', 'svgColor', '#ffffff'); safeSet('val-frame-radius', 'frameRadius', '22');
