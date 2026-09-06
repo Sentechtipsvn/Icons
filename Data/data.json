@@ -16,76 +16,76 @@
       "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 7l12 10l-6 5V2l6 5L5 17\"/></svg>"
     },
     {
-      "id":"at-icons:airplane",
-      "title_key":"lang_airplane",
-      "action":"shortcuts:\/\/run-shortcut?name=QuickControl&input=text&text=at-icons:airplane",
-      "svg":"<svg xmlns='http:\/\/www.w3.org\/2000\/svg' width='1em' height='1em' viewBox='0 0 16 16'>\n\t<path d='M0 0h16v16H0z' fill='none' \/>\n\t<path fill='currentColor' d='M8 1a1 1 0 0 1 1 1v3l5.555 3.703a1 1 0 0 1 .445.832V10L9 9v2.672q.056.031.11.067l1.445.964a1 1 0 0 1 .445.832v.965L9 14l-.005.102a1 1 0 0 1-1.99 0L7 14l-2 .5v-.965a1 1 0 0 1 .445-.832l1.446-.964q.053-.036.109-.067V9l-6 1v-.465a1 1 0 0 1 .445-.832L7 5V2a1 1 0 0 1 1-1' \/>\n<\/svg>"
+      "id": "at-icons:airplane",
+      "title_key": "lang_airplane",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=at-icons:airplane",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 16 16'><path d='M0 0h16v16H0z' fill='none' /><path fill='currentColor' d='M8 1a1 1 0 0 1 1 1v3l5.555 3.703a1 1 0 0 1 .445.832V10L9 9v2.672q.056.031.11.067l1.445.964a1 1 0 0 1 .445.832v.965L9 14l-.005.102a1 1 0 0 1-1.99 0L7 14l-2 .5v-.965a1 1 0 0 1 .445-.832l1.446-.964q.053-.036.109-.067V9l-6 1v-.465a1 1 0 0 1 .445-.832L7 5V2a1 1 0 0 1 1-1' /></svg>"
     },
     {
-      "id":"healthicons:network-5g",
-      "title_key":"lang_5g",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=healthicons:network-5g",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 48 48'><path d='M0 0h48v48H0z' fill='none' /><g fill='currentColor'><path fill-rule='evenodd' d='M35.087 9.408a12 12 0 0 0-2.602-3.893L33.9 4.1a14 14 0 0 1 0 19.8l-1.415-1.415a12 12 0 0 0 2.602-13.077' clip-rule='evenodd' /><path fill-rule='evenodd' d='M29.543 11.704a6 6 0 0 0-1.3-1.947l1.414-1.414a8 8 0 0 1 0 11.314l-1.414-1.414a6 6 0 0 0 1.3-6.54m-9.786-1.946a6 6 0 0 0 0 8.486l-1.414 1.414a8 8 0 0 1 0-11.314z' clip-rule='evenodd' /><path fill-rule='evenodd' d='M15.515 5.515a12 12 0 0 0 0 16.97L14.1 23.9a14 14 0 0 1 0-19.8z' clip-rule='evenodd' /><path d='M26 14a2 2 0 1 1-4 0a2 2 0 0 1 4 0' /><path fill-rule='evenodd' d='M10 29a3 3 0 0 1 3-3h22a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3zm12 1a1 1 0 0 0-1-1h-5.25a1 1 0 0 0-.98.804l-.75 3.75a1 1 0 0 0 1.535 1.028c.21-.14 1.143-.582 2.445-.582a2 2 0 1 1 0 4h-.832c-.577 0-1.054-.36-1.227-.84a1 1 0 1 0-1.882.68A3.3 3.3 0 0 0 17.17 40H18a4 4 0 0 0 0-8c-.61 0-1.173.072-1.666.182L16.57 31H21a1 1 0 0 0 1-1m10.753 1.774a1 1 0 0 0-.08-1.412a5.503 5.503 0 1 0 0 8.204a1 1 0 0 0 .334-.745v-3.357a1 1 0 0 0-1-1h-3.002a1 1 0 1 0 0 2h2.002v1.875a3.505 3.505 0 0 1-5.506-2.875a3.503 3.503 0 0 1 5.84-2.611a1 1 0 0 0 1.412-.08' clip-rule='evenodd' /></g></svg>"
-    },
-   {
-      "id":"streamline-flex:vpn-connection",
-      "title_key":"lang_vpn",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=streamline-flex:vpn-connection",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 14 14'><path d='M0 0h14v14H0z' fill='none' /><g fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round'><path d='M7 13c.9 0 5.538-1.957 5.538-5.991c0-1.396-.17-3.046-.314-4.022c-.048-.32-.391-.488-.707-.419c-1.366.3-2.811-.485-4.252-1.399a.5.5 0 0 0-.533-.004c-1.493.915-2.895 1.703-4.25 1.404c-.315-.07-.659.098-.706.418c-.144.976-.315 2.626-.315 4.022C1.461 11.043 6.1 13 7 13' /><path d='M3.93 6.026a4.34 4.34 0 0 1 6.14 0m-4.548 1.69a2.09 2.09 0 0 1 2.956 0M7 9.194v.309' /></g></svg>"
-    },
-   {
-      "id":"material-symbols-light:bedtime",
-      "title_key":"lang_dnd",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=material-symbols-light:bedtime",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M12.1 21q-1.888 0-3.543-.713t-2.892-1.951t-1.951-2.893T3 11.9q0-2.92 1.68-5.265t4.436-3.27q-.104 2.34.717 4.501q.82 2.161 2.48 3.82q1.66 1.66 3.82 2.481t4.502.717q-.92 2.754-3.268 4.435T12.1 21' /></svg>"
+      "id": "healthicons:network-5g",
+      "title_key": "lang_5g",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=healthicons:network-5g",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 48 48'><path d='M0 0h48v48H0z' fill='none' /><g fill='currentColor'><path fill-rule='evenodd' d='M35.087 9.408a12 12 0 0 0-2.602-3.893L33.9 4.1a14 14 0 0 1 0 19.8l-1.415-1.415a12 12 0 0 0 2.602-13.077' clip-rule='evenodd' /><path fill-rule='evenodd' d='M29.543 11.704a6 6 0 0 0-1.3-1.947l1.414-1.414a8 8 0 0 1 0 11.314l-1.414-1.414a6 6 0 0 0 1.3-6.54m-9.786-1.946a6 6 0 0 0 0 8.486l-1.414 1.414a8 8 0 0 1 0-11.314z' clip-rule='evenodd' /><path fill-rule='evenodd' d='M15.515 5.515a12 12 0 0 0 0 16.97L14.1 23.9a14 14 0 0 1 0-19.8z' clip-rule='evenodd' /><path d='M26 14a2 2 0 1 1-4 0a2 2 0 0 1 4 0' /><path fill-rule='evenodd' d='M10 29a3 3 0 0 1 3-3h22a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3zm12 1a1 1 0 0 0-1-1h-5.25a1 1 0 0 0-.98.804l-.75 3.75a1 1 0 0 0 1.535 1.028c.21-.14 1.143-.582 2.445-.582a2 2 0 1 1 0 4h-.832c-.577 0-1.054-.36-1.227-.84a1 1 0 1 0-1.882.68A3.3 3.3 0 0 0 17.17 40H18a4 4 0 0 0 0-8c-.61 0-1.173.072-1.666.182L16.57 31H21a1 1 0 0 0 1-1m10.753 1.774a1 1 0 0 0-.08-1.412a5.503 5.503 0 1 0 0 8.204a1 1 0 0 0 .334-.745v-3.357a1 1 0 0 0-1-1h-3.002a1 1 0 1 0 0 2h2.002v1.875a3.505 3.505 0 0 1-5.506-2.875a3.503 3.503 0 0 1 5.84-2.611a1 1 0 0 0 1.412-.08' clip-rule='evenodd' /></g></svg>"
     },
     {
-      "id":"mdi:access-point",
-      "title_key":"lang_access-point",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=mdi:access-point",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M4.93 4.93A9.97 9.97 0 0 0 2 12c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41A7.94 7.94 0 0 1 4 12c0-2.21.89-4.22 2.34-5.66zm14.14 0l-1.41 1.41A7.96 7.96 0 0 1 20 12c0 2.22-.89 4.22-2.34 5.66l1.41 1.41A9.97 9.97 0 0 0 22 12c0-2.76-1.12-5.26-2.93-7.07M7.76 7.76A5.98 5.98 0 0 0 6 12c0 1.65.67 3.15 1.76 4.24l1.41-1.41A4 4 0 0 1 8 12c0-1.11.45-2.11 1.17-2.83zm8.48 0l-1.41 1.41A4 4 0 0 1 16 12c0 1.11-.45 2.11-1.17 2.83l1.41 1.41A5.98 5.98 0 0 0 18 12c0-1.65-.67-3.15-1.76-4.24M12 10a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2' /></svg>"
+      "id": "streamline-flex:vpn-connection",
+      "title_key": "lang_vpn",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=streamline-flex:vpn-connection",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 14 14'><path d='M0 0h14v14H0z' fill='none' /><g fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round'><path d='M7 13c.9 0 5.538-1.957 5.538-5.991c0-1.396-.17-3.046-.314-4.022c-.048-.32-.391-.488-.707-.419c-1.366.3-2.811-.485-4.252-1.399a.5.5 0 0 0-.533-.004c-1.493.915-2.895 1.703-4.25 1.404c-.315-.07-.659.098-.706.418c-.144.976-.315 2.626-.315 4.022C1.461 11.043 6.1 13 7 13' /><path d='M3.93 6.026a4.34 4.34 0 0 1 6.14 0m-4.548 1.69a2.09 2.09 0 0 1 2.956 0M7 9.194v.309' /></g></svg>"
     },
     {
-      "id":"grommet-icons:power-reset",
-      "title_key":"lang_reset",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=grommet-icons:reset",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='none' stroke='currentColor' stroke-width='2' d='M20 8c-1.403-2.96-4.463-5-8-5a9 9 0 1 0 0 18a9 9 0 0 0 9-9m0-9v6h-6' /></svg>"
+      "id": "material-symbols-light:bedtime",
+      "title_key": "lang_dnd",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=material-symbols-light:bedtime",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M12.1 21q-1.888 0-3.543-.713t-2.892-1.951t-1.951-2.893T3 11.9q0-2.92 1.68-5.265t4.436-3.27q-.104 2.34.717 4.501q.82 2.161 2.48 3.82q1.66 1.66 3.82 2.481t4.502.717q-.92 2.754-3.268 4.435T12.1 21' /></svg>"
     },
     {
-      "id":"boxicons:power",
-      "title_key":"lang_power",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=boxicons:power",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M11 2h2v10h-2z' /><path fill='currentColor' d='M15 4.53v2.16c2.36 1.13 4 3.53 4 6.32c0 3.86-3.14 7-7 7s-7-3.14-7-7c0-2.79 1.64-5.19 4-6.32V4.53C5.51 5.77 3 9.1 3 13c0 4.96 4.04 9 9 9s9-4.04 9-9c0-3.91-2.51-7.24-6-8.47' /></svg>"
+      "id": "mdi:access-point",
+      "title_key": "lang_access-point",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=mdi:access-point",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M4.93 4.93A9.97 9.97 0 0 0 2 12c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41A7.94 7.94 0 0 1 4 12c0-2.21.89-4.22 2.34-5.66zm14.14 0l-1.41 1.41A7.96 7.96 0 0 1 20 12c0 2.22-.89 4.22-2.34 5.66l1.41 1.41A9.97 9.97 0 0 0 22 12c0-2.76-1.12-5.26-2.93-7.07M7.76 7.76A5.98 5.98 0 0 0 6 12c0 1.65.67 3.15 1.76 4.24l1.41-1.41A4 4 0 0 1 8 12c0-1.11.45-2.11 1.17-2.83zm8.48 0l-1.41 1.41A4 4 0 0 1 16 12c0 1.11-.45 2.11-1.17 2.83l1.41 1.41A5.98 5.98 0 0 0 18 12c0-1.65-.67-3.15-1.76-4.24M12 10a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2' /></svg>"
     },
     {
-      "id":"zondicons:flashlight",
-      "title_key":"lang_flashlight",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=zondicons:flashlight",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 20 20'><path d='M0 0h20v20H0z' fill='none' /><path fill='currentColor' d='M13 7v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V7L5 5V3h10v2zM9 8v1a1 1 0 1 0 2 0V8a1 1 0 0 0-2 0M5 0h10v2H5z' /></svg>"
+      "id": "grommet-icons:power-reset",
+      "title_key": "lang_reset",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=grommet-icons:reset",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='none' stroke='currentColor' stroke-width='2' d='M20 8c-1.403-2.96-4.463-5-8-5a9 9 0 1 0 0 18a9 9 0 0 0 9-9m0-9v6h-6' /></svg>"
     },
     {
-      "id":"icon-park-solid:handle-round",
-      "title_key":"lang_assistivetouch",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=icon-park-solid:handle-round",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 48 48'><path d='M0 0h48v48H0z' fill='none' /><defs><mask id='SVGhAWSuKir'><g fill='none' stroke-linecap='round' stroke-linejoin='round' stroke-width='4'><circle cx='24' cy='24' r='20' fill='#fff' stroke='#fff' /><circle cx='24' cy='24' r='12' stroke='#000' />	</g></mask></defs><path fill='currentColor' d='M0 0h48v48H0z' mask='url(#SVGhAWSuKir)' /></svg>"
+      "id": "boxicons:power",
+      "title_key": "lang_power",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=boxicons:power",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M11 2h2v10h-2z' /><path fill='currentColor' d='M15 4.53v2.16c2.36 1.13 4 3.53 4 6.32c0 3.86-3.14 7-7 7s-7-3.14-7-7c0-2.79 1.64-5.19 4-6.32V4.53C5.51 5.77 3 9.1 3 13c0 4.96 4.04 9 9 9s9-4.04 9-9c0-3.91-2.51-7.24-6-8.47' /></svg>"
     },
     {
-      "id":"at-icons:location",
-      "title_key":"lang_location",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=at-icons:location",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 16 16'><path d='M0 0h16v16H0z' fill='none' /><g fill='currentColor'><path d='M10.361 10.485C11.354 10.94 12 11.672 12 12.5c0 1.38-1.79 2.5-4 2.5s-4-1.12-4-2.5c0-.828.645-1.56 1.638-2.015l.267.354c.454.593.886 1.16 1.268 1.723a1 1 0 0 0 1.654 0a39 39 0 0 1 1.268-1.723z' /><path d='M8 1c2.4 0 4 1.572 4 3.929c0 2.058-1.83 4.117-3.36 6.176A26 26 0 0 0 8 12c-.418-.616-.89-1.232-1.361-1.849C5.309 8.411 4 6.67 4 4.93C4 2.572 5.6 1 8 1m0 1.964c-.53 0-1.039.208-1.414.576A1.95 1.95 0 0 0 6 4.929c0 .52.21 1.02.586 1.388c.375.369.884.576 1.414.576s1.039-.207 1.414-.576a1.94 1.94 0 0 0 0-2.776A2.02 2.02 0 0 0 8 2.964' /></g></svg>",
+      "id": "zondicons:flashlight",
+      "title_key": "lang_flashlight",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=zondicons:flashlight",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 20 20'><path d='M0 0h20v20H0z' fill='none' /><path fill='currentColor' d='M13 7v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V7L5 5V3h10v2zM9 8v1a1 1 0 1 0 2 0V8a1 1 0 0 0-2 0M5 0h10v2H5z' /></svg>"
     },
     {
-      "id":"bi:bell-slash-fill",
-      "title_key":"lang_bell",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=bi:bell-slash-fill",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 16 16'><path d='M0 0h16v16H0z' fill='none' /><path fill='currentColor' d='M5.164 14H15c-1.5-1-2-5.902-2-7q0-.396-.06-.776zm6.288-10.617A5 5 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5 5 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113zM10 15a2 2 0 1 1-4 0zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75z' /></svg>"
+      "id": "icon-park-solid:handle-round",
+      "title_key": "lang_assistivetouch",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=icon-park-solid:handle-round",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 48 48'><path d='M0 0h48v48H0z' fill='none' /><defs><mask id='SVGhAWSuKir'><g fill='none' stroke-linecap='round' stroke-linejoin='round' stroke-width='4'><circle cx='24' cy='24' r='20' fill='#fff' stroke='#fff' /><circle cx='24' cy='24' r='12' stroke='#000' />	</g></mask></defs><path fill='currentColor' d='M0 0h48v48H0z' mask='url(#SVGhAWSuKir)' /></svg>"
     },
     {
-      "id":"bi:battery-low",
-      "title_key":"lang_battery-low",
-      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=bi:battery-low",
-      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 16 16'><path d='M0 0h16v16H0z' fill='none' /><g fill='currentColor'><path d='M2 6h2v4H2z' /><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8' /></g></svg>"
+      "id": "at-icons:location",
+      "title_key": "lang_location",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=at-icons:location",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 16 16'><path d='M0 0h16v16H0z' fill='none' /><g fill='currentColor'><path d='M10.361 10.485C11.354 10.94 12 11.672 12 12.5c0 1.38-1.79 2.5-4 2.5s-4-1.12-4-2.5c0-.828.645-1.56 1.638-2.015l.267.354c.454.593.886 1.16 1.268 1.723a1 1 0 0 0 1.654 0a39 39 0 0 1 1.268-1.723z' /><path d='M8 1c2.4 0 4 1.572 4 3.929c0 2.058-1.83 4.117-3.36 6.176A26 26 0 0 0 8 12c-.418-.616-.89-1.232-1.361-1.849C5.309 8.411 4 6.67 4 4.93C4 2.572 5.6 1 8 1m0 1.964c-.53 0-1.039.208-1.414.576A1.95 1.95 0 0 0 6 4.929c0 .52.21 1.02.586 1.388c.375.369.884.576 1.414.576s1.039-.207 1.414-.576a1.94 1.94 0 0 0 0-2.776A2.02 2.02 0 0 0 8 2.964' /></g></svg>"
+    },
+    {
+      "id": "bi:bell-slash-fill",
+      "title_key": "lang_bell",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=bi:bell-slash-fill",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 16 16'><path d='M0 0h16v16H0z' fill='none' /><path fill='currentColor' d='M5.164 14H15c-1.5-1-2-5.902-2-7q0-.396-.06-.776zm6.288-10.617A5 5 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5 5 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113zM10 15a2 2 0 1 1-4 0zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75z' /></svg>"
+    },
+    {
+      "id": "bi:battery-low",
+      "title_key": "lang_battery-low",
+      "action": "shortcuts://run-shortcut?name=QuickControl&input=text&text=bi:battery-low",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 16 16'><path d='M0 0h16v16H0z' fill='none' /><g fill='currentColor'><path d='M2 6h2v4H2z' /><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8' /></g></svg>"
     }
   ]
 }
