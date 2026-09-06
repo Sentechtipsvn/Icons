@@ -16,12 +16,13 @@
   "opt_preset_gold": "👑 Gold",
 
   "lbl_title_adjust": "Sửa tiêu đề",
-  "lbl_title_size": "💫 Cỡ chữ chính",
+  "lbl_title_size": "🔠 Cỡ chữ chính",
   "lbl_title_spacing": "📐 Dãn chữ chính",
-  "lbl_icon_size": "💫 Cỡ chữ Icon",
+  "lbl_icon_size": "🔠 Cỡ chữ Icon",
   "lbl_icon_spacing": "📐 Dãn chữ Icon",
   "lbl_hide_labels": "Ẩn tên",
   "lbl_list_frame": "Theme cho Danh sách",
+  "lbl_list_bg_opacity": "Đậm nhạt màu nút",
 
   "lbl_audio_feedback": "🎚️ Âm thanh",
   "lbl_parallax": "🧭 Gia tốc kế 3D",
