@@ -88,5 +88,9 @@
   "lang_5g": "5G",
   "lang_vpn": "VPN",
   "lang_dnd": "Tập Trung",
-  "lang_flashlight": "Đèn pin"
+  "lang_flashlight": "Đèn pin",
+  "lang_assistivetouch": "AssistiveTouch",
+  "lang_location": "Vị Trí",
+  "lang_bell": "Tắt Âm",
+  "lang_battery-low": "Pin yếu"
 }
