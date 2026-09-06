@@ -16,9 +16,9 @@
   "opt_preset_gold": "👑 Gold",
 
   "lbl_title_adjust": "Sửa tiêu đề",
-  "lbl_title_size": "🔠 Cỡ chữ chính",
+  "lbl_title_size": "💫 Cỡ chữ chính",
   "lbl_title_spacing": "📐 Dãn chữ chính",
-  "lbl_icon_size": "🔠 Cỡ chữ Icon",
+  "lbl_icon_size": "💫 Cỡ chữ Icon",
   "lbl_icon_spacing": "📐 Dãn chữ Icon",
   "lbl_hide_labels": "Ẩn tên",
   "lbl_list_frame": "Theme cho Danh sách",
@@ -35,9 +35,9 @@
 
   "lbl_bg_main": "🏳️‍🌈 Màu Nền Chính",
   "lbl_text_color": "🏳️‍🌈 Màu Chữ Hệ Thống",
-  "lbl_list_bg": "🏳️‍🌈 Màu nền Danh sách",
-  "lbl_list_text": "🏳️‍🌈 Màu chữ Danh sách",
-  "lbl_list_svg": "🏳️‍🌈 Màu SVG Danh sách",
+  "lbl_list_bg": "Màu nền Danh sách",
+  "lbl_list_text": "Màu chữ Danh sách",
+  "lbl_list_svg": "Màu SVG Danh sách",
 
   "lbl_theme_frame": "💠 Theme SVG",
   "opt_frame_none": "Không khung",
@@ -50,13 +50,14 @@
   "opt_frame_glass": "⚪️",
   "opt_frame_glass2": "⚪️",
   "opt_frame_glass3": "⚪️",
-  "opt_frame_siri": "👩🏻‍🦰",
+  "opt_frame_siri": "👩‍💻",
   "opt_frame_custom": "SVG Tùy chỉnh",
   
   "lbl_frame_svg_size": "🖼️ Khung Icon & SVG",
   "lbl_svg_opacity": "Độ đậm SVG",
   "lbl_frame_radius": "Bo góc",
   "lbl_frame_color": "Nền khung",
+  "lbl_frame_bg_opacity": "Độ đậm nền",
   "lbl_svg_color": "Màu SVG",
   
   "lbl_shadow_section": "🔘 Đổ Bóng",
