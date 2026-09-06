@@ -44,6 +44,24 @@
       "title_key":"lang_access-point",
       "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=mdi:access-point",
       "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M4.93 4.93A9.97 9.97 0 0 0 2 12c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41A7.94 7.94 0 0 1 4 12c0-2.21.89-4.22 2.34-5.66zm14.14 0l-1.41 1.41A7.96 7.96 0 0 1 20 12c0 2.22-.89 4.22-2.34 5.66l1.41 1.41A9.97 9.97 0 0 0 22 12c0-2.76-1.12-5.26-2.93-7.07M7.76 7.76A5.98 5.98 0 0 0 6 12c0 1.65.67 3.15 1.76 4.24l1.41-1.41A4 4 0 0 1 8 12c0-1.11.45-2.11 1.17-2.83zm8.48 0l-1.41 1.41A4 4 0 0 1 16 12c0 1.11-.45 2.11-1.17 2.83l1.41 1.41A5.98 5.98 0 0 0 18 12c0-1.65-.67-3.15-1.76-4.24M12 10a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2' /></svg>"
+    },
+    {
+      "id":"grommet-icons:power-reset",
+      "title_key":"lang_power-reset",
+      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=grommet-icons:power-reset",
+      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='none' stroke='currentColor' stroke-width='2' d='M20 8c-1.403-2.96-4.463-5-8-5a9 9 0 1 0 0 18a9 9 0 0 0 9-9m0-9v6h-6' /></svg>"
+    },
+{
+      "id":"boxicons:power",
+      "title_key":"lang_power",
+      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=boxicons:power",
+      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path fill='currentColor' d='M11 2h2v10h-2z' /><path fill='currentColor' d='M15 4.53v2.16c2.36 1.13 4 3.53 4 6.32c0 3.86-3.14 7-7 7s-7-3.14-7-7c0-2.79 1.64-5.19 4-6.32V4.53C5.51 5.77 3 9.1 3 13c0 4.96 4.04 9 9 9s9-4.04 9-9c0-3.91-2.51-7.24-6-8.47' /></svg>"
+    },
+{
+      "id":"zondicons:flashlight",
+      "title_key":"lang_flashlight",
+      "action":"shortcuts://run-shortcut?name=QuickControl&input=text&text=zondicons:flashlight",
+      "svg":"<svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 20 20'><path d='M0 0h20v20H0z' fill='none' /><path fill='currentColor' d='M13 7v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V7L5 5V3h10v2zM9 8v1a1 1 0 1 0 2 0V8a1 1 0 0 0-2 0M5 0h10v2H5z' /></svg>"
     }
   ]
 }
